@@ -36,3 +36,7 @@ next-env.d.ts
 
 # Claude Code local tooling / skills
 /.claude/
+
+# Vercel CLI link + pulled env (keeps .env.example tracked)
+.vercel
+.env*.local
