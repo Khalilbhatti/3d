@@ -7,7 +7,7 @@ import { SectionDivider } from "@/components/typography/primitives";
 export const metadata: Metadata = {
   title: "Artists",
   description:
-    "The hands behind the Auren School — luminists, a nocturne painter, a court illuminator, indigo dyers, a chemist and the archive's present-day custodian.",
+    "Meet the GitzTech team — full-stack developers, UI/UX designers, digital marketers, WordPress developers, CRM specialists and project managers.",
 };
 
 export default function ArtistsPage() {
@@ -15,9 +15,9 @@ export default function ArtistsPage() {
   return (
     <>
       <PageHeader
-        kicker="Contributors"
-        title="The hands behind the school."
-        deck="Seven figures — some founders, some inheritors, one working today — whose techniques and obsessions together compose the Auren tradition."
+        kicker="Our team"
+        title="The people behind your project."
+        deck="Developers, designers, marketers, CRM specialists and project managers who share one mindset — turning ambitious ideas into reliable, results-driven digital products."
       />
       <div className="container-editorial pb-28">
         <SectionDivider label={`${artists.length} contributors`} className="mb-12" />

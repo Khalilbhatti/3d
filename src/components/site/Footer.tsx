@@ -18,7 +18,7 @@ export function Footer() {
               <span className="text-accent">.</span>
             </p>
             <p className="mt-6 max-w-sm text-pretty text-sm leading-relaxed text-muted">{brand.description}</p>
-            <p className="label mt-8">A demonstration archive · Placeholder content</p>
+            <p className="label mt-8">{brand.location} · {brand.hours}</p>
           </div>
 
           <nav aria-label="Footer — explore">
@@ -34,8 +34,8 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label="Footer — collections">
-            <span className="label">Collections</span>
+          <nav aria-label="Footer — services">
+            <span className="label">Services</span>
             <ul className="mt-4 space-y-2.5">
               {collections.map((c) => (
                 <li key={c.id}>
@@ -58,9 +58,9 @@ export function Footer() {
         <SectionDivider className="mt-16" />
 
         <div className="mt-6 flex flex-col items-start justify-between gap-4 text-xs text-muted md:flex-row md:items-center">
-          <p className="label">© {year} {brand.full}. All works & names are fictional placeholders.</p>
+          <p className="label">© {year} {brand.full}. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="label hover:text-ink">Colophon</Link>
+            <Link href="/about" className="label hover:text-ink">About us</Link>
             <BackToTop className="label transition-colors hover:text-ink" />
           </div>
         </div>

@@ -5,9 +5,9 @@ import { StoryCard } from "@/components/journal/StoryCard";
 import { SectionDivider } from "@/components/typography/primitives";
 
 export const metadata: Metadata = {
-  title: "Journal",
+  title: "Insights",
   description:
-    "Essays and field notes from the Auren Archive — technique, history, conservation and material studies of the invented school.",
+    "Guides and field notes from the GitzTech team on web performance, WordPress, CRM automation and product design.",
 };
 
 export default function JournalPage() {
@@ -17,9 +17,9 @@ export default function JournalPage() {
   return (
     <>
       <PageHeader
-        kicker="Journal · Essays & field notes"
-        title="Reading the archive slowly."
-        deck="Long-form writing on the techniques, histories and materials of the Auren School — the thinking behind the looking."
+        kicker="Insights · Guides & field notes"
+        title="What we have learned building."
+        deck="Practical writing on web performance, WordPress, CRM automation and product design — the thinking behind how we build."
       />
 
       <div className="container-editorial pb-28">
@@ -32,7 +32,7 @@ export default function JournalPage() {
 
         {rest.length ? (
           <>
-            <SectionDivider label="More from the journal" className="mb-12" />
+            <SectionDivider label="More insights" className="mb-12" />
             <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
               {rest.map((s, i) => (
                 <StoryCard key={s.id} story={s} index={i} />

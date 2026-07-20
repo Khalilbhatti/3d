@@ -21,7 +21,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const artist = getArtistBySlug(params.slug);
-  if (!artist) return { title: "Artist not found" };
+  if (!artist) return { title: "Team not found" };
   return {
     title: artist.name,
     description: artist.summary,
@@ -60,7 +60,7 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
               <PlaceholderArt seed={artist.seed} palette={artist.palette} motif="portrait" />
             </div>
           </Reveal>
-          <p className="label mt-3">Attributed likeness · placeholder</p>
+          <p className="label mt-3">{artist.origin}</p>
         </div>
       </header>
 
@@ -70,7 +70,7 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
 
       <section className="container-editorial grid gap-12 pb-24 md:grid-cols-12 md:pb-32">
         <div className="md:col-span-7">
-          <Kicker>Biography</Kicker>
+          <Kicker>How they work</Kicker>
           <div className="mt-6 space-y-6">
             {artist.bio.map((p, i) => (
               <Reveal as="p" key={i} delay={i * 70} className="max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">
@@ -82,12 +82,12 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
         <aside className="md:col-span-4 md:col-start-9">
           <MetaList
             items={[
-              { label: "Active", value: artist.activePeriod },
-              { label: "Origin", value: artist.origin },
-              { label: "Mediums", value: artist.mediums.join(", ") },
-              { label: "Works in archive", value: `${works.length}` },
+              { label: "Availability", value: artist.activePeriod },
+              { label: "Based in", value: artist.origin },
+              { label: "Core skills", value: artist.mediums.join(", ") },
+              { label: "Projects shown", value: `${works.length}` },
               {
-                label: "Collections",
+                label: "Services",
                 value: collections.length
                   ? collections.map((c, i) => (
                       <span key={c!.id}>
@@ -105,16 +105,16 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
       {works.length ? (
         <section className="pb-8 md:pb-16">
           <div className="container-editorial">
-            <SectionDivider label={`Works · ${works.length}`} className="mb-12" />
+            <SectionDivider label={`Selected work · ${works.length}`} className="mb-12" />
           </div>
           <HorizontalGallery artworks={works} />
         </section>
       ) : null}
 
-      <RelatedArtworks artworks={works} title="All works in the archive" />
+      <RelatedArtworks artworks={works} title="Projects they delivered" />
 
       <div className="container-editorial pb-24">
-        <Link href="/artists" className="link-underline text-ink">← All contributors</Link>
+        <Link href="/artists" className="link-underline text-ink">← Meet the whole team</Link>
       </div>
     </article>
   );

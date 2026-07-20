@@ -14,17 +14,19 @@
 
 export const brand = {
   /** Short mark used in the header / footer. */
-  name: "Auren",
-  /** Full institutional name. */
-  full: "The Auren Archive",
+  name: "GitzTech",
+  /** Full company name. */
+  full: "GitzTech",
   /** One-line positioning statement. */
-  tagline: "An archive of light — the invented painting traditions of the Auren Coast.",
+  tagline: "Smart solutions for your business — every byte in excellence.",
   /** Longer descriptor used in metadata + about hero. */
   description:
-    "A digital archive and study of the Auren School: a fictional lineage of luminist landscape, court manuscript, and nocturne painting composed for demonstration.",
-  founded: "MMXXV",
-  location: "Harbour Wing, Old Customs House",
-  email: "study@auren-archive.example.com",
+    "We believe that the future will be brighter with GitzTech. Our mission is to provide cutting-edge solutions that enhance business efficiency, sustainability, and connectivity.",
+  founded: "2026",
+  location: "GHS Lahore, Pakistan",
+  email: "info@gitztech.com",
+  phone: "(+92) 343 191 1380",
+  hours: "Mon – Fri 03:00 PM to 12:00 AM",
 } as const;
 
 /**
@@ -54,19 +56,19 @@ export const fonts = {
 export type NavItem = { label: string; href: string; note?: string };
 
 export const primaryNav: NavItem[] = [
-  { label: "Home", href: "/", note: "The story of the Auren light" },
-  { label: "Collections", href: "/collections", note: "Five bodies of work" },
-  { label: "Archive", href: "/archive", note: "Every catalogued work" },
-  { label: "Artists", href: "/artists", note: "Hands behind the school" },
-  { label: "Journal", href: "/journal", note: "Essays & field notes" },
-  { label: "About", href: "/about", note: "The archive & its method" },
-  { label: "Contact", href: "/contact", note: "Study visits & enquiries" },
+  { label: "Home", href: "/", note: "Smart solutions for your business" },
+  { label: "Services", href: "/collections", note: "What we build & deliver" },
+  { label: "Portfolio", href: "/archive", note: "Every project we've shipped" },
+  { label: "Our Team", href: "/artists", note: "The people behind your project" },
+  { label: "Insights", href: "/journal", note: "Guides & field notes" },
+  { label: "About", href: "/about", note: "Who we are & how we work" },
+  { label: "Contact", href: "/contact", note: "Get a quote & book a call" },
 ];
 
 export const socialLinks: NavItem[] = [
-  { label: "Instagram", href: "https://example.com" },
-  { label: "Are.na", href: "https://example.com" },
-  { label: "Newsletter", href: "https://example.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "Facebook", href: "https://www.facebook.com" },
+  { label: "Instagram", href: "https://www.instagram.com" },
 ];
 
 /* -------------------------------------------------------------------------- */

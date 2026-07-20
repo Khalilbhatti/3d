@@ -53,7 +53,7 @@ export function CollectionCard({
           <p className="mt-6 max-w-md text-pretty leading-relaxed text-ink-soft">{collection.summary}</p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="label">{collection.artworkIds.length} works</span>
-            <span className="label">Curated by {collection.curator}</span>
+            <span className="label">Led by {collection.curator}</span>
           </div>
         </MReveal>
       </div>

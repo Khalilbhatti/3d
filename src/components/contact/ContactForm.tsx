@@ -70,7 +70,7 @@ export function ContactForm() {
         <Field label="Your name" name="name" autoComplete="name" required />
         <Field label="Email" name="email" type="email" autoComplete="email" required />
       </div>
-      <Field label="Subject" name="subject" defaultValue="Study visit enquiry" />
+      <Field label="Subject" name="subject" defaultValue="Project enquiry" />
       <div>
         <label htmlFor="cf-message" className="label">Message</label>
         <textarea
@@ -79,7 +79,7 @@ export function ContactForm() {
           required
           rows={6}
           className="mt-2 w-full resize-y border border-line/25 bg-transparent p-4 text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none"
-          placeholder="Tell us about your research interest, study visit or loan enquiry…"
+          placeholder="Tell us about your project, timeline and budget…"
         />
       </div>
 

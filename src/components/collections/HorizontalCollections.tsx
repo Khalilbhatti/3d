@@ -141,13 +141,12 @@ export function HorizontalCollections() {
         {/* Intro panel */}
         <article data-panel className="relative flex h-full w-screen shrink-0 items-center">
           <div className="container-editorial">
-            <span data-anim className="label text-accent">Five bodies of work</span>
+            <span data-anim className="label text-accent">Six core disciplines</span>
             <h2 data-anim className="mt-5 max-w-[14ch] font-display text-display-lg leading-[0.98] text-ink">
-              The collections, in sequence.
+              Our services, in sequence.
             </h2>
             <p data-anim className="mt-7 max-w-md text-pretty text-lg leading-relaxed text-ink-soft">
-              Scroll to move through the school chapter by chapter — founding light to
-              present tide. Each turns as you go.
+              Scroll to move through everything we deliver — from web and app development to CRM automation. Each turns as you go.
             </p>
             <span data-anim className="label mt-10 inline-flex items-center gap-3 text-muted">
               Scroll to advance
@@ -192,15 +191,18 @@ export function HorizontalCollections() {
                     {collection.summary}
                   </p>
                   <div data-anim className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-                    <span className="label">{collection.artworkIds.length} works</span>
-                    {artist ? <span className="label">Featuring {artist.name}</span> : null}
+                    <span className="label">
+                      {collection.artworkIds.length}{" "}
+                      {collection.artworkIds.length === 1 ? "case study" : "case studies"}
+                    </span>
+                    {artist ? <span className="label">Led by {artist.name}</span> : null}
                   </div>
                   <Link
                     data-anim
                     href={`/collections/${collection.slug}`}
                     className="mt-8 inline-flex items-center gap-3 border border-ink/25 px-6 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
                   >
-                    Open collection
+                    Explore service
                     <span aria-hidden>→</span>
                   </Link>
                 </div>
@@ -229,20 +231,20 @@ export function HorizontalCollections() {
         {/* Outro panel */}
         <article data-panel className="relative flex h-full w-screen shrink-0 items-center bg-[#050508] text-ink">
           <div className="container-editorial">
-            <span data-anim className="label text-accent">The archive is open</span>
+            <span data-anim className="label text-accent">Ready when you are</span>
             <h2 data-anim className="mt-5 max-w-[14ch] font-display text-display-lg leading-[0.98] text-ink">
-              Every catalogued work, in one place.
+              Let us start the conversation.
             </h2>
             <div data-anim className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
               <Link
                 href="/archive"
                 className="inline-flex items-center gap-3 border border-ink/30 px-7 py-4 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
               >
-                Enter the archive
+                Get a quote
                 <span aria-hidden>→</span>
               </Link>
               <Link href="/artists" className="link-underline text-ink/80 hover:text-ink">
-                Meet the artists
+                Meet the team
               </Link>
             </div>
           </div>
@@ -262,7 +264,7 @@ export function HorizontalCollections() {
             ) : active === 0 ? (
               "Introduction"
             ) : (
-              "Enter the archive"
+              "Get a quote"
             )}
           </span>
           <span className="label hidden text-muted sm:block">Scroll ↓ to move sideways</span>

@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 const GalleryCanvas = dynamic(() => import("@/components/webgl/GalleryCanvas"), { ssr: false });
 
 const LAYOUTS: GalleryLayout[] = ["sphere", "cylinder"];
-const TITLE_LINES = ["The whole coast,", "suspended in light."];
+const TITLE_LINES = ["Smart solutions", "for your business."];
 
 /**
  * The immersive opening. On capable desktops it renders a Three.js floating
@@ -118,7 +118,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="flex items-center justify-between"
         >
-          <span className="label">Floating gallery · {works.length} works</span>
+          <span className="label">Our portfolio · {works.length} projects</span>
           <span className="label hidden sm:block">Drag to orbit · click to open</span>
         </motion.div>
 
@@ -129,7 +129,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
             transition={{ delay: 0.35, duration: 1 }}
             className="label text-accent"
           >
-            The Auren Archive
+            Smart Solutions for Your Business
           </motion.span>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.98] tracking-tight text-ink">
             {TITLE_LINES.map((line, li) => (
@@ -151,8 +151,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
             transition={{ delay: 0.9, duration: 0.9 }}
             className="mx-auto mt-6 max-w-md text-pretty text-ink-soft"
           >
-            Drag to orbit the archive. Recompose it as a sphere or a cylinder. Click a
-            work to open it.
+            We design, build and grow digital products. Drag to orbit our work, then click a project to open it.
           </motion.p>
         </div>
 
@@ -199,7 +198,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
                 </motion.div>
               ) : (
                 <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="label hidden text-right sm:block">
-                  Hover a work
+                  Hover a project
                 </motion.p>
               )}
             </AnimatePresence>
@@ -284,7 +283,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
                     href={`/archive/${focusWork.slug}`}
                     className="pointer-events-auto link-underline text-sm text-ink"
                   >
-                    Open full record →
+                    View project →
                   </Link>
                   <span className="label hidden text-ink/40 md:block">Esc to close</span>
                 </div>
@@ -309,13 +308,12 @@ function FallbackHero({
   return (
     <section className="relative min-h-[100svh] bg-paper pb-16 pt-[calc(var(--header-h)+3.5rem)]">
       <div className="container-editorial">
-        <span className="label text-accent">The Auren Archive</span>
+        <span className="label text-accent">Smart Solutions for Your Business</span>
         <h1 className="mt-4 max-w-[14ch] font-display text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.98] tracking-tight text-ink">
-          The whole coast, suspended in light.
+          Smart solutions for your business.
         </h1>
         <p className="mt-5 max-w-md text-pretty text-ink-soft">
-          Explore the collection — tap any work to open it full screen, then read the
-          story below.
+          Tap any project to open it full screen, then read how we build below.
         </p>
 
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">

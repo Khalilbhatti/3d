@@ -84,14 +84,14 @@ export function ArchiveGrid({
       <div className="border-y border-line/15 py-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="w-full max-w-sm">
-            <label htmlFor="archive-search" className="label">Search the archive</label>
+            <label htmlFor="archive-search" className="label">Search projects</label>
             <div className="mt-2 flex items-center gap-3 border-b border-line/30 pb-2 focus-within:border-accent">
               <input
                 id="archive-search"
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Artist, work, period, medium…"
+                placeholder="Project, industry, stack…"
                 className="w-full bg-transparent font-display text-lg text-ink placeholder:text-muted/70 focus:outline-none"
               />
             </div>
@@ -120,25 +120,25 @@ export function ArchiveGrid({
 
         <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           <FilterGroup
-            legend="Artist"
+            legend="Team"
             options={facets.artists.map((a) => ({ label: a.name, value: a.id }))}
             active={filters.artist}
             onToggle={(v) => toggle("artist", v)}
           />
           <FilterGroup
-            legend="Period"
+            legend="Service"
             options={facets.periods.map((p) => ({ label: p.split(" · ")[0], value: p }))}
             active={filters.period}
             onToggle={(v) => toggle("period", v)}
           />
           <FilterGroup
-            legend="Location"
+            legend="Industry"
             options={facets.locations.map((l) => ({ label: l, value: l }))}
             active={filters.location}
             onToggle={(v) => toggle("location", v)}
           />
           <FilterGroup
-            legend="Medium"
+            legend="Stack"
             options={facets.mediums.map((m) => ({ label: m, value: m }))}
             active={filters.medium}
             onToggle={(v) => toggle("medium", v)}
@@ -148,7 +148,7 @@ export function ArchiveGrid({
 
       <div className="flex items-center justify-between py-5">
         <p className="label" aria-live="polite">
-          {results.length} {results.length === 1 ? "work" : "works"}
+          {results.length} {results.length === 1 ? "project" : "projects"}
           {activeCount > 0 ? " · filtered" : ""}
         </p>
         {activeCount > 0 ? (
@@ -160,7 +160,7 @@ export function ArchiveGrid({
 
       {results.length === 0 ? (
         <div className="border-t border-line/15 py-24 text-center">
-          <p className="font-display text-2xl text-ink">No works match those filters.</p>
+          <p className="font-display text-2xl text-ink">No projects match those filters.</p>
           <button type="button" onClick={clearAll} className="link-underline mt-4 text-ink-soft">
             Clear the filters
           </button>

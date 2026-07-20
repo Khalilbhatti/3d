@@ -100,14 +100,14 @@ export function FullscreenMenu() {
 
           <div className="flex flex-col justify-center gap-10 border-t border-ink/15 pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
             <form onSubmit={onSearch} className="group/search">
-              <label htmlFor="menu-search" className="label text-ink/50">Search the archive</label>
+              <label htmlFor="menu-search" className="label text-ink/50">Search projects</label>
               <div className="mt-3 flex items-center gap-3 border-b border-ink/25 pb-2 focus-within:border-accent">
                 <input
                   id="menu-search"
                   name="q"
                   ref={searchRef}
                   type="search"
-                  placeholder="Artist, work, period…"
+                  placeholder="Project, industry, stack…"
                   className="w-full bg-transparent font-display text-lg text-ink placeholder:text-ink/30 focus:outline-none"
                 />
                 <button type="submit" className="label text-ink hover:text-accent">Go</button>
@@ -115,7 +115,7 @@ export function FullscreenMenu() {
             </form>
 
             <div>
-              <span className="label text-ink/50">Collections</span>
+              <span className="label text-ink/50">Services</span>
               <ul className="mt-3 space-y-2">
                 {collections.map((c) => (
                   <li key={c.id}>
@@ -128,7 +128,7 @@ export function FullscreenMenu() {
             </div>
 
             <div>
-              <span className="label text-ink/50">From the journal</span>
+              <span className="label text-ink/50">Latest insights</span>
               <ul className="mt-3 space-y-2">
                 {recentStories.map((s) => (
                   <li key={s.id}>

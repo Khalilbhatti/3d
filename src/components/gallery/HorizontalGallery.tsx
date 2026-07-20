@@ -113,7 +113,7 @@ export function HorizontalGallery({
       <ul
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pl-[max(1.25rem,5vw)] pr-[max(1.25rem,5vw)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        aria-label="Collection artworks — scroll horizontally"
+        aria-label="Projects — scroll horizontally"
       >
         {artworks.map((artwork, i) => (
           <li
@@ -163,7 +163,7 @@ export function HorizontalGallery({
             <button
               type="button"
               onClick={() => scrollToItem(Math.max(0, active - 1))}
-              aria-label="Previous artwork"
+              aria-label="Previous project"
               className="flex h-10 w-10 items-center justify-center border border-line/25 transition-colors hover:border-ink hover:bg-ink hover:text-paper"
             >
               ←
@@ -171,7 +171,7 @@ export function HorizontalGallery({
             <button
               type="button"
               onClick={() => scrollToItem(Math.min(artworks.length - 1, active + 1))}
-              aria-label="Next artwork"
+              aria-label="Next project"
               className="flex h-10 w-10 items-center justify-center border border-line/25 transition-colors hover:border-ink hover:bg-ink hover:text-paper"
             >
               →

@@ -26,13 +26,13 @@ export function ExploreCollection() {
         }}
       />
       <div className="container-editorial relative">
-        <Kicker className="text-ink/60">Explore the collection</Kicker>
+        <Kicker className="text-ink/60">Let us start the conversation</Kicker>
         <SplitReveal
           as="h2"
           type="lines"
           className="mt-6 max-w-[14ch] font-display text-display-lg text-ink"
         >
-          The archive is open. Enter where you like.
+          Ready to take your business to the next level?
         </SplitReveal>
 
         <div className="mt-16 grid gap-x-12 gap-y-2 border-t border-ink/15 md:grid-cols-2">
@@ -57,17 +57,17 @@ export function ExploreCollection() {
         <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
           <MagneticButton>
             <Link
-              href="/archive"
+              href="/contact"
               className="group inline-flex items-center gap-3 border border-ink/30 px-7 py-4 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
             >
-              Enter the full archive
+              Get a quote
               <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </Link>
           </MagneticButton>
           <Link href="/collections" className="link-underline text-ink/80 hover:text-ink">
-            Browse all collections
+            Browse all services
           </Link>
-          <span className="label ml-auto text-ink/40">{total} works catalogued</span>
+          <span className="label ml-auto text-ink/40">{total} projects delivered</span>
         </div>
       </div>
     </section>

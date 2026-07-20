@@ -12,7 +12,7 @@ export default function HomePage() {
     "@type": "Organization",
     name: brand.full,
     description: brand.description,
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://auren-archive.example.com",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com",
   };
 
   return (

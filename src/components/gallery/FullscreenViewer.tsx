@@ -136,7 +136,7 @@ export function FullscreenViewer() {
         <motion.div
           role="dialog"
           aria-modal="true"
-          aria-label="Artwork viewer"
+          aria-label="Project viewer"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -198,7 +198,7 @@ export function FullscreenViewer() {
             <button
               type="button"
               onClick={viewerPrev}
-              aria-label="Previous artwork"
+              aria-label="Previous project"
               className="absolute left-3 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center border border-ink/25 text-xl transition-colors hover:border-ink hover:bg-ink hover:text-paper md:flex"
             >
               ←
@@ -255,7 +255,7 @@ export function FullscreenViewer() {
             <button
               type="button"
               onClick={viewerNext}
-              aria-label="Next artwork"
+              aria-label="Next project"
               className="absolute right-3 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center border border-ink/25 text-xl transition-colors hover:border-ink hover:bg-ink hover:text-paper md:flex"
             >
               →

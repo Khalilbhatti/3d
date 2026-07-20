@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { collections, artworks, artists, stories } from "@/content/index";
 
-const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://auren-archive.example.com";
+const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
 
 /** Route-complete sitemap generated from the content layer. */
 export default function sitemap(): MetadataRoute.Sitemap {

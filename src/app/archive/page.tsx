@@ -7,7 +7,7 @@ import { ArchiveGrid } from "@/components/gallery/ArchiveGrid";
 export const metadata: Metadata = {
   title: "Archive",
   description:
-    "Every catalogued work in the Auren Archive — filter by artist, period, location and medium, search the catalogue, and open works full screen.",
+    "Our portfolio of end-to-end builds — websites, apps, e-commerce, branding and CRM automation delivered by GitzTech.",
 };
 
 export default function ArchivePage({
@@ -22,9 +22,9 @@ export default function ArchivePage({
   return (
     <>
       <PageHeader
-        kicker="The archive · Every work"
-        title="The complete catalogue."
-        deck="Twenty-four works across five collections and three centuries. Filter, search, switch between grid and list, and open any work full screen to zoom and pan."
+        kicker="Our work · Portfolio"
+        title="Our excellent portfolio."
+        deck="End-to-end builds — from complete UI design systems to custom full-stack development and cloud deployment. Filter by service or industry, and open any project to read the case study."
       />
       <Suspense>
         <ArchiveGrid artworks={artworks} facets={facets} initialQuery={initialQuery} />

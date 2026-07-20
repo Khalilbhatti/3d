@@ -71,7 +71,7 @@ export default function StoryDetailPage({ params }: { params: { slug: string } }
         </div>
       </div>
 
-      <RelatedArtworks artworks={relatedArtworks} title="Works discussed" />
+      <RelatedArtworks artworks={relatedArtworks} title="Projects referenced" />
 
       {relatedStories.length ? (
         <section className="container-editorial py-20 md:py-24">
@@ -85,7 +85,7 @@ export default function StoryDetailPage({ params }: { params: { slug: string } }
       ) : null}
 
       <div className="container-editorial pb-24">
-        <Link href="/journal" className="link-underline text-ink">← All journal entries</Link>
+        <Link href="/journal" className="link-underline text-ink">← All insights</Link>
       </div>
     </article>
   );

@@ -1,101 +1,62 @@
 import type { TimelineEntry } from "./types";
 
-/** PLACEHOLDER CONTENT — invented chronology for demonstration. */
+/**
+ * =============================================================================
+ *  OUR DEVELOPMENT PROCESS  (rendered through the TimelineEntry model)
+ * =============================================================================
+ *  The structured process we use to deliver high-quality products and services,
+ *  from first idea through launch and ongoing growth.
+ */
 export const timeline: TimelineEntry[] = [
   {
-    id: "t-1719",
-    year: "1719",
-    title: "Marrow leaves the drafting table",
-    body: "Isolde Marrow abandons her post as a mapmaker's assistant and begins painting the tidal flats north of Saltmeadow at first and last light.",
-    location: "Saltmeadow",
-    collectionId: "luminist",
+    id: "tl-ideas",
+    year: "Step 01",
+    title: "Generate ideas",
+    body:
+      "We map the problem before proposing anything. Discovery covers your goals, the users you serve, the systems you already run and the support your business actually needs — including comprehensive IT support and management considerations such as network and infrastructure monitoring.",
+    location: "Discovery & scoping",
   },
   {
-    id: "t-1731",
-    year: "1731",
-    title: "The Tideline",
-    body: "The earliest surviving Marrow panel establishes the compressed, horizontal format that will define the founding luminists.",
-    location: "Saltmeadow",
-    collectionId: "luminist",
+    id: "tl-design",
+    year: "Step 02",
+    title: "Design & prototyping",
+    body:
+      "Design and prototyping are critical phases in our development process, ensuring the final product meets expectations. Wireframes and clickable prototypes get reviewed and tested before a line of production code is written.",
+    location: "Design & validation",
+    collectionId: "svc-uiux",
   },
   {
-    id: "t-1759",
-    year: "1759",
-    title: "Lantern on the Quay",
-    body: "Caspian Vael completes the keystone of the Nocturnes, built from more than thirty lamp-black glazes cured across a full year.",
-    location: "Old Customs House",
-    collectionId: "nocturnes",
+    id: "tl-build",
+    year: "Step 03",
+    title: "Build & integrate",
+    body:
+      "Engineering begins against an agreed spec: the data model, the integrations, and the performance budget the product has to hit. You get progress you can see, not a black box that reappears at the deadline.",
+    location: "Development",
+    collectionId: "svc-web",
   },
   {
-    id: "t-1762",
-    year: "1762",
-    title: "Serré illuminates the Tide Charter",
-    body: "Ondine Serré's marginal weather begins to overwhelm the official documents of the Reed Court.",
-    location: "The Reed Court",
-    collectionId: "manuscripts",
+    id: "tl-final",
+    year: "Step 04",
+    title: "Final solution",
+    body:
+      "Creating a new IT product requires a comprehensive approach that encompasses idea generation and flawless delivery. Everything is tested across browsers and devices, checked for speed, SEO and accessibility, then signed off with you.",
+    location: "Testing & sign-off",
   },
   {
-    id: "t-1781",
-    year: "1781",
-    title: "The Reed Hours",
-    body: "Serré's most ambitious commission reworks the book of hours for the coast, replacing saints with tides.",
-    location: "The Reed Court",
-    collectionId: "manuscripts",
+    id: "tl-launch",
+    year: "Step 05",
+    title: "Launch & handover",
+    body:
+      "We deploy, wire up analytics, and hand over full ownership — repository, accounts and documentation — plus a walkthrough so your team can run the thing confidently from day one.",
+    location: "Deployment & training",
   },
   {
-    id: "t-1783",
-    year: "1783",
-    title: "The Ninth Bell",
-    body: "Vael's final nocturne pushes darkness to its limit; conservators now believe the near-total black is intentional.",
-    location: "Old Customs House",
-    collectionId: "nocturnes",
-  },
-  {
-    id: "t-1789",
-    year: "1789",
-    title: "The Seventh Dip",
-    body: "Mireille Ashcombe and Aurelio Bann formalise the practice of titling works by their count of indigo immersions.",
-    location: "The Dye Yards",
-    collectionId: "indigo",
-  },
-  {
-    id: "t-1796",
-    year: "1796",
-    title: "Bann's Sample Card",
-    body: "Aurelio Bann's working pigment grids, never intended as art, are later catalogued among the school's earliest abstractions.",
-    location: "Colour Room",
-    collectionId: "indigo",
-  },
-  {
-    id: "t-1804",
-    year: "1804",
-    title: "Survey, in Haze",
-    body: "Thomas Reyne begins overlaying his triangulation lines with wet washes, blurring the border between measurement and mood.",
-    location: "Map Room",
-    collectionId: "luminist",
-  },
-  {
-    id: "t-1819",
-    year: "1819",
-    title: "Estuary",
-    body: "Reyne's late watercolours abandon the coastline entirely — the bridge between the founding school and the modern archive.",
-    location: "Map Room",
-    collectionId: "luminist",
-  },
-  {
-    id: "t-2009",
-    year: "2009",
-    title: "Okonkwo takes custody",
-    body: "Livia Okonkwo begins directing conservation of the Auren holdings and authoring the modern catalogue.",
-    location: "The Auren Archive",
-    collectionId: "present-tide",
-  },
-  {
-    id: "t-2023",
-    year: "2023",
-    title: "The Same Quay",
-    body: "Okonkwo photographs Vael's quay at the ninth bell, closing the archive's three-century loop.",
-    location: "Old Customs House",
-    collectionId: "present-tide",
+    id: "tl-support",
+    year: "Step 06",
+    title: "Support & growth",
+    body:
+      "Launch is the start, not the finish. We stay on as a transparent extension of your team — monitoring, iterating and scaling the build as the business grows.",
+    location: "Ongoing partnership",
+    collectionId: "svc-marketing",
   },
 ];

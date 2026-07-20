@@ -8,7 +8,7 @@ import { themeStyleString } from "@/config/theme";
 export function ThemeStyle() {
   return (
     <style
-      id="auren-theme"
+      id="gitztech-theme"
       // themeStyleString() is derived from a trusted, in-repo config object.
       dangerouslySetInnerHTML={{ __html: themeStyleString() }}
     />

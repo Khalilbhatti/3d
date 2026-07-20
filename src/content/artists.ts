@@ -1,149 +1,149 @@
 import type { Artist } from "./types";
 
 /**
- * PLACEHOLDER CONTENT — every name, date and biography below is invented for
- * demonstration. Replace with real contributor records. See CONTENT_EDITING.md.
+ * =============================================================================
+ *  THE TEAM  (rendered through the Artist model)
+ * =============================================================================
+ *  The people behind your project. GitzTech works as one connected unit —
+ *  developers, designers, marketers and CRM specialists sharing one mindset.
+ *
+ *  Field mapping for this site:
+ *    name        → discipline / team name
+ *    role        → what they own
+ *    lifespan    → experience line shown under the name
+ *    mediums     → core skills and tools
  */
 export const artists: Artist[] = [
   {
-    id: "marrow",
-    slug: "isolde-marrow",
-    name: "Isolde Marrow",
-    role: "Founding luminist",
-    lifespan: "c. 1698 – 1761",
-    origin: "Saltmeadow, Auren Coast",
-    activePeriod: "1719 – 1760",
-    mediums: ["Egg tempera", "Ground earth", "Silverpoint"],
+    id: "team-fullstack",
+    slug: "full-stack-developers",
+    name: "Full-Stack Developers",
+    role: "Engineering & architecture",
+    lifespan: "4+ years · 200+ projects delivered",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Available for new projects",
+    mediums: ["Next.js", "React", "Node.js", "PostgreSQL", "Cloud Deployment"],
     summary:
-      "The painter credited with turning the Auren horizon into a subject in its own right.",
+      "They engineer fast, scalable, and secure web and mobile applications tailored precisely to your business needs.",
     bio: [
-      "Isolde Marrow trained as a mapmaker's assistant before abandoning the drafting table for the tidal flats north of Saltmeadow. Working almost entirely at first and last light, she developed a method of laying thin, luminous tempera over a warm ground — a technique later students called 'reading the paper through the paint'.",
-      "Marrow kept no studio of note and exhibited rarely. What survives is a body of roughly two hundred small panels, most no larger than a folded letter, in which weather, water and distance are treated with a patience that borders on devotion.",
+      "Our full-stack engineers own the whole build — data model, API, interface and deployment — so nothing falls between front end and back end.",
+      "Every project starts with a technical discovery: the integrations you need, the load you expect, and the performance budget the product has to hit. Architecture decisions follow from that, not from whichever framework is trending.",
+      "Code ships documented and tested, on infrastructure your team can actually operate. You keep full ownership of the repository and the accounts it runs on.",
     ],
     statement:
-      "I do not paint the sea. I paint the hour that the sea happens to be wearing.",
-    seed: "marrow-portrait",
-    palette: { from: "#E8C48A", via: "#C98B4B", to: "#7A3F1E", ink: 0.08 },
-    relatedArtworkIds: ["a-tideline", "a-saltmeadow-dawn", "a-low-water", "a-first-light"],
+      "A build is only finished when someone other than the person who wrote it can run it, read it and extend it.",
+    seed: "team-fullstack-01",
+    palette: { from: "#3E6BE8", via: "#24408F", to: "#0E1633", ink: 0.18 },
+    relatedArtworkIds: ["prj-food"],
   },
   {
-    id: "vael",
-    slug: "caspian-vael",
-    name: "Caspian Vael",
-    role: "Nocturne painter",
-    lifespan: "1722 – 1790",
-    origin: "Harbour Wing, Old Customs House",
-    activePeriod: "1748 – 1789",
-    mediums: ["Oil on prepared linen", "Lamp-black glaze"],
+    id: "team-uiux",
+    slug: "ui-ux-designers",
+    name: "UI/UX Designers",
+    role: "Research, interface & brand",
+    lifespan: "4+ years · research-led practice",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Available for new projects",
+    mediums: ["User Research", "Wireframing", "Prototyping", "Design Systems", "Brand Identity"],
     summary:
-      "Master of the harbour at night — lantern, tide and the long dark between them.",
+      "They craft intuitive, beautiful interfaces that delight users and turn first-time visitors into loyal customers.",
     bio: [
-      "Where Marrow chased the dawn, Caspian Vael waited for the town to go dark. He is thought to have worked from a shuttered room above the customs house, painting the same stretch of quay across four decades and every season of weather.",
-      "Vael's nocturnes are built from dozens of near-black glazes, each allowed to cure for days. The result is a darkness that is never empty: hold a lantern to the canvas and figures, ropes and reflected fire emerge from the deep.",
-    ],
-    statement: "Give me one honest lantern and I will show you the whole night.",
-    seed: "vael-portrait",
-    palette: { from: "#2A3550", via: "#1A2136", to: "#0C0F1C", ink: 0.2 },
-    relatedArtworkIds: ["a-lantern-quay", "a-black-tide", "a-harbour-watch", "a-ninth-bell"],
-  },
-  {
-    id: "serre",
-    slug: "ondine-serre",
-    name: "Ondine Serré",
-    role: "Court illuminator",
-    lifespan: "c. 1735 – 1799",
-    origin: "The Reed Court, Auren Coast",
-    activePeriod: "1755 – 1798",
-    mediums: ["Gold leaf", "Gouache on vellum", "Ground lapis"],
-    summary:
-      "Illuminator to the Reed Court, whose margins hold entire weather systems.",
-    bio: [
-      "Ondine Serré illuminated charters, tide-tables and marriage contracts for the minor court at Reed. Her official work is exacting; her marginalia is where the Auren imagination runs loose — storms, sea-birds and small silver fish threaded between the lines of law.",
-      "Serré is now studied less for the documents she decorated than for the borders she could not help but fill. Her palette of lapis, gold and lead-white set the register for a century of Auren manuscript work.",
-    ],
-    statement: "The law is written in the centre. The truth I keep in the margins.",
-    seed: "serre-portrait",
-    palette: { from: "#EAD9B5", via: "#D2B77E", to: "#9A7A3E", ink: 0.06 },
-    relatedArtworkIds: ["a-tide-charter", "a-margin-storm", "a-silver-fish", "a-reed-hours"],
-  },
-  {
-    id: "reyne",
-    slug: "thomas-reyne",
-    name: "Thomas Reyne",
-    role: "Cartographer-painter",
-    lifespan: "1760 – 1828",
-    origin: "Saltmeadow, Auren Coast",
-    activePeriod: "1782 – 1827",
-    mediums: ["Watercolour", "Ink wash", "Bodycolour"],
-    summary:
-      "Surveyed the coast by day and painted its dissolving edges by evening.",
-    bio: [
-      "Thomas Reyne inherited Marrow's tidal flats and a surveyor's discipline. His coastal studies begin as measured drawings and end as something looser — a record of exactly where the land agreed to stop being land.",
-      "Reyne's late watercolours abandon the coastline almost entirely, becoming studies of haze, salt and reflected sky. They form the bridge between the founding luminists and the modern archive.",
-    ],
-    statement: "Every survey is a lie the tide agrees to for a single afternoon.",
-    seed: "reyne-portrait",
-    palette: { from: "#B9C1A0", via: "#8E9B72", to: "#4E5637", ink: 0.05 },
-    relatedArtworkIds: ["a-survey-haze", "a-sand-index", "a-estuary", "a-first-light"],
-  },
-  {
-    id: "ashcombe",
-    slug: "mireille-ashcombe",
-    name: "Mireille Ashcombe",
-    role: "Indigo dyer & painter",
-    lifespan: "c. 1755 – 1820",
-    origin: "The Dye Yards, Auren Coast",
-    activePeriod: "1778 – 1819",
-    mediums: ["Indigo", "Resist-dye on cloth", "Watercolour"],
-    summary: "Turned the dye-yard trade of indigo into a language of depth.",
-    bio: [
-      "Mireille Ashcombe worked among the indigo dye-yards, where cloth is dipped, oxidised and dipped again until blue becomes almost black. She carried that logic of repeated immersion into painting, layering washes until the surface holds a physical sense of depth.",
-      "Her collaboration with the colourist Aurelio Bann produced the pigments that define the Indigo Series — a body of work that treats a single colour as an entire climate.",
-    ],
-    statement: "Blue is not a colour. It is how far away a thing has decided to be.",
-    seed: "ashcombe-portrait",
-    palette: { from: "#3A4A6B", via: "#26324E", to: "#12172A", ink: 0.14 },
-    relatedArtworkIds: ["a-seventh-dip", "a-indigo-field", "a-resist-tide", "a-night-cloth"],
-  },
-  {
-    id: "bann",
-    slug: "aurelio-bann",
-    name: "Aurelio Bann",
-    role: "Pigment chemist & colourist",
-    lifespan: "1740 – 1811",
-    origin: "Old Customs House, Auren Coast",
-    activePeriod: "1766 – 1810",
-    mediums: ["Pigment", "Ground mineral", "Oil"],
-    summary:
-      "The chemist whose ground pigments gave the school its unmistakable warmth.",
-    bio: [
-      "Aurelio Bann was less a painter than a maker of the means to paint. His notebooks catalogue hundreds of trials in grinding, washing and binding earth pigments drawn from the cliffs and dye-yards of the coast.",
-      "Bann supplied Marrow, Vael and Ashcombe alike. The archive holds his sample cards as artworks in their own right — grids of colour that read, two centuries on, as quiet abstractions.",
-    ],
-    statement: "A colour is a promise about light that the ground has to keep.",
-    seed: "bann-portrait",
-    palette: { from: "#D98B5F", via: "#B15A32", to: "#6E2E15", ink: 0.07 },
-    relatedArtworkIds: ["a-sample-card", "a-earth-index", "a-seventh-dip"],
-  },
-  {
-    id: "okonkwo",
-    slug: "livia-okonkwo",
-    name: "Livia Okonkwo",
-    role: "Custodian & conservator",
-    lifespan: "b. 1981",
-    origin: "Present day",
-    activePeriod: "2009 – present",
-    mediums: ["Conservation", "Photography", "Written study"],
-    summary:
-      "The archive's present-day custodian, restoring the school and answering it.",
-    bio: [
-      "Livia Okonkwo directs the conservation of the Auren holdings and is the author of most of the modern catalogue. Her practice sits between restoration and response — stabilising fragile panels while making new photographic studies of the same light the founders chased.",
-      "The Present Tide collection gathers her work: not imitations of the school, but a contemporary attempt to keep looking at the coast with the same attention.",
+      "Design here starts with evidence — user flows, competitor teardowns and real session behaviour — so interface decisions can be argued from insight rather than taste.",
+      "Wireframes and prototypes are tested before anything is built. Fixing a flow in a prototype costs hours; fixing it after launch costs weeks.",
+      "The team also handles brand work: identities, logo systems and creative kits, delivered as documented systems your team can run without breaking consistency.",
     ],
     statement:
-      "Conservation is just the slowest possible way of paying attention.",
-    seed: "okonkwo-portrait",
-    palette: { from: "#9FC0B1", via: "#5E8C7C", to: "#2E4A40", ink: 0.05 },
-    relatedArtworkIds: ["a-present-tide", "a-relit", "a-same-quay"],
+      "If a user has to be taught how to use the screen, the screen is the thing that needs changing.",
+    seed: "team-uiux-02",
+    palette: { from: "#34D399", via: "#146848", to: "#052117", ink: 0.16 },
+    relatedArtworkIds: ["prj-ngo", "prj-stitcher"],
+  },
+  {
+    id: "team-marketers",
+    slug: "digital-marketers",
+    name: "Digital Marketers",
+    role: "Demand & growth",
+    lifespan: "4+ years · full-funnel campaigns",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Available for new projects",
+    mediums: ["SEO", "Paid Ads", "Social", "Email Automation", "Analytics"],
+    summary:
+      "They build data-driven campaigns that grow brand visibility, drive engagement, and deliver measurable ROI.",
+    bio: [
+      "Campaigns are built around unit economics: what a customer costs to acquire and what they're worth once they arrive. Channel mix and budget follow from that answer.",
+      "Search, paid social, email and landing pages are run as one system, so traffic lands somewhere designed to convert instead of on a generic homepage.",
+      "Reporting is plain: spend, leads, cost per acquisition and revenue attribution — reviewed with you rather than buried in a dashboard nobody opens.",
+    ],
+    statement:
+      "Traffic that doesn't convert isn't marketing — it's just an expensive way to be visited.",
+    seed: "team-marketers-03",
+    palette: { from: "#F0913A", via: "#9C4E17", to: "#2A1305", ink: 0.16 },
+    relatedArtworkIds: ["prj-crafting"],
+  },
+  {
+    id: "team-wordpress",
+    slug: "wordpress-developers",
+    name: "WordPress Developers",
+    role: "Themes, plugins & WooCommerce",
+    lifespan: "4+ years · custom builds, no bloat",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Available for new projects",
+    mediums: ["Custom Themes", "Plugin Development", "WooCommerce", "Core Web Vitals", "SEO"],
+    summary:
+      "They build customizable, responsive WordPress sites with the speed, SEO, and flexibility your business demands.",
+    bio: [
+      "We build custom themes rather than stacking page builders on top of each other — which is why our WordPress sites load fast and stay editable.",
+      "Where the functionality doesn't exist, the team writes the plugin: properly scoped, documented, and maintained so it survives the next core release.",
+      "WooCommerce work covers the full journey — catalogue, checkout, payments, shipping rules — plus the analytics to show where orders are being lost.",
+    ],
+    statement:
+      "Most slow WordPress sites aren't a hosting problem. They're a build problem.",
+    seed: "team-wordpress-04",
+    palette: { from: "#2FBFA8", via: "#146458", to: "#04211C", ink: 0.16 },
+    relatedArtworkIds: ["prj-beauty"],
+  },
+  {
+    id: "team-ghl",
+    slug: "gohighlevel-specialists",
+    name: "GoHighLevel & CRM Specialists",
+    role: "Funnels, pipelines & automation",
+    lifespan: "4+ years · battle-tested workflows",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Available for new projects",
+    mediums: ["GoHighLevel", "Sales Funnels", "WhatsApp API", "SMS Marketing", "API Integration"],
+    summary:
+      "They set up funnels, automations, and pipelines that streamline client management and accelerate your growth.",
+    bio: [
+      "The team configures GoHighLevel around how you actually sell — pipelines and stages that tell you where a deal really is, not a generic template.",
+      "High-converting funnels feed automated nurture: email campaigns, SMS sequences, appointment booking and reminders, so every lead is worked the moment it arrives.",
+      "They integrate the WhatsApp Business API and deploy chatbots that qualify leads 24/7, connect third-party tools, and build reporting dashboards you can read at a glance.",
+    ],
+    statement:
+      "Most businesses don't have a lead problem. They have a follow-up problem.",
+    seed: "team-ghl-05",
+    palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
+    relatedArtworkIds: ["prj-wholesale"],
+  },
+  {
+    id: "team-qa",
+    slug: "qa-project-managers",
+    name: "QA & Project Managers",
+    role: "Delivery & quality",
+    lifespan: "4+ years · on-time, tested delivery",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Available for new projects",
+    mediums: ["Test Planning", "Cross-Browser QA", "Accessibility", "Release Management", "Reporting"],
+    summary:
+      "They keep every project on track and rigorously tested, ensuring flawless delivery and a smooth experience start to finish.",
+    bio: [
+      "Every project has a named manager. You always know what stage you're at, what's next, and what we need from you to keep moving.",
+      "Builds are tested across browsers, devices and screen sizes before release, with accessibility and performance checks treated as requirements rather than nice-to-haves.",
+      "Clear timelines and honest communication are the standard — if something slips, you hear it from us early, with the plan to recover it.",
+    ],
+    statement:
+      "Clear timelines and honest communication, so you always know exactly where your project stands.",
+    seed: "team-qa-06",
+    palette: { from: "#D6A24A", via: "#8A5F1C", to: "#241705", ink: 0.16 },
+    relatedArtworkIds: ["prj-food", "prj-ngo"],
   },
 ];

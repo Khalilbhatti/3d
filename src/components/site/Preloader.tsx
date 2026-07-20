@@ -68,12 +68,12 @@ export function Preloader() {
         >
           <div className="flex items-center justify-between">
             <span className="label text-ink/70">{brand.full}</span>
-            <span className="label text-ink/50">Floating gallery</span>
+            <span className="label text-ink/50">Digital agency</span>
           </div>
 
           <div className="flex items-end justify-between">
             <p className="max-w-xs text-pretty text-sm leading-relaxed text-ink/60">
-              Composing an archive of light — three centuries of an invented coast.
+              Smart solutions for your business — every byte in excellence.
             </p>
             <div className="text-right">
               <span className="font-display text-[clamp(4rem,14vw,10rem)] leading-none text-ink">

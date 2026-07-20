@@ -31,7 +31,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://auren-archive.example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,12 +43,14 @@ export const metadata: Metadata = {
   applicationName: brand.full,
   authors: [{ name: brand.full }],
   keywords: [
-    "art archive",
-    "museum",
-    "heritage",
-    "painting",
-    "editorial",
-    "scroll storytelling",
+    "digital agency",
+    "web development",
+    "app development",
+    "digital marketing",
+    "WordPress development",
+    "GoHighLevel CRM",
+    "UI/UX design",
+    "Lahore",
     brand.name,
   ],
   openGraph: {

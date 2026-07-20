@@ -28,7 +28,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const collection = getCollectionBySlug(params.slug);
-  if (!collection) return { title: "Collection not found" };
+  if (!collection) return { title: "Service not found" };
   return {
     title: collection.title,
     description: collection.summary,
@@ -51,7 +51,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
     <article>
       <header className="container-editorial grid items-end gap-10 pb-12 pt-[calc(var(--header-h)+3.5rem)] md:grid-cols-12 md:pt-[calc(var(--header-h)+5rem)]">
         <div className="md:col-span-7">
-          <Kicker accent>{collection.period} · Collection</Kicker>
+          <Kicker accent>{collection.period} · Service</Kicker>
           <SplitReveal as="h1" type="lines" className="mt-6 max-w-[15ch] font-display text-display-lg text-balance">
             {collection.title}
           </SplitReveal>
@@ -63,10 +63,10 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
         <div className="md:col-span-4 md:col-start-9">
           <MetaList
             items={[
-              { label: "Curator", value: collection.curator },
-              { label: "Period", value: collection.period },
-              { label: "Works", value: `${works.length} catalogued` },
-              { label: "Featured artists", value: artists.map((a) => a!.name).join(", ") },
+              { label: "Led by", value: collection.curator },
+              { label: "Discipline", value: collection.period },
+              { label: "Case studies", value: `${works.length}` },
+              { label: "Specialists", value: artists.map((a) => a!.name).join(", ") },
             ]}
           />
         </div>
@@ -90,7 +90,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
       <section className="container-editorial py-24 md:py-32">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-3">
-            <Kicker>Curatorial statement</Kicker>
+            <Kicker>How we deliver it</Kicker>
           </div>
           <div className="md:col-span-8 md:col-start-4">
             {collection.statement.map((p, i) => (
@@ -113,14 +113,14 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
 
       {timeline.length ? (
         <section className="container-editorial pb-24 md:pb-32">
-          <SectionDivider label="Timeline" className="mb-10" />
+          <SectionDivider label="Our process" className="mb-10" />
           <Timeline entries={timeline} />
         </section>
       ) : null}
 
       {artists.length ? (
         <section className="container-editorial pb-24 md:pb-32">
-          <SectionDivider label="Featured artists" className="mb-12" />
+          <SectionDivider label="The team behind it" className="mb-12" />
           <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-4">
             {artists.map((a, i) => (
               <ArtistCard key={a!.id} artist={a!} index={i} />
@@ -131,21 +131,21 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
 
       <section className="pb-20 md:pb-28">
         <div className="container-editorial">
-          <SectionDivider label={`In this collection · ${works.length} works`} className="mb-12" />
+          <SectionDivider label={`Work in this service · ${works.length}`} className="mb-12" />
         </div>
         <HorizontalGallery artworks={works} />
       </section>
 
       <section className="py-16 md:py-24">
         <div className="container-editorial">
-          <SectionDivider label="Selected works, in detail" className="mb-16" />
+          <SectionDivider label="Selected projects, in detail" className="mb-16" />
         </div>
         <EditorialGallery artworks={works.slice(0, 3)} />
       </section>
 
       {stories.length ? (
         <section className="container-editorial py-24 md:py-28">
-          <SectionDivider label="Related stories" className="mb-12" />
+          <SectionDivider label="Related insights" className="mb-12" />
           <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {stories.map((s, i) => (
               <StoryCard key={s.id} story={s} index={i} />
@@ -157,7 +157,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
       <section className="container-editorial py-16">
         <div className="grid gap-8 md:grid-cols-12">
           <div className="md:col-span-3">
-            <Kicker>Credits</Kicker>
+            <Kicker>Who you work with</Kicker>
           </div>
           <dl className="md:col-span-8 md:col-start-4">
             {collection.credits.map((c) => (
@@ -168,15 +168,15 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
             ))}
           </dl>
         </div>
-        <Link href="/collections" className="link-underline mt-12 inline-block text-ink">← All collections</Link>
+        <Link href="/collections" className="link-underline mt-12 inline-block text-ink">← All services</Link>
       </section>
 
       <NextLink
-        eyebrow="Next collection"
+        eyebrow="Next service"
         title={next.title}
         href={`/collections/${next.slug}`}
         palette={next.palette}
-        meta={`${next.period} · ${next.artworkIds.length} works`}
+        meta={`${next.period} · ${next.artworkIds.length} case studies`}
       />
     </article>
   );

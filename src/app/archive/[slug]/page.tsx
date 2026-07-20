@@ -24,7 +24,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const artwork = getArtworkBySlug(params.slug);
-  if (!artwork) return { title: "Artwork not found" };
+  if (!artwork) return { title: "Project not found" };
   const artist = getArtistById(artwork.artistId);
   return {
     title: `${artwork.title} — ${artist?.name ?? "Unknown"}`,
@@ -47,7 +47,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
     <article>
       <header className="container-editorial pb-10 pt-[calc(var(--header-h)+3rem)] md:pt-[calc(var(--header-h)+4.5rem)]">
         <nav aria-label="Breadcrumb" className="label flex flex-wrap items-center gap-2">
-          <Link href="/archive" className="hover:text-ink">Archive</Link>
+          <Link href="/archive" className="hover:text-ink">Portfolio</Link>
           <span aria-hidden>/</span>
           {collection ? (
             <Link href={`/collections/${collection.slug}`} className="hover:text-ink">{collection.title}</Link>
@@ -84,12 +84,12 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
 
       <div className="container-editorial grid gap-12 py-20 md:grid-cols-12 md:py-28">
         <div className="md:col-span-7">
-          <Kicker>About this work</Kicker>
+          <Kicker>About this project</Kicker>
           <Reveal as="p" className="mt-6 max-w-2xl font-display text-2xl leading-snug text-ink md:text-[1.7rem]">
             {artwork.description}
           </Reveal>
 
-          <h2 className="mt-14 font-display text-xl text-ink">Historical context</h2>
+          <h2 className="mt-14 font-display text-xl text-ink">How we solved it</h2>
           <Reveal as="p" delay={80} className="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">
             {artwork.historicalContext}
           </Reveal>
@@ -105,7 +105,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
           <MetaList
             items={[
               {
-                label: "Artist",
+                label: "Delivered by",
                 value: artist ? (
                   <Link href={`/artists/${artist.slug}`} className="link-underline">{artist.name}</Link>
                 ) : (
@@ -113,27 +113,27 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
                 ),
               },
               { label: "Year", value: artwork.year },
-              { label: "Medium", value: artwork.medium },
-              { label: "Dimensions", value: artwork.dimensions },
+              { label: "Stack", value: artwork.medium },
+              { label: "Scope", value: artwork.dimensions },
               {
-                label: "Collection",
+                label: "Service",
                 value: collection ? (
                   <Link href={`/collections/${collection.slug}`} className="link-underline">{collection.title}</Link>
                 ) : (
                   "—"
                 ),
               },
-              { label: "Location", value: artwork.location },
-              { label: "Period", value: artwork.period },
+              { label: "Industry", value: artwork.location },
+              { label: "Engagement", value: artwork.period },
             ]}
           />
         </aside>
       </div>
 
-      <RelatedArtworks artworks={related} title="Related works" />
+      <RelatedArtworks artworks={related} title="Related projects" />
 
       <NextLink
-        eyebrow="Next work"
+        eyebrow="Next project"
         title={next.title}
         href={`/archive/${next.slug}`}
         palette={next.palette}
