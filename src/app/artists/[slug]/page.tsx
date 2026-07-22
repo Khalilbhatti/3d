@@ -7,7 +7,7 @@ import {
   getArtworksByArtist,
   getCollectionById,
 } from "@/content/index";
-import { PlaceholderArt } from "@/components/media/PlaceholderArt";
+import { ArtistPortrait } from "@/components/artists/ArtistPortrait";
 import { HorizontalGallery } from "@/components/gallery/HorizontalGallery";
 import { RelatedArtworks } from "@/components/gallery/RelatedArtworks";
 import { MetaList } from "@/components/ui/MetaList";
@@ -57,7 +57,7 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
         <div className="md:col-span-4 md:col-start-9">
           <Reveal variant="mask">
             <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 5" }}>
-              <PlaceholderArt seed={artist.seed} palette={artist.palette} motif="portrait" />
+              <ArtistPortrait artist={artist} sizes="(max-width: 768px) 100vw, 33vw" priority />
             </div>
           </Reveal>
           <p className="label mt-3">{artist.origin}</p>
