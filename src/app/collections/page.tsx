@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { HorizontalCollections } from "@/components/collections/HorizontalCollections";
 
 export const metadata: Metadata = {
-  title: "Collections",
+  title: "Services",
   description:
     "Web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — the six disciplines GitzTech delivers.",
 };

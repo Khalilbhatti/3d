@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ArchiveGrid } from "@/components/gallery/ArchiveGrid";
 
 export const metadata: Metadata = {
-  title: "Archive",
+  title: "Portfolio",
   description:
     "Our portfolio of end-to-end builds — websites, apps, e-commerce, branding and CRM automation delivered by GitzTech.",
 };
