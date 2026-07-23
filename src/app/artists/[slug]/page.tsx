@@ -85,18 +85,20 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
               { label: "Availability", value: artist.activePeriod },
               { label: "Based in", value: artist.origin },
               { label: "Core skills", value: artist.mediums.join(", ") },
-              { label: "Projects shown", value: `${works.length}` },
-              {
-                label: "Services",
-                value: collections.length
-                  ? collections.map((c, i) => (
-                      <span key={c!.id}>
-                        <Link href={`/collections/${c!.slug}`} className="link-underline">{c!.title}</Link>
-                        {i < collections.length - 1 ? ", " : ""}
-                      </span>
-                    ))
-                  : "—",
-              },
+              ...(works.length ? [{ label: "Projects shown", value: `${works.length}` }] : []),
+              ...(collections.length
+                ? [
+                    {
+                      label: "Services",
+                      value: collections.map((c, i) => (
+                        <span key={c!.id}>
+                          <Link href={`/collections/${c!.slug}`} className="link-underline">{c!.title}</Link>
+                          {i < collections.length - 1 ? ", " : ""}
+                        </span>
+                      )),
+                    },
+                  ]
+                : []),
             ]}
           />
         </aside>

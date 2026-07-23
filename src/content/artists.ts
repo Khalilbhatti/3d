@@ -15,6 +15,94 @@ import type { Artist } from "./types";
  */
 export const artists: Artist[] = [
   {
+    id: "lead-developer",
+    slug: "lead-developer",
+    name: "Lead Developer",
+    role: "Sets the technical direction",
+    lifespan: "4+ years · architecture & code quality",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Leads every build",
+    mediums: ["System Architecture", "Code Review", "Next.js", "APIs", "Performance"],
+    summary:
+      "Owns the technical direction of every project — the architecture, the code standard, and the calls that keep a build fast and maintainable.",
+    bio: [
+      "Every project's architecture crosses this desk first: the data model, the integrations, and the performance budget the product has to hit before a line of code is written.",
+      "Sets and enforces the code standard through review, so what ships is documented, tested, and something the next engineer can pick up without a handover.",
+      "Stays hands-on — the hardest parts of a build are where the lead is, not in a meeting about them.",
+    ],
+    statement:
+      "The job of a lead isn't to write the most code. It's to make sure the code that ships is code we'd sign our name to.",
+    seed: "lead-developer-01",
+    palette: { from: "#5B6EE8", via: "#2E3A8C", to: "#0D1230", ink: 0.18 },
+    relatedArtworkIds: ["prj-food"],
+  },
+  {
+    id: "team-lead",
+    slug: "team-lead",
+    name: "Team Lead",
+    role: "Keeps delivery on track",
+    lifespan: "4+ years · coordination & delivery",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Runs day-to-day delivery",
+    mediums: ["Sprint Planning", "Client Communication", "Estimation", "QA Coordination", "Delivery"],
+    summary:
+      "Runs the day-to-day: turns scope into a plan, keeps the team unblocked, and makes sure what was promised is what gets delivered — on time.",
+    bio: [
+      "Translates a signed scope into a working plan — milestones, owners and realistic dates — then keeps the team moving against it.",
+      "Sits between you and the build: one point of contact who knows exactly what stage the project is at and what's needed to keep it moving.",
+      "When something slips, you hear it early with a recovery plan, not a surprise at the deadline.",
+    ],
+    statement:
+      "A deadline nobody flagged as at-risk isn't a deadline — it's a surprise waiting to happen.",
+    seed: "team-lead-02",
+    palette: { from: "#2E7BE8", via: "#1A4A9C", to: "#08172E", ink: 0.18 },
+    relatedArtworkIds: ["prj-ngo"],
+  },
+  {
+    id: "dev-department-head",
+    slug: "development-department-head",
+    name: "Development Department Head",
+    role: "Runs engineering, end to end",
+    lifespan: "4+ years · engineering leadership",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Heads the development department",
+    mediums: ["Engineering Strategy", "Hiring & Mentoring", "Tech Standards", "Delivery", "Architecture"],
+    summary:
+      "Heads the whole development department — the standards, the stack decisions, and the people — so every team ships to the same bar.",
+    bio: [
+      "Owns how the department builds: the stack it standardises on, the review culture, and the practices that keep quality consistent across every team.",
+      "Makes the build-versus-buy and technology calls that outlast any single project, and keeps the team's skills current as the tooling moves.",
+      "Accountable for delivery across the department — not just that projects ship, but that they ship maintainable.",
+    ],
+    statement:
+      "You can't inspect quality in at the end. You build the department that produces it by default.",
+    seed: "dev-department-head-03",
+    palette: { from: "#2FA6BF", via: "#145E70", to: "#05212A", ink: 0.16 },
+    relatedArtworkIds: ["prj-food", "prj-beauty"],
+  },
+  {
+    id: "automation-crm-head",
+    slug: "automation-crm-department-head",
+    name: "Automation & CRM Department Head",
+    role: "Heads automation & CRM",
+    lifespan: "4+ years · funnels, pipelines & AI",
+    origin: "GHS Lahore, Pakistan",
+    activePeriod: "Heads the automation & CRM department",
+    mediums: ["GoHighLevel", "Marketing Automation", "CRM Architecture", "WhatsApp API", "Integrations"],
+    summary:
+      "Leads the automation and CRM department — the funnels, pipelines and integrations that turn a lead into a booked, followed-up, closed customer.",
+    bio: [
+      "Owns how clients' sales and marketing operations get automated: CRM structure, pipeline design, and the nurture sequences that work every lead the moment it lands.",
+      "Sets the department's playbooks for GoHighLevel, WhatsApp API and third-party integrations, so what's built for one client is repeatable for the next.",
+      "Measures the department on outcomes clients feel — faster follow-up, higher conversion, fewer leads going cold.",
+    ],
+    statement:
+      "Most businesses don't have a lead problem. They have a follow-up problem — and that's an automation problem we can fix.",
+    seed: "automation-crm-head-04",
+    palette: { from: "#4AA0E8", via: "#235C9C", to: "#071A2E", ink: 0.18 },
+    relatedArtworkIds: ["prj-wholesale"],
+  },
+  {
     id: "team-fullstack",
     slug: "full-stack-developers",
     name: "Full-Stack Developers",
