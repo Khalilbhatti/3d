@@ -27,7 +27,7 @@ export const collections: Collection[] = [
     seed: "svc-web-01",
     palette: { from: "#3E6BE8", via: "#24408F", to: "#0E1633", ink: 0.18 },
     featuredArtistIds: ["team-fullstack", "team-qa"],
-    artworkIds: ["prj-food"],
+    artworkIds: ["prj-mindway", "prj-food"],
     relatedStoryIds: ["story-web-performance"],
     timelineIds: ["tl-ideas", "tl-design", "tl-final"],
     credits: [

@@ -12,10 +12,23 @@ export type GalleryLayout = "cylinder" | "sphere";
 const FORWARD = new THREE.Vector3(0, 0, 1);
 const BASE_BG = new THREE.Color("#07070B");
 const FOCUS_BG = new THREE.Color("#050406");
+const BG_CANVAS_W = 640;
+const BG_CANVAS_H = 360;
+const BG_SLIDE_HOLD = 2.8; // seconds each slide holds before advancing
 
 // Reused scratch objects (avoid per-frame allocations).
 const _pos = new THREE.Vector3();
 const _quat = new THREE.Quaternion();
+
+type BackdropSource = HTMLImageElement | HTMLCanvasElement;
+
+function isSourceReady(src: BackdropSource): boolean {
+  return src instanceof HTMLImageElement ? src.complete && src.naturalWidth > 0 : true;
+}
+
+function sourceSize(src: BackdropSource): [number, number] {
+  return src instanceof HTMLImageElement ? [src.naturalWidth, src.naturalHeight] : [src.width, src.height];
+}
 
 interface Transform {
   pos: THREE.Vector3;
@@ -89,11 +102,58 @@ export function FloatingGallery({
   const count = artworks.length;
   const textures = useMemo(
     () =>
-      artworks.map((a) =>
-        makeArtTexture(a.seed, a.palette, a.medium.toLowerCase().includes("vellum") ? "manuscript" : "field")
-      ),
+      artworks.map((a) => {
+        // Real project imagery: start with a solid palette tile (no black flash),
+        // then swap in the loaded photo. Falls back to the generated art otherwise.
+        if (a.image) {
+          const [pw, ph] = planeSize(a.orientation);
+          const planeAspect = pw / ph;
+          const tex = new THREE.TextureLoader().load(a.image, (loaded) => {
+            const src = loaded.image as HTMLImageElement;
+            // Emulate CSS object-fit: cover via UV crop, so a real photo isn't
+            // stretched to the plane's (orientation-derived) aspect ratio.
+            const imgAspect = src.width / src.height;
+            if (imgAspect > planeAspect) {
+              const s = planeAspect / imgAspect;
+              loaded.repeat.set(s, 1);
+              loaded.offset.set((1 - s) / 2, 0);
+            } else {
+              const s = imgAspect / planeAspect;
+              loaded.repeat.set(1, s);
+              loaded.offset.set(0, (1 - s) / 2);
+            }
+            loaded.needsUpdate = true;
+          });
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.generateMipmaps = false;
+          tex.minFilter = THREE.LinearFilter;
+          tex.magFilter = THREE.LinearFilter;
+          return tex;
+        }
+        return makeArtTexture(a.seed, a.palette, a.medium.toLowerCase().includes("vellum") ? "manuscript" : "field");
+      }),
     [artworks]
   );
+  // What each hovered card shows as the full-bleed hero backdrop: the project's
+  // own extra images when it has any (cycled as a slider), otherwise the same
+  // texture already on the card (a real photo, or the generated art canvas) —
+  // every project always has *something* to show, never a blank hover.
+  const backdropSources = useMemo(
+    () =>
+      artworks.map((a, i): BackdropSource[] => {
+        if (a.images && a.images.length) {
+          return a.images.map((src) => {
+            const img = new window.Image();
+            img.src = src;
+            return img;
+          });
+        }
+        const img = textures[i].image as BackdropSource | undefined;
+        return img ? [img] : [];
+      }),
+    [artworks, textures]
+  );
+
   const sizes = useMemo(() => artworks.map((a) => planeSize(a.orientation)), [artworks]);
   const phases = useMemo(() => artworks.map((_, i) => (i * 1.61803) % (Math.PI * 2)), [artworks]);
 
@@ -104,6 +164,26 @@ export function FloatingGallery({
   const targetQuat = useMemo(() => artworks.map(() => new THREE.Quaternion()), [artworks]);
   const inited = useRef(false);
   const bgTarget = useRef(new THREE.Color());
+  const displayedBg = useRef(BASE_BG.clone());
+
+  // Hover backdrop: a small canvas, redrawn each frame, used as `scene.background`
+  // for its whole lifetime — the flat colour wash and the cross-faded photo are
+  // both just paint on the same canvas, so there is never a Color↔Texture pop.
+  const bgCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const bgTextureRef = useRef<THREE.CanvasTexture | null>(null);
+  if (!bgCanvasRef.current) {
+    const c = document.createElement("canvas");
+    c.width = BG_CANVAS_W;
+    c.height = BG_CANVAS_H;
+    bgCanvasRef.current = c;
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    bgTextureRef.current = tex;
+  }
+  const bgImageFade = useRef(0);
+  const lastHovered = useRef(-1);
+  const bgSlideIndex = useRef(0);
+  const bgSlideElapsed = useRef(0);
 
   // Focus morph state.
   const progress = useRef({ v: 0 });
@@ -127,6 +207,10 @@ export function FloatingGallery({
     const list = textures;
     return () => list.forEach((t) => t.dispose());
   }, [textures]);
+
+  useEffect(() => {
+    return () => bgTextureRef.current?.dispose();
+  }, []);
 
   const setOnTop = (i: number, on: boolean) => {
     const g = groups.current[i];
@@ -212,7 +296,7 @@ export function FloatingGallery({
     };
   }, []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
     const p = progress.current.v;
     const af = activeFocus.current;
@@ -256,7 +340,7 @@ export function FloatingGallery({
       }
     }
 
-    if (!(scene.background instanceof THREE.Color)) scene.background = BASE_BG.clone();
+    if (scene.background !== bgTextureRef.current) scene.background = bgTextureRef.current;
     if (!scene.fog) scene.fog = new THREE.Fog(BASE_BG.getHex(), 13, 30);
     if (focusing) {
       bgTarget.current.copy(BASE_BG).lerp(FOCUS_BG, p);
@@ -269,8 +353,64 @@ export function FloatingGallery({
         );
       }
     }
-    (scene.background as THREE.Color).lerp(bgTarget.current, 0.08);
-    (scene.fog as THREE.Fog).color.copy(scene.background as THREE.Color);
+    displayedBg.current.lerp(bgTarget.current, 0.08);
+    (scene.fog as THREE.Fog).color.copy(displayedBg.current);
+
+    // Hover backdrop: which card's images to show, and slider bookkeeping.
+    if (hovered !== lastHovered.current) {
+      lastHovered.current = hovered;
+      bgSlideIndex.current = 0;
+      bgSlideElapsed.current = 0;
+      bgImageFade.current *= 0.3; // brief dip so switching cards reads as a crossfade
+    }
+    const sources = !focusing && hovered >= 0 ? backdropSources[hovered] : null;
+    if (sources && sources.length > 1) {
+      bgSlideElapsed.current += delta;
+      if (bgSlideElapsed.current > BG_SLIDE_HOLD) {
+        bgSlideElapsed.current = 0;
+        bgSlideIndex.current = (bgSlideIndex.current + 1) % sources.length;
+      }
+    }
+    bgImageFade.current += ((sources && sources.length ? 1 : 0) - bgImageFade.current) * 0.09;
+
+    const bgCanvas = bgCanvasRef.current;
+    const bgCtx = bgCanvas?.getContext("2d");
+    if (bgCanvas && bgCtx) {
+      const cw = bgCanvas.width;
+      const ch = bgCanvas.height;
+      bgCtx.globalAlpha = 1;
+      bgCtx.fillStyle = `#${displayedBg.current.getHexString()}`;
+      bgCtx.fillRect(0, 0, cw, ch);
+
+      const activeSrc = sources && sources[bgSlideIndex.current % sources.length];
+      if (bgImageFade.current > 0.01 && activeSrc && isSourceReady(activeSrc)) {
+        const [sw, sh] = sourceSize(activeSrc);
+        const srcAspect = sw / sh;
+        const dstAspect = cw / ch;
+        let dw = cw;
+        let dh = ch;
+        let dx = 0;
+        let dy = 0;
+        if (srcAspect > dstAspect) {
+          dh = ch;
+          dw = ch * srcAspect;
+          dx = (cw - dw) / 2;
+        } else {
+          dw = cw;
+          dh = cw / srcAspect;
+          dy = (ch - dh) / 2;
+        }
+        bgCtx.globalAlpha = bgImageFade.current * 0.85;
+        bgCtx.drawImage(activeSrc, dx, dy, dw, dh);
+        // Strong dark scrim — foreground text must stay legible no matter how
+        // bright the hovered project's own photo is.
+        bgCtx.globalAlpha = 0.78 * bgImageFade.current;
+        bgCtx.fillStyle = "#050406";
+        bgCtx.fillRect(0, 0, cw, ch);
+        bgCtx.globalAlpha = 1;
+      }
+      bgTextureRef.current!.needsUpdate = true;
+    }
   });
 
   function enter(i: number) {

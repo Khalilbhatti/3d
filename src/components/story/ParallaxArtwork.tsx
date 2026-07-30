@@ -25,6 +25,7 @@ export function ParallaxArtwork({
   motif = "field",
   priority = false,
   amount = 10,
+  fit = "cover",
 }: {
   artwork: Artwork;
   className?: string;
@@ -33,6 +34,10 @@ export function ParallaxArtwork({
   motif?: "field" | "portrait" | "manuscript";
   priority?: boolean;
   amount?: number;
+  /** "contain" shows the whole image, unclipped — for real imagery (e.g. a
+   *  marketing screenshot) where the default oversized parallax crop would
+   *  cut off content near the edges. Default "cover" is unchanged. */
+  fit?: "cover" | "contain";
 }) {
   const frame = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
@@ -41,7 +46,7 @@ export function ParallaxArtwork({
   const ratio = aspect ?? ASPECT[artwork.orientation];
 
   useIsomorphicLayoutEffect(() => {
-    if (reduced || !frame.current || !inner.current) return;
+    if (fit === "contain" || reduced || !frame.current || !inner.current) return;
     const travel = isMobile ? amount * 0.45 : amount;
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -63,7 +68,7 @@ export function ParallaxArtwork({
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [reduced, isMobile, amount]);
+  }, [reduced, isMobile, amount, fit]);
 
   return (
     <div
@@ -71,7 +76,7 @@ export function ParallaxArtwork({
       className={cn("relative overflow-hidden bg-paper-deep", className)}
       style={{ aspectRatio: ratio }}
     >
-      <div ref={inner} className="absolute inset-[-10%]">
+      <div ref={inner} className={fit === "contain" ? "absolute inset-0" : "absolute inset-[-10%]"}>
         {artwork.image ? (
           <Image
             src={artwork.image}
@@ -81,7 +86,7 @@ export function ParallaxArtwork({
             priority={priority}
             placeholder={artwork.blurDataURL ? "blur" : "empty"}
             blurDataURL={artwork.blurDataURL}
-            className="object-cover"
+            className={fit === "contain" ? "object-contain" : "object-cover"}
           />
         ) : (
           <PlaceholderArt seed={artwork.seed} palette={artwork.palette} motif={motif} />

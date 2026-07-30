@@ -48,6 +48,24 @@ export interface Artwork {
   thumbnail?: string;
   /** Blur-up data URL for next/image (optional). */
   blurDataURL?: string;
+  /** Optional external links surfaced on the project detail page. */
+  liveUrl?: string;
+  appUrl?: string;
+  /**
+   * Optional hero override for real (non-generated) imagery whose important
+   * content sits close to the edges — e.g. a marketing screenshot — where the
+   * default orientation-derived aspect ratio + parallax oversize-crop would
+   * cut it off. Falls back to standard cover/orientation behaviour when unset.
+   */
+  imageAspect?: string;
+  imageFit?: "cover" | "contain";
+  /**
+   * Additional real images for the home hero's hover backdrop. When a card is
+   * hovered, its image(s) show full-bleed behind the scene; more than one
+   * cycles as a slider. Falls back to the card's own texture (generated art,
+   * or `image` alone) when unset — every project always has a backdrop.
+   */
+  images?: string[];
   /** Required, detailed alt-text for screen readers. */
   alt: string;
   /** References other Artwork.id */

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -42,6 +43,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
   const related = getRelatedArtworks(artwork);
   const next = getNextArtwork(artwork.id);
   const viewerIds = [artwork.id, ...related.map((r) => r.id)];
+  const gallery = (artwork.images ?? []).filter((src) => src !== artwork.image);
 
   return (
     <article>
@@ -72,7 +74,11 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
         <Reveal variant="mask">
           <ParallaxArtwork
             artwork={artwork}
-            aspect={artwork.orientation === "portrait" ? "4 / 5" : artwork.orientation === "square" ? "1 / 1" : "3 / 2"}
+            aspect={
+              artwork.imageAspect ??
+              (artwork.orientation === "portrait" ? "4 / 5" : artwork.orientation === "square" ? "1 / 1" : "3 / 2")
+            }
+            fit={artwork.imageFit}
             sizes="(max-width: 1680px) 100vw, 1680px"
             priority
             amount={6}
@@ -127,8 +133,58 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
               { label: "Engagement", value: artwork.period },
             ]}
           />
+          {artwork.liveUrl || artwork.appUrl ? (
+            <div className="mt-8 flex flex-col gap-3">
+              {artwork.liveUrl ? (
+                <a
+                  href={artwork.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center justify-between gap-3 border border-line/25 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-accent hover:text-accent"
+                >
+                  Visit website
+                  <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                </a>
+              ) : null}
+              {artwork.appUrl ? (
+                <a
+                  href={artwork.appUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center justify-between gap-3 border border-line/25 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-accent hover:text-accent"
+                >
+                  Get the app
+                  <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                </a>
+              ) : null}
+            </div>
+          ) : null}
         </aside>
       </div>
+
+      {gallery.length ? (
+        <section className="container-editorial pb-20 md:pb-28">
+          <Kicker>More from this project</Kicker>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {gallery.map((src, i) => (
+              <Reveal key={src} delay={i * 80}>
+                <div
+                  className="group relative overflow-hidden bg-paper-deep"
+                  style={{ aspectRatio: "4 / 3" }}
+                >
+                  <Image
+                    src={src}
+                    alt={`${artwork.title} — additional screen ${i + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <RelatedArtworks artworks={related} title="Related projects" />
 

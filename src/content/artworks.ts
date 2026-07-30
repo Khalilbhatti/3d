@@ -18,6 +18,40 @@ import type { Artwork } from "./types";
 
 export const artworks: Artwork[] = [
   {
+    id: "prj-mindway",
+    slug: "mindway-eap",
+    title: "Mindway EAP",
+    artistId: "team-fullstack",
+    year: "2025",
+    medium: "React, React Native, Node.js, Cloud",
+    dimensions: "Web platform · iOS & Android apps · admin dashboard",
+    location: "Employee Wellness · Australia",
+    collectionId: "svc-web",
+    period: "Platform Build",
+    description:
+      "A modern digital Employee Assistance Program for an Australian provider — confidential counselling, a personalised wellbeing app, mindfulness and sleep programs, and leadership training, unified across web and native mobile.",
+    historicalContext:
+      "Traditional EAPs suffer from low engagement, long waits and dated access, so the support goes unused. We built Mindway as one platform: on-demand booking with Australian counsellors, a React Native app for Android and iOS, wellbeing and mindfulness content, an employer admin dashboard, and secure authentication — so help is easy to reach and people actually use it.",
+    orientation: "landscape",
+    seed: "prj-mindway-07",
+    palette: { from: "#6C9BF0", via: "#2E4F9C", to: "#0B1630", ink: 0.16 },
+    image: "/portfolio/mindway.png",
+    imageAspect: "4 / 3",
+    imageFit: "contain",
+    images: [
+      "/portfolio/mindway.png",
+      "/portfolio/mindway-services.png",
+      "/portfolio/mindway-industries.png",
+      "/portfolio/mindway-about.png",
+      "/portfolio/mindway-pricing.png",
+    ],
+    alt: "Mindway EAP — an Australian Employee Assistance Program platform by GitzTech, spanning a web experience and native iOS and Android apps for confidential counselling and workplace wellbeing.",
+    liveUrl: "https://mindwayeap.com.au/",
+    appUrl: "https://play.google.com/store/apps/details?id=com.appmindway.mindway&hl=en",
+    relatedArtworkIds: ["prj-food", "prj-ngo"],
+    featured: true,
+  },
+  {
     id: "prj-beauty",
     slug: "beauty-salon",
     title: "Beauty Salon",
