@@ -168,13 +168,13 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
             ))}
           </dl>
         </div>
-        <Link href="/collections" className="link-underline mt-12 inline-block text-ink">← All services</Link>
+        <Link href="/services" className="link-underline mt-12 inline-block text-ink">← All services</Link>
       </section>
 
       <NextLink
         eyebrow="Next service"
         title={next.title}
-        href={`/collections/${next.slug}`}
+        href={`/services/${next.slug}`}
         palette={next.palette}
         meta={`${next.period} · ${next.artworkIds.length} case studies`}
       />

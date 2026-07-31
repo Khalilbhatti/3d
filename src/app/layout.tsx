@@ -71,8 +71,12 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: palette.paper,
-  colorScheme: "dark",
+  colorScheme: "dark light",
 };
+
+/** Reads the persisted theme choice and stamps it onto <html> before first
+ *  paint, so switching to light never flashes the dark theme first. */
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.dataset.theme="light";}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -85,6 +89,14 @@ export default function RootLayout({
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          // Reads localStorage before paint — no dark-theme flash when the
+          // visitor has chosen light. themeInitScript is a fixed, in-repo
+          // string literal, not user input.
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+      </head>
       <body className="grain min-h-screen bg-paper font-sans text-ink-soft antialiased">
         <ThemeStyle />
         <GlobalFluidBackground />

@@ -35,7 +35,7 @@ export default function NotFound() {
                 Return home →
               </Link>
             </MagneticButton>
-            <Link href="/archive" className="link-underline self-center text-ink">
+            <Link href="/portfolio" className="link-underline self-center text-ink">
               Search the archive
             </Link>
           </div>

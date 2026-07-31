@@ -19,7 +19,7 @@ export function ArtistCard({
   const count = getArtworksByArtist(artist.id).length;
   return (
     <MReveal variant="blur" delay={(index % 3) * 0.09} className={cn("group", className)}>
-      <Link href={`/artists/${artist.slug}`} className="block">
+      <Link href={`/team/${artist.slug}`} className="block">
         <TiltCard className="relative overflow-hidden" style={{ aspectRatio: "4 / 5" }}>
           <div className="h-full w-full transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.03]">
             <ArtistPortrait artist={artist} />

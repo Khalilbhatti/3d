@@ -11,6 +11,21 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   transpilePackages: ["three"],
+  // The portfolio/services/team/insights routes were previously named
+  // archive/collections/artists/journal. Permanently redirect the old paths
+  // so any indexed or bookmarked links keep working.
+  async redirects() {
+    return [
+      { source: "/archive", destination: "/portfolio", permanent: true },
+      { source: "/archive/:slug", destination: "/portfolio/:slug", permanent: true },
+      { source: "/collections", destination: "/services", permanent: true },
+      { source: "/collections/:slug", destination: "/services/:slug", permanent: true },
+      { source: "/artists", destination: "/team", permanent: true },
+      { source: "/artists/:slug", destination: "/team/:slug", permanent: true },
+      { source: "/journal", destination: "/insights", permanent: true },
+      { source: "/journal/:slug", destination: "/insights/:slug", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

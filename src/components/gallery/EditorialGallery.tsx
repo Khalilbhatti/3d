@@ -67,7 +67,7 @@ export function EditorialGallery({
                 </p>
                 <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
                   <Link
-                    href={`/archive/${artwork.slug}`}
+                    href={`/portfolio/${artwork.slug}`}
                     className="link-underline text-sm font-medium text-ink"
                   >
                     View full record &rarr;

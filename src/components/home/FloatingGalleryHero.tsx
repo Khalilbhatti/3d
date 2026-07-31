@@ -280,7 +280,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
                 </div>
                 <div className="flex items-center gap-5">
                   <Link
-                    href={`/archive/${focusWork.slug}`}
+                    href={`/portfolio/${focusWork.slug}`}
                     className="pointer-events-auto link-underline text-sm text-ink"
                   >
                     View project →

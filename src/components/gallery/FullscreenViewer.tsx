@@ -276,7 +276,7 @@ export function FullscreenViewer() {
                   <p className="label mt-1 text-ink/45">{artwork.location}</p>
                 </div>
                 <Link
-                  href={`/archive/${artwork.slug}`}
+                  href={`/portfolio/${artwork.slug}`}
                   onClick={closeViewer}
                   className="link-underline shrink-0 text-sm text-ink"
                 >

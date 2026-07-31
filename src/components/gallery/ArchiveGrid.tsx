@@ -228,26 +228,53 @@ function ArchiveItem({
 }) {
   return (
     <div className="group relative animate-fade-up" style={{ animationDelay: `${(index % 12) * 45}ms` }}>
-      <Link href={`/archive/${artwork.slug}`} className="block">
-        <div className="relative overflow-hidden">
-          <div className="transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.03]">
-            <ArtworkImage
-              artwork={artwork}
-              sizes="(max-width: 768px) 45vw, (max-width: 1024px) 30vw, 22vw"
-              motif={artwork.medium.toLowerCase().includes("vellum") ? "manuscript" : "field"}
-            />
+      <div className="relative overflow-hidden">
+        <Link
+          href={`/portfolio/${artwork.slug}`}
+          className="absolute inset-0 z-[1] focus-visible:outline-none"
+          aria-label={`${artwork.title} — view detail`}
+        />
+        <div className="transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.03]">
+          <ArtworkImage
+            artwork={artwork}
+            aspect="3 / 2"
+            sizes="(max-width: 768px) 45vw, (max-width: 1024px) 30vw, 22vw"
+            motif={artwork.medium.toLowerCase().includes("vellum") ? "manuscript" : "field"}
+          />
+        </div>
+
+        {/* Hover quick actions — sit above the invisible card-link via z-index,
+            so clicking a specific action navigates there instead. Scrim stays
+            light enough that darker project screenshots don't just vanish. */}
+        <div className="pointer-events-none absolute inset-0 z-[3] flex flex-col justify-end bg-gradient-to-t from-paper/80 via-paper/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <div className="flex flex-wrap gap-2 p-3.5">
+            <Link
+              href={`/portfolio/${artwork.slug}`}
+              className="pointer-events-auto relative z-[4] inline-flex items-center gap-1.5 bg-ink px-3 py-2 font-mono text-[0.62rem] uppercase tracking-label text-paper transition-colors hover:bg-accent"
+            >
+              View project
+            </Link>
+            <Link
+              href="/contact"
+              className="pointer-events-auto relative z-[4] inline-flex items-center gap-1.5 border border-paper/50 px-3 py-2 font-mono text-[0.62rem] uppercase tracking-label text-paper transition-colors hover:border-accent hover:text-accent"
+            >
+              Get a quote
+            </Link>
           </div>
         </div>
-        <ArtworkCaption artwork={artwork} className="mt-4" size="sm" />
+
+        <button
+          type="button"
+          onClick={onQuickView}
+          aria-label={`Quick view ${artwork.title}`}
+          className="absolute left-3 top-3 z-[4] border border-ink/40 bg-paper/40 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-label text-ink opacity-0 backdrop-blur-sm transition-opacity duration-300 hover:bg-paper/70 focus-visible:opacity-100 group-hover:opacity-100"
+        >
+          Zoom ⤢
+        </button>
+      </div>
+      <Link href={`/portfolio/${artwork.slug}`} className="mt-4 block focus-visible:outline-none">
+        <ArtworkCaption artwork={artwork} size="sm" />
       </Link>
-      <button
-        type="button"
-        onClick={onQuickView}
-        aria-label={`Quick view ${artwork.title}`}
-        className="absolute left-3 top-3 border border-ink/40 bg-paper/40 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-label text-ink opacity-0 backdrop-blur-sm transition-opacity duration-300 hover:bg-paper/70 focus-visible:opacity-100 group-hover:opacity-100"
-      >
-        Zoom ⤢
-      </button>
     </div>
   );
 }

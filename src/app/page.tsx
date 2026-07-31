@@ -4,7 +4,7 @@ import { brand } from "@/config/theme";
 /**
  * Home — the immersive, scroll-driven story. The entire narrative system lives
  * in <HomeStory> (floating gallery → chapters → explore CTA). A small JSON-LD
- * block describes the archive for search engines.
+ * block describes the organisation for search engines.
  */
 export default function HomePage() {
   const jsonLd = {

@@ -92,7 +92,7 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
                       label: "Services",
                       value: collections.map((c, i) => (
                         <span key={c!.id}>
-                          <Link href={`/collections/${c!.slug}`} className="link-underline">{c!.title}</Link>
+                          <Link href={`/services/${c!.slug}`} className="link-underline">{c!.title}</Link>
                           {i < collections.length - 1 ? ", " : ""}
                         </span>
                       )),
@@ -116,7 +116,7 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
       <RelatedArtworks artworks={works} title="Projects they delivered" />
 
       <div className="container-editorial pb-24">
-        <Link href="/artists" className="link-underline text-ink">← Meet the whole team</Link>
+        <Link href="/team" className="link-underline text-ink">← Meet the whole team</Link>
       </div>
     </article>
   );

@@ -85,7 +85,7 @@ export default function StoryDetailPage({ params }: { params: { slug: string } }
       ) : null}
 
       <div className="container-editorial pb-24">
-        <Link href="/journal" className="link-underline text-ink">← All insights</Link>
+        <Link href="/insights" className="link-underline text-ink">← All insights</Link>
       </div>
     </article>
   );

@@ -20,7 +20,7 @@ export function ArtworkListRow({
   const artist = getArtistById(artwork.artistId);
   return (
     <Link
-      href={`/archive/${artwork.slug}`}
+      href={`/portfolio/${artwork.slug}`}
       style={{ animationDelay: `${(index % 14) * 35}ms` }}
       className={cn(
         "group grid grid-cols-[3.5rem_1fr_auto] items-center gap-4 border-t border-line/15 py-4 animate-fade-up md:grid-cols-[4.5rem_1.6fr_1fr_1fr_auto] md:gap-6",

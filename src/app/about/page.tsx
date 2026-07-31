@@ -98,8 +98,8 @@ export default function AboutPage() {
               We bring together developers, designers, marketers, and CRM specialists who share one mindset — turning ambitious ideas into reliable, results-driven digital products. From web and app development to GoHighLevel automation, we work as one connected unit, owning every detail from first concept to final launch.
             </Reveal>
             <Reveal delay={140} className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-              <Link href="/collections" className="link-underline text-ink">Explore our services →</Link>
-              <Link href="/archive" className="link-underline text-ink">See our portfolio →</Link>
+              <Link href="/services" className="link-underline text-ink">Explore our services →</Link>
+              <Link href="/portfolio" className="link-underline text-ink">See our portfolio →</Link>
             </Reveal>
           </div>
         </div>

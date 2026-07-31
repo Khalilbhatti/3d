@@ -4,9 +4,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAppStore } from "@/lib/store";
-import { brand } from "@/config/theme";
+import { brand, primaryNav } from "@/config/theme";
 import { chapters } from "@/content/chapters";
+import { ThemeToggle } from "@/components/providers/ThemeToggle";
 import { cn } from "@/lib/utils";
+
+/** Primary nav items shown inline in the desktop navbar (skip Home — the
+ *  logo already covers it — and Contact, which gets its own CTA button). */
+const desktopNav = primaryNav.filter((item) => item.href !== "/" && item.href !== "/contact");
 
 /**
  * Minimal fixed header. Transparent over the hero, gains a paper backdrop and
@@ -58,17 +63,32 @@ export function Header() {
       style={{ height: "var(--header-h)" }}
     >
       <div className="container-editorial flex h-full items-center justify-between gap-6">
-        <Link
-          href="/"
-          className={cn(
-            "font-display text-xl leading-none tracking-tight transition-colors",
-            menuOpen ? "text-ink" : "text-ink"
-          )}
-          aria-label={`${brand.full} — home`}
-        >
-          {brand.name}
-          <span className="text-accent">.</span>
-        </Link>
+        <div className="flex items-center gap-9">
+          <Link
+            href="/"
+            className="font-display text-xl leading-none tracking-tight text-ink transition-colors"
+            aria-label={`${brand.full} — home`}
+          >
+            {brand.name}
+            <span className="text-accent">.</span>
+          </Link>
+
+          {/* Full desktop navbar — collapses behind the hamburger below `lg`. */}
+          <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+            {desktopNav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "font-mono text-xs uppercase tracking-label link-underline transition-colors",
+                  menuOpen ? "text-ink" : "text-ink-soft hover:text-ink"
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
 
         <div className="pointer-events-none hidden flex-1 items-center justify-center md:flex">
           {currentKicker && !menuOpen ? (
@@ -78,25 +98,25 @@ export function Header() {
           ) : null}
         </div>
 
-        <nav className="flex items-center gap-5">
+        <div className="flex items-center gap-5">
+          <ThemeToggle className="hidden lg:flex" />
           <Link
-            href="/archive"
+            href="/contact"
             className={cn(
-              "hidden font-mono text-xs uppercase tracking-label transition-colors sm:inline-block link-underline",
-              menuOpen ? "text-ink" : "text-ink-soft hover:text-ink"
+              "hidden items-center border px-4 py-2 font-mono text-xs uppercase tracking-label transition-colors lg:inline-flex",
+              menuOpen
+                ? "border-ink/30 text-ink"
+                : "border-ink-soft/25 text-ink-soft hover:border-accent hover:text-accent"
             )}
           >
-            Archive
+            Get a Quote
           </Link>
           <button
             type="button"
             onClick={toggleMenu}
             aria-expanded={menuOpen}
             aria-controls="fullscreen-menu"
-            className={cn(
-              "group flex items-center gap-2.5 font-mono text-xs uppercase tracking-label transition-colors",
-              menuOpen ? "text-ink" : "text-ink"
-            )}
+            className="group flex items-center gap-2.5 font-mono text-xs uppercase tracking-label text-ink transition-colors"
           >
             <span>{menuOpen ? "Close" : "Menu"}</span>
             <span className="relative flex h-3 w-5 flex-col justify-between">
@@ -105,7 +125,7 @@ export function Header() {
               <span className={cn("h-px w-full origin-center bg-current transition-transform duration-300", menuOpen && "-translate-y-[5.5px] -rotate-45")} />
             </span>
           </button>
-        </nav>
+        </div>
       </div>
     </header>
   );

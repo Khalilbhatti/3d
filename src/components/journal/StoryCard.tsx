@@ -1,11 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
 import { type Story } from "@/content/types";
+import { getArtworkById } from "@/content/index";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { MReveal } from "@/components/motion/reveal";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { cn } from "@/lib/utils";
 
-/** Journal entry tile — hero placeholder, category, title, deck and byline. */
+/** Journal entry tile — hero image (real project photo when the story has one
+ *  associated, otherwise generated art), category, title, deck and byline. */
 export function StoryCard({
   story,
   index = 0,
@@ -17,17 +20,28 @@ export function StoryCard({
   className?: string;
   feature?: boolean;
 }) {
+  const coverArtwork = story.relatedArtworkIds?.[0] ? getArtworkById(story.relatedArtworkIds[0]) : undefined;
   return (
     <MReveal variant="rotate" delay={(index % 3) * 0.09} className={cn("group", className)}>
       <article>
-        <Link href={`/journal/${story.slug}`} className="block">
+        <Link href={`/insights/${story.slug}`} className="block">
           <TiltCard
             className="relative overflow-hidden"
             style={{ aspectRatio: feature ? "16 / 9" : "3 / 2" }}
             max={feature ? 4 : 6}
           >
             <div className="h-full w-full transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.03]">
-              <PlaceholderArt seed={story.seed} palette={story.palette} />
+              {coverArtwork?.image ? (
+                <Image
+                  src={coverArtwork.image}
+                  alt={story.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              ) : (
+                <PlaceholderArt seed={story.seed} palette={story.palette} />
+              )}
             </div>
             <span className="absolute left-3 top-3 z-[3] bg-paper/85 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-label text-ink">
               {story.category}

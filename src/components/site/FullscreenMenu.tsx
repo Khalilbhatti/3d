@@ -8,6 +8,7 @@ import { lockScroll } from "@/components/providers/SmoothScrollProvider";
 import { primaryNav, socialLinks, brand } from "@/config/theme";
 import { collections } from "@/content/collections";
 import { getStories } from "@/content/index";
+import { ThemeToggle } from "@/components/providers/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 /**
@@ -47,7 +48,7 @@ export function FullscreenMenu() {
   function onSearch(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const q = new FormData(e.currentTarget).get("q")?.toString().trim();
-    router.push(q ? `/archive?q=${encodeURIComponent(q)}` : "/archive");
+    router.push(q ? `/portfolio?q=${encodeURIComponent(q)}` : "/portfolio");
   }
 
   return (
@@ -119,7 +120,7 @@ export function FullscreenMenu() {
               <ul className="mt-3 space-y-2">
                 {collections.map((c) => (
                   <li key={c.id}>
-                    <Link href={`/collections/${c.slug}`} className="link-underline text-ink/85 hover:text-ink">
+                    <Link href={`/services/${c.slug}`} className="link-underline text-ink/85 hover:text-ink">
                       {c.title}
                     </Link>
                   </li>
@@ -132,7 +133,7 @@ export function FullscreenMenu() {
               <ul className="mt-3 space-y-2">
                 {recentStories.map((s) => (
                   <li key={s.id}>
-                    <Link href={`/journal/${s.slug}`} className="link-underline text-ink/85 hover:text-ink">
+                    <Link href={`/insights/${s.slug}`} className="link-underline text-ink/85 hover:text-ink">
                       {s.title}
                     </Link>
                   </li>
@@ -147,6 +148,7 @@ export function FullscreenMenu() {
                 </a>
               ))}
               <span className="label ml-auto text-ink/40">{brand.email}</span>
+              <ThemeToggle />
             </div>
           </div>
         </div>

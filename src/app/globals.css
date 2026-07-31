@@ -32,6 +32,7 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   html:focus-within {
@@ -45,6 +46,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -305,7 +307,7 @@ html.lenis body {
     radial-gradient(60% 60% at 20% 18%, rgba(32, 214, 163, 0.08), transparent 60%),
     radial-gradient(58% 58% at 82% 72%, rgba(74, 39, 140, 0.10), transparent 60%),
     radial-gradient(52% 52% at 60% 44%, rgba(215, 169, 40, 0.06), transparent 62%),
-    #030305;
+    rgb(var(--paper));
 }
 
 /* ===========================================================================

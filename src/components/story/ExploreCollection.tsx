@@ -39,7 +39,7 @@ export function ExploreCollection() {
           {collections.map((c, i) => (
             <Reveal key={c.id} delay={(i % 2) * 90} className="border-b border-ink/12">
               <Link
-                href={`/collections/${c.slug}`}
+                href={`/services/${c.slug}`}
                 className="group flex items-baseline justify-between gap-6 py-6"
               >
                 <span className="flex items-baseline gap-4">
@@ -64,7 +64,7 @@ export function ExploreCollection() {
               <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
             </Link>
           </MagneticButton>
-          <Link href="/collections" className="link-underline text-ink/80 hover:text-ink">
+          <Link href="/services" className="link-underline text-ink/80 hover:text-ink">
             Browse all services
           </Link>
           <span className="label ml-auto text-ink/40">{total} projects delivered</span>

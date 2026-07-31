@@ -46,6 +46,24 @@ export const palette = {
   line: "#F4F1EA", // hairline dividers (used at low alpha)
 } as const;
 
+/**
+ * Light counterpart, toggled in via `[data-theme="light"]` on <html> (see
+ * ThemeToggle). Same token roles, inverted: `paper` is the warm cream
+ * surface, `ink` the near-black text. Every component already reads these
+ * roles rather than hardcoded colours, so the toggle needs no component
+ * changes — only this palette + the CSS it's written into.
+ */
+export const paletteLight = {
+  paper: "#F7F4EC",
+  paperDeep: "#ECE6D6",
+  ink: "#1A1712",
+  inkSoft: "#3D372C",
+  muted: "#8A8272",
+  accent: "#B07E30",
+  accentDeep: "#8C6425",
+  line: "#1A1712",
+} as const;
+
 export const fonts = {
   /** CSS variable names supplied by next/font in layout.tsx. */
   display: "--font-display",
@@ -57,10 +75,10 @@ export type NavItem = { label: string; href: string; note?: string };
 
 export const primaryNav: NavItem[] = [
   { label: "Home", href: "/", note: "Smart solutions for your business" },
-  { label: "Services", href: "/collections", note: "What we build & deliver" },
-  { label: "Portfolio", href: "/archive", note: "Every project we've shipped" },
-  { label: "Our Team", href: "/artists", note: "The people behind your project" },
-  { label: "Insights", href: "/journal", note: "Guides & field notes" },
+  { label: "Services", href: "/services", note: "What we build & deliver" },
+  { label: "Portfolio", href: "/portfolio", note: "Every project we've shipped" },
+  { label: "Our Team", href: "/team", note: "The people behind your project" },
+  { label: "Insights", href: "/insights", note: "Guides & field notes" },
   { label: "About", href: "/about", note: "Who we are & how we work" },
   { label: "Contact", href: "/contact", note: "Get a quote & book a call" },
 ];
@@ -102,10 +120,25 @@ export const themeCssVars: Record<string, string> = {
   "--line": hexToRgbTriplet(palette.line),
 };
 
-/** Serialise the vars into a `:root { ... }` block for a server-injected <style>. */
+const themeCssVarsLight: Record<string, string> = {
+  "--paper": hexToRgbTriplet(paletteLight.paper),
+  "--paper-deep": hexToRgbTriplet(paletteLight.paperDeep),
+  "--ink": hexToRgbTriplet(paletteLight.ink),
+  "--ink-soft": hexToRgbTriplet(paletteLight.inkSoft),
+  "--muted": hexToRgbTriplet(paletteLight.muted),
+  "--accent": hexToRgbTriplet(paletteLight.accent),
+  "--accent-deep": hexToRgbTriplet(paletteLight.accentDeep),
+  "--line": hexToRgbTriplet(paletteLight.line),
+};
+
+/** Serialise the vars into `:root` (dark, default) and `[data-theme="light"]`
+ *  blocks for a server-injected <style> — no colour flash either way. */
 export function themeStyleString(): string {
-  const body = Object.entries(themeCssVars)
+  const dark = Object.entries(themeCssVars)
     .map(([k, v]) => `${k}:${v};`)
     .join("");
-  return `:root{${body}}`;
+  const light = Object.entries(themeCssVarsLight)
+    .map(([k, v]) => `${k}:${v};`)
+    .join("");
+  return `:root{${dark}}:root[data-theme="light"]{${light}}`;
 }

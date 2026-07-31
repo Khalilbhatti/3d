@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { collections, getArtworksByIds, getArtistById } from "@/content/index";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { CollectionCard } from "./CollectionCard";
@@ -27,8 +28,31 @@ export function HorizontalCollections() {
   const barRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0); // 0 = intro, 1..n = collection, n+1 = outro
 
+  // Whether the GSAP-pinned experience has been confirmed appropriate for this
+  // visitor. Starts false so the very first client render always matches the
+  // server-rendered fallback, even when reduced-motion or a mobile viewport is
+  // already active at load — `reduced`/`isMobile` can't reflect that until one
+  // render after mount, and hydration always renders against the server
+  // snapshot first regardless. Promoting straight into a fresh mount is safe;
+  // tearing the GSAP-pinned section back down because a value resolved late is
+  // what crashed React's reconciler with a removeChild error (the pin-spacer
+  // ScrollTrigger inserts moves the section outside what React expects).
+  const [confirmedFull, setConfirmedFull] = useState(false);
+  const resolvedOnceRef = useRef(false);
+
+  useEffect(() => {
+    if (!resolvedOnceRef.current) {
+      resolvedOnceRef.current = true;
+      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+      setConfirmedFull(!reducedNow && !mobileNow);
+      return;
+    }
+    setConfirmedFull(!reduced && !isMobile);
+  }, [reduced, isMobile]);
+
   useIsomorphicLayoutEffect(() => {
-    if (reduced || isMobile) return;
+    if (!confirmedFull) return;
     const section = sectionRef.current;
     const track = trackRef.current;
     if (!section || !track) return;
@@ -119,10 +143,10 @@ export function HorizontalCollections() {
     }, section);
 
     return () => ctx.revert();
-  }, [reduced, isMobile]);
+  }, [confirmedFull]);
 
   // Vertical fallback.
-  if (reduced || isMobile) {
+  if (!confirmedFull) {
     return (
       <div className="space-y-28 pb-28 md:space-y-40">
         {collections.map((c, i) => (
@@ -163,6 +187,10 @@ export function HorizontalCollections() {
             .map((id) => getArtistById(id))
             .filter(Boolean)[0];
           const dark = paletteIsDark(collection.palette);
+          // Only caption with a project attribution when the panel is genuinely
+          // showing that project's own photo — not when it's a generic service
+          // illustration (which isn't "of" any single case study).
+          const showProjectCaption = Boolean(hero && (!collection.image || collection.image === hero.image));
           return (
             <article
               key={collection.id}
@@ -199,7 +227,7 @@ export function HorizontalCollections() {
                   </div>
                   <Link
                     data-anim
-                    href={`/collections/${collection.slug}`}
+                    href={`/services/${collection.slug}`}
                     className="mt-8 inline-flex items-center gap-3 border border-ink/25 px-6 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
                   >
                     Explore service
@@ -208,18 +236,30 @@ export function HorizontalCollections() {
                 </div>
 
                 <div className={cn("md:col-span-6", i % 2 ? "md:order-1 md:col-start-1" : "md:order-2 md:col-start-7")}>
-                  {hero ? (
+                  {collection.image || hero ? (
                     <figure className="relative overflow-hidden shadow-2xl shadow-ink/10" style={{ aspectRatio: "3 / 2" }}>
                       <div data-img className="absolute inset-[-14%]">
-                        <PlaceholderArt
-                          seed={hero.seed}
-                          palette={hero.palette}
-                          motif={hero.medium.toLowerCase().includes("vellum") ? "manuscript" : "field"}
-                        />
+                        {collection.image ? (
+                          <Image
+                            src={collection.image}
+                            alt={`${collection.title} — GitzTech ${collection.title.toLowerCase()} service`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <PlaceholderArt
+                            seed={hero!.seed}
+                            palette={hero!.palette}
+                            motif={hero!.medium.toLowerCase().includes("vellum") ? "manuscript" : "field"}
+                          />
+                        )}
                       </div>
-                      <figcaption className={cn("absolute bottom-3 left-3 rounded-sm px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-label", dark ? "bg-ink/50 text-paper" : "bg-paper/80 text-ink")}>
-                        {hero.title}, {hero.year}
-                      </figcaption>
+                      {showProjectCaption ? (
+                        <figcaption className={cn("absolute bottom-3 left-3 rounded-sm px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-label", dark ? "bg-ink/50 text-paper" : "bg-paper/80 text-ink")}>
+                          {hero!.title}, {hero!.year}
+                        </figcaption>
+                      ) : null}
                     </figure>
                   ) : null}
                 </div>
@@ -237,13 +277,13 @@ export function HorizontalCollections() {
             </h2>
             <div data-anim className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
               <Link
-                href="/archive"
+                href="/portfolio"
                 className="inline-flex items-center gap-3 border border-ink/30 px-7 py-4 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
               >
                 Get a quote
                 <span aria-hidden>→</span>
               </Link>
-              <Link href="/artists" className="link-underline text-ink/80 hover:text-ink">
+              <Link href="/team" className="link-underline text-ink/80 hover:text-ink">
                 Meet the team
               </Link>
             </div>

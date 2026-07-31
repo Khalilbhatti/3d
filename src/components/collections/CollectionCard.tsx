@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { type Collection } from "@/content/types";
 import { getArtworksByIds } from "@/content/index";
@@ -22,14 +23,24 @@ export function CollectionCard({
   return (
     <article className="container-editorial grid items-center gap-8 md:grid-cols-12 md:gap-12">
       <Link
-        href={`/collections/${collection.slug}`}
+        href={`/services/${collection.slug}`}
         className={cn(
           "group block md:col-span-7",
           flip ? "md:order-2 md:col-start-6" : "md:order-1"
         )}
         aria-label={`${collection.title} — open collection`}
       >
-        {hero ? (
+        {collection.image ? (
+          <div className="relative overflow-hidden bg-paper-deep" style={{ aspectRatio: "3 / 2" }}>
+            <Image
+              src={collection.image}
+              alt={`${collection.title} — GitzTech ${collection.title.toLowerCase()} service`}
+              fill
+              sizes="(max-width: 768px) 100vw, 55vw"
+              className="object-cover"
+            />
+          </div>
+        ) : hero ? (
           <ParallaxArtwork artwork={hero} aspect="3 / 2" sizes="(max-width: 768px) 100vw, 55vw" />
         ) : null}
       </Link>
@@ -45,7 +56,7 @@ export function CollectionCard({
             {String(index + 1).padStart(2, "0")} · {collection.period}
           </Kicker>
           <h2 className="mt-5 font-display text-4xl leading-[1.02] text-ink md:text-5xl">
-            <Link href={`/collections/${collection.slug}`} className="link-underline">
+            <Link href={`/services/${collection.slug}`} className="link-underline">
               {collection.title}
             </Link>
           </h2>

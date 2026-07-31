@@ -49,10 +49,10 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
     <article>
       <header className="container-editorial pb-10 pt-[calc(var(--header-h)+3rem)] md:pt-[calc(var(--header-h)+4.5rem)]">
         <nav aria-label="Breadcrumb" className="label flex flex-wrap items-center gap-2">
-          <Link href="/archive" className="hover:text-ink">Portfolio</Link>
+          <Link href="/portfolio" className="hover:text-ink">Portfolio</Link>
           <span aria-hidden>/</span>
           {collection ? (
-            <Link href={`/collections/${collection.slug}`} className="hover:text-ink">{collection.title}</Link>
+            <Link href={`/services/${collection.slug}`} className="hover:text-ink">{collection.title}</Link>
           ) : null}
         </nav>
         <div className="mt-6 grid items-end gap-6 md:grid-cols-12">
@@ -63,7 +63,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
             </SplitReveal>
             {artist ? (
               <Reveal delay={120} className="mt-4 text-lg text-ink-soft">
-                <Link href={`/artists/${artist.slug}`} className="link-underline">{artist.name}</Link> · {artist.role}
+                <Link href={`/team/${artist.slug}`} className="link-underline">{artist.name}</Link> · {artist.role}
               </Reveal>
             ) : null}
           </div>
@@ -113,7 +113,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
               {
                 label: "Delivered by",
                 value: artist ? (
-                  <Link href={`/artists/${artist.slug}`} className="link-underline">{artist.name}</Link>
+                  <Link href={`/team/${artist.slug}`} className="link-underline">{artist.name}</Link>
                 ) : (
                   "Unknown"
                 ),
@@ -124,7 +124,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
               {
                 label: "Service",
                 value: collection ? (
-                  <Link href={`/collections/${collection.slug}`} className="link-underline">{collection.title}</Link>
+                  <Link href={`/services/${collection.slug}`} className="link-underline">{collection.title}</Link>
                 ) : (
                   "—"
                 ),
@@ -191,7 +191,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
       <NextLink
         eyebrow="Next project"
         title={next.title}
-        href={`/archive/${next.slug}`}
+        href={`/portfolio/${next.slug}`}
         palette={next.palette}
         meta={`${getArtistById(next.artistId)?.name ?? ""} · ${next.year}`}
       />

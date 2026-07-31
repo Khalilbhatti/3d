@@ -39,7 +39,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {collections.map((c) => (
                 <li key={c.id}>
-                  <Link href={`/collections/${c.slug}`} className="link-underline text-ink-soft hover:text-ink">
+                  <Link href={`/services/${c.slug}`} className="link-underline text-ink-soft hover:text-ink">
                     {c.title}
                   </Link>
                 </li>

@@ -31,7 +31,6 @@ export function Chapter({
     .filter(Boolean) as NonNullable<ReturnType<typeof getArtworkById>>[];
   const [main, secondary] = works;
   const mainArtist = main ? getArtistById(main.artistId) : undefined;
-  const even = index % 2 === 0;
 
   // Dark theme: type is always warm-light. `dark` chapters simply carry a
   // stronger, more saturated atmospheric wash of their palette.
@@ -67,24 +66,14 @@ export function Chapter({
         style={{ backgroundImage: NOISE }}
       />
 
-      <div
-        className={cn(
-          "absolute top-1/2 z-10 hidden -translate-y-1/2 lg:block",
-          even ? "left-6" : "right-6"
-        )}
-      >
-        <VerticalLabel side={even ? "left" : "right"} className={tone.faint}>
+      <div className="absolute top-1/2 left-6 z-10 hidden -translate-y-1/2 lg:block">
+        <VerticalLabel side="left" className={tone.faint}>
           {chapter.index} — {chapter.kicker}
         </VerticalLabel>
       </div>
 
       <div className="container-editorial relative grid w-full items-center gap-y-14 md:grid-cols-12 md:gap-x-12">
-        <div
-          className={cn(
-            "relative md:col-span-5",
-            even ? "md:order-1" : "md:order-2 md:col-start-8"
-          )}
-        >
+        <div className="relative md:order-1 md:col-span-5">
           <span
             aria-hidden
             className={cn(
@@ -151,10 +140,7 @@ export function Chapter({
         </div>
 
         <div
-          className={cn(
-            "relative md:col-span-6",
-            even ? "md:order-2 md:col-start-7" : "md:order-1 md:col-start-1"
-          )}
+          className="relative md:order-2 md:col-span-6 md:col-start-7"
         >
           {main ? (
             <figure className="relative">
@@ -175,7 +161,7 @@ export function Chapter({
               {secondary ? (
                 <div
                   className="mt-6 w-2/3 lg:absolute lg:-bottom-14 lg:mt-0 lg:w-[46%]"
-                  style={even ? { left: "-3.5rem" } : { right: "-3.5rem" }}
+                  style={{ left: "-3.5rem" }}
                 >
                   <div className={cn("shadow-2xl", dark ? "shadow-black/40" : "shadow-ink/15")}>
                     <ParallaxArtwork

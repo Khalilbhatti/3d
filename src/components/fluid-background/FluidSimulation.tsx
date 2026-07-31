@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 /**
  * Real-time GPU fluid simulation (Stam's stable fluids / Navier-Stokes) — the
@@ -191,13 +192,13 @@ const DISPLAY_FRAG = /* glsl */ `
   precision highp float;
   varying vec2 vUv;
   uniform sampler2D uTexture;
+  uniform vec3 uBaseColor;
   void main () {
     vec3 c = texture2D(uTexture, vUv).rgb;
-    // near-black cinematic base + gentle vignette so the smoke reads on dark
+    // themed base + gentle vignette so the smoke reads against it
     vec2 p = vUv - 0.5;
     float vig = 1.0 - dot(p, p) * 0.55;
-    vec3 base = vec3(0.012, 0.012, 0.019);
-    gl_FragColor = vec4((base + c) * vig, 1.0);
+    gl_FragColor = vec4((uBaseColor + c) * vig, 1.0);
   }
 `;
 
@@ -280,6 +281,7 @@ function makeDouble(
 
 export function FluidSimulation({ intensity = 1 }: { intensity?: number }) {
   const gl = useThree((s) => s.gl);
+  const paperRgb = useThemeColor("--paper");
   const sim = useRef<{
     dye: DoubleFBO;
     velocity: DoubleFBO;
@@ -398,6 +400,21 @@ export function FluidSimulation({ intensity = 1 }: { intensity?: number }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gl]);
+
+  // Themed backdrop: the display pass adds a base wash under the dye (see
+  // DISPLAY_FRAG's uBaseColor) so the simulation never renders on a hardcoded
+  // dark canvas that fights a light theme. Runs after the build effect above,
+  // so `sim.current` is already populated on mount; re-runs whenever the
+  // light/dark toggle changes `--paper`.
+  useEffect(() => {
+    const display = sim.current?.mats.display;
+    if (!display) return;
+    if (!display.uniforms.uBaseColor) {
+      display.uniforms.uBaseColor = { value: new THREE.Vector3(...paperRgb) };
+    } else {
+      (display.uniforms.uBaseColor.value as THREE.Vector3).set(...paperRgb);
+    }
+  }, [paperRgb]);
 
   // Pointer → queued splats (fine pointers + touch drag).
   useEffect(() => {

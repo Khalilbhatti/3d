@@ -6,12 +6,11 @@ import * as THREE from "three";
 import { type Artwork } from "@/content/types";
 import { makeArtTexture, planeSize } from "@/lib/textures";
 import { gsap } from "@/lib/gsap";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export type GalleryLayout = "cylinder" | "sphere";
 
 const FORWARD = new THREE.Vector3(0, 0, 1);
-const BASE_BG = new THREE.Color("#07070B");
-const FOCUS_BG = new THREE.Color("#050406");
 const BG_CANVAS_W = 640;
 const BG_CANVAS_H = 360;
 const BG_SLIDE_HOLD = 2.8; // seconds each slide holds before advancing
@@ -19,6 +18,15 @@ const BG_SLIDE_HOLD = 2.8; // seconds each slide holds before advancing
 // Reused scratch objects (avoid per-frame allocations).
 const _pos = new THREE.Vector3();
 const _quat = new THREE.Quaternion();
+const _lookHelper = new THREE.Object3D();
+const _lookQuat = new THREE.Quaternion();
+const _camWorldPos = new THREE.Vector3();
+// How strongly idle cards billboard toward the camera vs. facing straight out
+// from the sphere's center. Real photography (straight lines, circles, text)
+// reads as visibly foreshortened at the sphere's natural outward-facing angle
+// in a way the original generated-art placeholders never showed; partial
+// billboarding keeps the orbit's visual variety while keeping photos legible.
+const BILLBOARD_STRENGTH = 0.45;
 
 type BackdropSource = HTMLImageElement | HTMLCanvasElement;
 
@@ -99,6 +107,13 @@ export function FloatingGallery({
   const [hovered, setHovered] = useState(-1);
   const { scene, camera, size } = useThree();
 
+  // Scene backdrop tracks the live theme instead of a hardcoded dark colour,
+  // so the light/dark toggle doesn't leave this canvas looking broken.
+  const paperRgb = useThemeColor("--paper");
+  const paperDeepRgb = useThemeColor("--paper-deep");
+  const baseBg = useMemo(() => new THREE.Color(...paperRgb), [paperRgb]);
+  const focusBg = useMemo(() => new THREE.Color(...paperDeepRgb), [paperDeepRgb]);
+
   const count = artworks.length;
   const textures = useMemo(
     () =>
@@ -164,7 +179,7 @@ export function FloatingGallery({
   const targetQuat = useMemo(() => artworks.map(() => new THREE.Quaternion()), [artworks]);
   const inited = useRef(false);
   const bgTarget = useRef(new THREE.Color());
-  const displayedBg = useRef(BASE_BG.clone());
+  const displayedBg = useRef(baseBg.clone());
 
   // Hover backdrop: a small canvas, redrawn each frame, used as `scene.background`
   // for its whole lifetime — the flat colour wash and the cross-faded photo are
@@ -331,6 +346,20 @@ export function FloatingGallery({
           g.position.x += Math.cos(t * 0.35 + phases[i]) * 0.05;
         }
         g.quaternion.copy(displayedQuat[i]);
+        if (!focusing && root.current) {
+          // Partial billboard toward the camera's actual current position
+          // (which itself orbits via OrbitControls), softening perspective
+          // foreshortening on real photography without fully flattening the
+          // sphere's tilt variety. g.position is in root's local space, so
+          // the camera's world position must be converted into that same
+          // space before comparing — root itself is rotated for parallax.
+          camera.getWorldPosition(_camWorldPos);
+          root.current.worldToLocal(_camWorldPos);
+          _lookHelper.position.copy(g.position);
+          _lookHelper.lookAt(_camWorldPos);
+          _lookQuat.copy(_lookHelper.quaternion);
+          g.quaternion.slerp(_lookQuat, BILLBOARD_STRENGTH);
+        }
         const want = focusing ? 1 : hovered === i ? 1.16 : 1;
         scales.current[i] += (want - scales.current[i]) * 0.12;
         // Others shrink away while a work is focused (no transparency needed).
@@ -341,11 +370,11 @@ export function FloatingGallery({
     }
 
     if (scene.background !== bgTextureRef.current) scene.background = bgTextureRef.current;
-    if (!scene.fog) scene.fog = new THREE.Fog(BASE_BG.getHex(), 13, 30);
+    if (!scene.fog) scene.fog = new THREE.Fog(baseBg.getHex(), 13, 30);
     if (focusing) {
-      bgTarget.current.copy(BASE_BG).lerp(FOCUS_BG, p);
+      bgTarget.current.copy(baseBg).lerp(focusBg, p);
     } else {
-      bgTarget.current.copy(BASE_BG);
+      bgTarget.current.copy(baseBg);
       if (hovered >= 0) {
         bgTarget.current.lerp(
           new THREE.Color(artworks[hovered].palette.via ?? artworks[hovered].palette.from),
