@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { brand, socialLinks } from "@/config/theme";
 import { getTimeline, getCollections } from "@/content/index";
@@ -58,15 +59,23 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-hidden className="relative overflow-hidden border-y border-line/12 py-6 md:py-8">
-        <Marquee durationSec={40}>
+      <section aria-hidden className="relative overflow-hidden border-y border-line/12 py-8 md:py-10">
+        <Marquee durationSec={44}>
           {getCollections().map((c) => (
-            <span
-              key={c.id}
-              className="flex items-center gap-8 whitespace-nowrap pr-8 font-display text-2xl italic text-ink-soft/70 md:text-3xl"
-            >
-              {c.title}
-              <span className="not-italic text-accent">✦</span>
+            <span key={c.id} className="flex items-center gap-5 whitespace-nowrap pr-12">
+              {c.image ? (
+                <span className="relative block h-14 w-20 shrink-0 overflow-hidden rounded-sm md:h-16 md:w-24">
+                  <Image
+                    src={c.image}
+                    alt=""
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                </span>
+              ) : null}
+              <span className="font-display text-2xl italic text-ink-soft/70 md:text-3xl">{c.title}</span>
+              <span className="text-accent">✦</span>
             </span>
           ))}
         </Marquee>

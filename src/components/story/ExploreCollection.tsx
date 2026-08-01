@@ -14,8 +14,9 @@ export function ExploreCollection() {
   const total = getArtworks().length;
   return (
     <section
+      id="contact"
       data-chapter={collections.length + 6}
-      className="relative overflow-hidden bg-paper py-28 text-ink md:py-40"
+      className="relative scroll-mt-[var(--header-h)] overflow-hidden bg-paper py-28 text-ink md:py-40"
     >
       <div
         aria-hidden

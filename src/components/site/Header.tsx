@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import { useAppStore } from "@/lib/store";
-import { brand, primaryNav } from "@/config/theme";
+import { brand, primaryNav, type NavItem } from "@/config/theme";
 import { chapters } from "@/content/chapters";
 import { ThemeToggle } from "@/components/providers/ThemeToggle";
-import { cn } from "@/lib/utils";
+import { cn, smoothScrollToId } from "@/lib/utils";
 
 /** Primary nav items shown inline in the desktop navbar (skip Home — the
  *  logo already covers it — and Contact, which gets its own CTA button). */
@@ -49,6 +49,20 @@ export function Header() {
 
   const currentKicker = isHome ? chapters[activeChapter]?.kicker : undefined;
 
+  /** On the homepage, a nav item with a matching section scrolls in place
+   *  instead of navigating — everywhere else it's a normal route change. */
+  function handleNavClick(item: NavItem, e: MouseEvent<HTMLAnchorElement>) {
+    if (!isHome || !item.sectionId) return;
+    e.preventDefault();
+    smoothScrollToId(item.sectionId);
+  }
+
+  function handleQuoteClick(e: MouseEvent<HTMLAnchorElement>) {
+    if (!isHome) return;
+    e.preventDefault();
+    smoothScrollToId("contact");
+  }
+
   return (
     <header
       className={cn(
@@ -79,6 +93,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={(e) => handleNavClick(item, e)}
                 className={cn(
                   "font-mono text-xs uppercase tracking-label link-underline transition-colors",
                   menuOpen ? "text-ink" : "text-ink-soft hover:text-ink"
@@ -102,6 +117,7 @@ export function Header() {
           <ThemeToggle className="hidden lg:flex" />
           <Link
             href="/contact"
+            onClick={handleQuoteClick}
             className={cn(
               "hidden items-center border px-4 py-2 font-mono text-xs uppercase tracking-label transition-colors lg:inline-flex",
               menuOpen
@@ -116,7 +132,7 @@ export function Header() {
             onClick={toggleMenu}
             aria-expanded={menuOpen}
             aria-controls="fullscreen-menu"
-            className="group flex items-center gap-2.5 font-mono text-xs uppercase tracking-label text-ink transition-colors"
+            className="group flex items-center gap-2.5 font-mono text-xs uppercase tracking-label text-ink transition-colors lg:hidden"
           >
             <span>{menuOpen ? "Close" : "Menu"}</span>
             <span className="relative flex h-3 w-5 flex-col justify-between">

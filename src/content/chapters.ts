@@ -36,7 +36,7 @@ export const chapters: Chapter[] = [
       "Every engagement starts by understanding what's actually slowing you down: manual re-entry, leads going cold, a site nobody can update, a checkout that quietly loses orders. Only then do we choose the technology. The result is a technology-driven solution that streamlines operations and drives sustainable growth, rather than a tool you now have to manage.",
     date: "200+",
     location: "Completed projects",
-    artworkIds: ["prj-wholesale"],
+    artworkIds: ["prj-wholesale", "prj-mindway"],
     palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
   },
   {

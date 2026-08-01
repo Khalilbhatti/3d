@@ -3,6 +3,36 @@ export function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }
 
+/**
+ * Smooth-scroll to an in-page section (or the top, when `id` is omitted),
+ * offset for the fixed header. Prefers the Lenis instance the
+ * SmoothScrollProvider exposes on `window.__lenis`; falls back to native
+ * `scrollIntoView`/`scrollTo` when Lenis isn't running (reduced motion).
+ */
+export function smoothScrollToId(id?: string) {
+  if (typeof window === "undefined") return;
+  const headerH = document.querySelector("header")?.getBoundingClientRect().height ?? 76;
+  const lenis = (window as unknown as {
+    __lenis?: { scrollTo: (target: number | HTMLElement, opts?: Record<string, unknown>) => void };
+  }).__lenis;
+
+  if (!id) {
+    if (lenis) lenis.scrollTo(0, { duration: 1.2 });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  if (lenis) {
+    lenis.scrollTo(el, { offset: -headerH, duration: 1.2 });
+  } else {
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}
+
 /** Clamp a number to a range. */
 export const clamp = (v: number, min: number, max: number) =>
   Math.min(Math.max(v, min), max);

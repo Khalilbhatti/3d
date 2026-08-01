@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useRef, type FormEvent } from "react";
+import { useEffect, useRef, type FormEvent, type MouseEvent } from "react";
 import { useAppStore } from "@/lib/store";
 import { lockScroll } from "@/components/providers/SmoothScrollProvider";
-import { primaryNav, socialLinks, brand } from "@/config/theme";
+import { primaryNav, socialLinks, brand, type NavItem } from "@/config/theme";
 import { collections } from "@/content/collections";
 import { getStories } from "@/content/index";
 import { ThemeToggle } from "@/components/providers/ThemeToggle";
-import { cn } from "@/lib/utils";
+import { cn, smoothScrollToId } from "@/lib/utils";
 
 /**
  * Animated fullscreen navigation. Locks scroll, closes on Esc / route change,
@@ -20,9 +20,19 @@ export function FullscreenMenu() {
   const { menuOpen, setMenuOpen } = useAppStore();
   const router = useRouter();
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const panelRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const recentStories = getStories().slice(0, 3);
+
+  /** On the homepage, a nav item with a matching section scrolls in place
+   *  instead of navigating — everywhere else it's a normal route change. */
+  function handleNavClick(item: NavItem, e: MouseEvent<HTMLAnchorElement>) {
+    if (!isHome || (!item.sectionId && item.href !== "/")) return;
+    e.preventDefault();
+    setMenuOpen(false);
+    smoothScrollToId(item.sectionId);
+  }
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -85,7 +95,11 @@ export function FullscreenMenu() {
                   )}
                   style={{ transitionDelay: `${120 + i * 55}ms` }}
                 >
-                  <Link href={item.href} className="group/link flex items-baseline gap-4 py-2">
+                  <Link
+                    href={item.href}
+                    onClick={(e) => handleNavClick(item, e)}
+                    className="group/link flex items-baseline gap-4 py-2"
+                  >
                     <span className="w-8 font-mono text-xs text-ink/40">{String(i + 1).padStart(2, "0")}</span>
                     <span className="font-display text-[clamp(2rem,6vw,4.25rem)] leading-[0.98] tracking-tight text-ink transition-colors duration-300 group-hover/link:text-accent">
                       {item.label}

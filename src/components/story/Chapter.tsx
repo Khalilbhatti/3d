@@ -55,9 +55,10 @@ export function Chapter({
 
   return (
     <section
+      id={chapter.id}
       data-chapter={index}
       aria-labelledby={`${chapter.id}-title`}
-      className="relative flex min-h-screen items-center overflow-hidden py-24 md:py-32"
+      className="relative flex min-h-screen scroll-mt-[var(--header-h)] items-center overflow-hidden py-24 md:py-32"
       style={bg}
     >
       <div

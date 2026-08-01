@@ -59,10 +59,7 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col items-start justify-between gap-4 text-xs text-muted md:flex-row md:items-center">
           <p className="label">© {year} {brand.full}. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link href="/about" className="label hover:text-ink">About us</Link>
-            <BackToTop className="label transition-colors hover:text-ink" />
-          </div>
+          <BackToTop className="label transition-colors hover:text-ink" />
         </div>
       </div>
     </footer>
