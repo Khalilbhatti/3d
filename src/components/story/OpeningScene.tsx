@@ -5,11 +5,11 @@ import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Reveal } from "@/components/typography/Reveal";
 import { ScrollCue } from "./ScrollCue";
 
-/** Warm dawn-in-the-dark field for the opening WebGL scene. */
+/** Brand dawn-in-the-dark field for the opening WebGL scene: orange light emerging from navy night. */
 const heroPalette: ArtPalette = {
-  from: "#D69A4E",
-  via: "#7A3F1E",
-  to: "#120C08",
+  from: "#FF9807",
+  via: "#1B3A63",
+  to: "#070D1A",
   ink: 0.32,
 };
 

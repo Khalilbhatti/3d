@@ -1,12 +1,12 @@
 /**
- * Dark cinematic marbled liquid-ink / smoke shader. A near-black base with soft
- * flowing colour veins (emerald/teal, gold, violet, blue) that emerge from the
- * darkness — organic, blurred and translucent. A flow field advects the UVs for
- * smoky streaks; ridged FBM adds marbled veins; two noise fields blend the
- * palette. Colour is weighted toward the edges (the centre reading area stays
- * calm/dark for readability). The cursor gently bends the flow toward it and its
- * velocity adds a little brightening, all decaying smoothly when idle. Original
- * GLSL, single pass, no textures.
+ * Cinematic marbled liquid-ink / smoke shader. A theme-matched base (dark navy
+ * in dark mode, off-white in light mode — see uColor1) with soft flowing navy
+ * + brand-orange veins that emerge from it — organic, blurred and translucent.
+ * A flow field advects the UVs for smoky streaks; ridged FBM adds marbled
+ * veins; two noise fields blend the palette. Colour is weighted toward the
+ * edges (the centre reading area stays calm for readability). The cursor
+ * gently bends the flow toward it and its velocity adds a little brightening,
+ * all decaying smoothly when idle. Original GLSL, single pass, no textures.
  */
 export const fluidFragment = /* glsl */ `
   precision highp float;
@@ -23,13 +23,13 @@ export const fluidFragment = /* glsl */ `
   uniform float uDistortion;
   uniform float uCursorInfluence;
   uniform float uSpeed;
-  uniform vec3 uColor1; // near-black base
-  uniform vec3 uColor2; // teal
-  uniform vec3 uColor3; // gold
-  uniform vec3 uColor4; // blue
-  uniform vec3 uColor5; // violet
-  uniform vec3 uColor6; // bright teal
-  uniform vec3 uColor7; // deep violet
+  uniform vec3 uColor1; // theme base (dark navy / light off-white)
+  uniform vec3 uColor2; // brand orange
+  uniform vec3 uColor3; // amber
+  uniform vec3 uColor4; // muted navy
+  uniform vec3 uColor5; // brighter navy-blue
+  uniform vec3 uColor6; // bright amber highlight
+  uniform vec3 uColor7; // deep navy
 
   float hash(vec2 p){
     p = fract(p * vec2(123.34, 456.21));
@@ -94,13 +94,13 @@ export const fluidFragment = /* glsl */ `
     float edge = smoothstep(0.02, 0.62, distance(vUv, vec2(0.5)));
     float acc = 0.30 + 0.70 * edge;
 
-    vec3 col = uColor1; // near-black base
-    col = mix(col, uColor2, smoothstep(0.30, 0.62, n) * 0.85 * acc);   // teal
-    col = mix(col, uColor3, smoothstep(0.55, 0.92, n) * 0.80 * acc);   // gold
-    col = mix(col, uColor4, smoothstep(0.0, 0.30, h) * 0.70 * acc);    // blue
-    col = mix(col, uColor7, smoothstep(0.55, 1.0, n) * veins * 0.75 * acc); // deep violet
-    col = mix(col, uColor5, smoothstep(0.50, 0.86, h) * 0.55 * acc);   // violet
-    col = mix(col, uColor6, veins * 0.45 * acc);                       // bright teal veins
+    vec3 col = uColor1; // theme base
+    col = mix(col, uColor2, smoothstep(0.30, 0.62, n) * 0.85 * acc);   // orange
+    col = mix(col, uColor3, smoothstep(0.55, 0.92, n) * 0.80 * acc);   // amber
+    col = mix(col, uColor4, smoothstep(0.0, 0.30, h) * 0.70 * acc);    // muted navy
+    col = mix(col, uColor7, smoothstep(0.55, 1.0, n) * veins * 0.75 * acc); // deep navy
+    col = mix(col, uColor5, smoothstep(0.50, 0.86, h) * 0.55 * acc);   // brighter navy-blue
+    col = mix(col, uColor6, veins * 0.45 * acc);                       // bright amber veins
 
     // cursor gently brightens the flow near the pointer
     col += (uColor2 * 0.5 + uColor3 * 0.5) * infl * (0.10 + uMouseVelocity * 0.14) * acc;

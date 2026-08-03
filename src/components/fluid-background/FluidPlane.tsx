@@ -3,21 +3,23 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { fluidVertex } from "./shaders/fluidVertex";
 import { fluidFragment } from "./shaders/fluidFragment";
 
 /**
- * Fluid colours — pulled from the site's existing palette. Adjust these hexes to
- * re-tint the animation; nothing else in the site changes.
+ * Fluid vein colours — navy + brand orange, matching the logo. The dominant
+ * base colour isn't listed here: it tracks the live `--paper` theme token
+ * (see `paperRgb` below) so the background itself flips dark navy / light
+ * off-white with the rest of the site, instead of staying near-black always.
  */
 const COLORS = {
-  base: "#050508", // near-black (dominant)
-  teal: "#20D6A3",
-  gold: "#D7A928",
-  blue: "#255B6A",
-  violet: "#6B3BB7",
-  brightTeal: "#3BE6C4",
-  deepViolet: "#4A278C",
+  orange: "#FF9807", // brand orange
+  amber: "#FFB347", // warm amber accent
+  navy: "#1B3A63", // muted navy
+  navyBright: "#2E5C99", // brighter navy-blue
+  amberBright: "#FFC157", // bright warm highlight
+  navyDeep: "#0B1F3D", // deep navy
 } as const;
 
 /**
@@ -28,6 +30,7 @@ const COLORS = {
 export function FluidPlane({ intensity = 1 }: { intensity?: number }) {
   const mat = useRef<THREE.ShaderMaterial>(null);
   const { size } = useThree();
+  const paperRgb = useThemeColor("--paper");
 
   const target = useRef(new THREE.Vector2(0.5, 0.5));
   const smoothed = useRef(new THREE.Vector2(0.5, 0.5));
@@ -47,16 +50,23 @@ export function FluidPlane({ intensity = 1 }: { intensity?: number }) {
       uDistortion: { value: 0.16 * intensity },
       uCursorInfluence: { value: 0.85 * intensity },
       uSpeed: { value: 1.0 },
-      uColor1: { value: new THREE.Color(COLORS.base) },
-      uColor2: { value: new THREE.Color(COLORS.teal) },
-      uColor3: { value: new THREE.Color(COLORS.gold) },
-      uColor4: { value: new THREE.Color(COLORS.blue) },
-      uColor5: { value: new THREE.Color(COLORS.violet) },
-      uColor6: { value: new THREE.Color(COLORS.brightTeal) },
-      uColor7: { value: new THREE.Color(COLORS.deepViolet) },
+      uColor1: { value: new THREE.Color(...paperRgb) },
+      uColor2: { value: new THREE.Color(COLORS.orange) },
+      uColor3: { value: new THREE.Color(COLORS.amber) },
+      uColor4: { value: new THREE.Color(COLORS.navy) },
+      uColor5: { value: new THREE.Color(COLORS.navyBright) },
+      uColor6: { value: new THREE.Color(COLORS.amberBright) },
+      uColor7: { value: new THREE.Color(COLORS.navyDeep) },
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- uColor1 (base) is kept in sync imperatively below, not by recreating uniforms on every theme flip
     [intensity]
   );
+
+  // Keep the base colour in sync with the live theme (dark navy / light off-white)
+  // without recreating the shader material on every light/dark toggle.
+  useEffect(() => {
+    mat.current?.uniforms.uColor1.value.setRGB(...paperRgb);
+  }, [paperRgb]);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
