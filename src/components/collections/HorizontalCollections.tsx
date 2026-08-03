@@ -160,7 +160,7 @@ export function HorizontalCollections() {
     active >= 1 && active <= collections.length ? collections[active - 1] : null;
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-paper/45">
+    <section ref={sectionRef} className="relative overflow-hidden bg-paper/80">
       <div ref={trackRef} className="flex h-[100svh] w-max flex-nowrap will-change-transform">
         {/* Intro panel */}
         <article data-panel className="relative flex h-full w-screen shrink-0 items-center">
@@ -197,7 +197,7 @@ export function HorizontalCollections() {
               data-panel
               className="relative flex h-full w-screen shrink-0 items-center"
               style={{
-                backgroundColor: "rgb(var(--paper) / 0.6)",
+                backgroundColor: "rgb(var(--paper) / 0.80)",
                 backgroundImage: `radial-gradient(60% 70% at ${i % 2 ? "82%" : "18%"} 30%, ${collection.palette.from}33, transparent 62%)`,
               }}
             >
@@ -269,7 +269,7 @@ export function HorizontalCollections() {
         })}
 
         {/* Outro panel */}
-        <article data-panel className="relative flex h-full w-screen shrink-0 items-center bg-[#050508] text-ink">
+        <article data-panel className="relative flex h-full w-screen shrink-0 items-center bg-paper/80 text-ink">
           <div className="container-editorial">
             <span data-anim className="label text-accent">Ready when you are</span>
             <h2 data-anim className="mt-5 max-w-[14ch] font-display text-display-lg leading-[0.98] text-ink">

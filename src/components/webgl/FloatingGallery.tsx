@@ -113,6 +113,7 @@ export function FloatingGallery({
   const paperDeepRgb = useThemeColor("--paper-deep");
   const baseBg = useMemo(() => new THREE.Color(...paperRgb), [paperRgb]);
   const focusBg = useMemo(() => new THREE.Color(...paperDeepRgb), [paperDeepRgb]);
+  const frameBg = useMemo(() => new THREE.Color(...paperDeepRgb), [paperDeepRgb]);
 
   const count = artworks.length;
   const textures = useMemo(
@@ -434,7 +435,7 @@ export function FloatingGallery({
         // Strong dark scrim — foreground text must stay legible no matter how
         // bright the hovered project's own photo is.
         bgCtx.globalAlpha = 0.78 * bgImageFade.current;
-        bgCtx.fillStyle = "#050406";
+        bgCtx.fillStyle = "#0E2038";
         bgCtx.fillRect(0, 0, cw, ch);
         bgCtx.globalAlpha = 1;
       }
@@ -484,7 +485,7 @@ export function FloatingGallery({
           >
             <mesh position={[0, 0, -0.03]}>
               <planeGeometry args={[w + 0.16, h + 0.16]} />
-              <meshBasicMaterial color="#F2ECDF" toneMapped={false} />
+              <meshBasicMaterial color={frameBg} toneMapped={false} />
             </mesh>
             <mesh>
               <planeGeometry args={[w, h]} />

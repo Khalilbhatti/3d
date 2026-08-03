@@ -202,13 +202,13 @@ const DISPLAY_FRAG = /* glsl */ `
   }
 `;
 
-// Brand-palette smoke tints (dark cinematic). Each splat picks the next one.
+// Brand-palette smoke tints — navy + orange, matching the logo. Each splat picks the next one.
 const PALETTE: [number, number, number][] = [
-  [0.13, 0.84, 0.64], // teal
-  [0.84, 0.66, 0.29], // gold
-  [0.42, 0.23, 0.72], // violet
-  [0.15, 0.36, 0.42], // deep blue
-  [0.23, 0.9, 0.77], // bright teal
+  [1.0, 0.596, 0.027], // brand orange
+  [0.18, 0.361, 0.6], // brighter navy-blue
+  [1.0, 0.702, 0.278], // amber
+  [0.106, 0.227, 0.388], // muted navy
+  [1.0, 0.757, 0.341], // bright amber highlight
 ];
 
 interface DoubleFBO {

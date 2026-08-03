@@ -98,7 +98,7 @@ export function Preloader() {
               }}
             />
           ) : null}
-          <div className="absolute inset-0 bg-[#0A1626]/55" />
+          <div className="absolute inset-0 bg-[#0E2038]/55" />
 
           <div className="relative flex items-center justify-between">
             <span className="label text-[#F3F5F8]/70">{brand.full}</span>

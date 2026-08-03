@@ -34,7 +34,7 @@ export function NextLink({
       />
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_120%,transparent_40%,rgba(10,8,6,0.6)_100%)]"
+        className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_120%,transparent_40%,rgba(0,0,0,0.6)_100%)]"
       />
       <div className="container-editorial relative flex flex-col gap-6 py-20 md:flex-row md:items-end md:justify-between md:py-32">
         <div>

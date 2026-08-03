@@ -103,7 +103,7 @@ export function PlaceholderArt({
           </linearGradient>
           <radialGradient id={`vig-${uid}`} cx="50%" cy="42%" r="75%">
             <stop offset="55%" stopColor={a(to, 0)} />
-            <stop offset="100%" stopColor={a("#0b0906", 0.55)} />
+            <stop offset="100%" stopColor={a("#000000",0.55)} />
           </radialGradient>
         </defs>
         <rect width={W} height={H} fill={`url(#bg-${uid})`} />
@@ -153,7 +153,7 @@ export function PlaceholderArt({
           </radialGradient>
           <radialGradient id={`vig-${uid}`} cx="50%" cy="45%" r="75%">
             <stop offset="60%" stopColor={a(to, 0)} />
-            <stop offset="100%" stopColor={a("#0b0906", 0.5)} />
+            <stop offset="100%" stopColor={a("#000000",0.5)} />
           </radialGradient>
         </defs>
         <rect width={W} height={H} fill={`url(#pg-${uid})`} />
@@ -222,7 +222,7 @@ export function PlaceholderArt({
               <stop offset="100%" stopColor={to} />
             </linearGradient>
             <radialGradient id={`sun-${uid}`} cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#fff8e6" />
+              <stop offset="0%" stopColor="#FFEAC2" />
               <stop offset="28%" stopColor={a(from, 0.95)} />
               <stop offset="100%" stopColor={a(from, 0)} />
             </radialGradient>
@@ -232,7 +232,7 @@ export function PlaceholderArt({
             </radialGradient>
             <radialGradient id={`vig-${uid}`} cx="50%" cy="42%" r="78%">
               <stop offset="58%" stopColor={a(to, 0)} />
-              <stop offset="100%" stopColor={a("#0b0906", 0.4)} />
+              <stop offset="100%" stopColor={a("#000000",0.4)} />
             </radialGradient>
           </defs>
 
@@ -247,7 +247,7 @@ export function PlaceholderArt({
           })}
           {/* sun glow + core */}
           <circle cx={sunX} cy={sunY} r={sunR * 2.6} fill={`url(#sun-${uid})`} />
-          <circle cx={sunX} cy={sunY} r={sunR} fill="#fff6df" opacity={0.92} />
+          <circle cx={sunX} cy={sunY} r={sunR} fill="#FFE4B3" opacity={0.92} />
           {/* distant coast */}
           {hasCoast ? (
             <path

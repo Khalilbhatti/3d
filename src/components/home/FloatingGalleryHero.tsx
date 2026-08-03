@@ -102,7 +102,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_46%,transparent_52%,rgba(26,22,17,0.16)_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_46%,transparent_52%,rgba(0,0,0,0.16)_100%)]"
       />
 
       {/* Gallery overlay — fades out while a work is focused */}

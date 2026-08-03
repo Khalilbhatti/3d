@@ -58,7 +58,7 @@ function Block({ block }: { block: StoryBlock }) {
             <div className="relative overflow-hidden" style={{ aspectRatio: "3 / 2" }}>
               <PlaceholderArt
                 seed={block.seed ?? "story-image"}
-                palette={block.palette ?? { from: "#C9B892", via: "#9A8663", to: "#5E4E34" }}
+                palette={block.palette ?? { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D" }}
               />
             </div>
           )}
@@ -85,7 +85,7 @@ function Block({ block }: { block: StoryBlock }) {
           <div className="relative flex items-center justify-center overflow-hidden bg-paper" style={{ aspectRatio: "16 / 9" }}>
             <PlaceholderArt
               seed={block.poster ?? "video-poster"}
-              palette={{ from: "#2E3A57", via: "#1B2338", to: "#0A0D18", ink: 0.2 }}
+              palette={{ from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.2 }}
             />
             <span className="absolute flex h-16 w-16 items-center justify-center rounded-full border border-ink/60 text-ink backdrop-blur-sm">
               ▶

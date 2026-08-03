@@ -57,7 +57,7 @@ export function HeroCanvas({
         style={{ backgroundImage: gradientFrom(palette, 155) }}
       />
       {useWebGL ? <HeroScene palette={palette} /> : null}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_100%_at_50%_38%,transparent_55%,rgba(20,16,12,0.28)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_100%_at_50%_38%,transparent_55%,rgba(0,0,0,0.28)_100%)]" />
     </div>
   );
 }

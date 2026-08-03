@@ -41,15 +41,15 @@ export function Chapter({
     num: "text-ink/[0.07]",
   };
 
-  // Both variants are translucent dark surfaces so the global fluid shows
-  // through — `dark` chapters just push the palette tint harder for drama.
+  // Both variants share the same base opacity for a consistent surface
+  // site-wide — `dark` chapters only push the palette tint stronger for drama.
   const bg = dark
     ? {
         backgroundColor: "rgb(var(--paper) / 0.80)",
         backgroundImage: `radial-gradient(95% 75% at 20% 6%, ${chapter.palette.from}59, transparent 55%), radial-gradient(80% 85% at 82% 100%, ${chapter.palette.via ?? chapter.palette.to}4D, transparent 62%)`,
       }
     : {
-        backgroundColor: "rgb(var(--paper) / 0.66)",
+        backgroundColor: "rgb(var(--paper) / 0.80)",
         backgroundImage: `radial-gradient(70% 55% at 85% 12%, ${chapter.palette.from}40, transparent 60%), radial-gradient(60% 60% at 8% 92%, ${chapter.palette.via ?? chapter.palette.from}22, transparent 60%)`,
       };
 

@@ -33,7 +33,7 @@ export const artists: Artist[] = [
     statement:
       "The job of a lead isn't to write the most code. It's to make sure the code that ships is code we'd sign our name to.",
     seed: "lead-developer-01",
-    palette: { from: "#5B6EE8", via: "#2E3A8C", to: "#0D1230", ink: 0.18 },
+    palette: { from: "#3D6EA8", via: "#234563", to: "#0C1B30", ink: 0.18 },
     relatedArtworkIds: ["prj-food"],
   },
   {
@@ -55,7 +55,7 @@ export const artists: Artist[] = [
     statement:
       "A deadline nobody flagged as at-risk isn't a deadline — it's a surprise waiting to happen.",
     seed: "team-lead-02",
-    palette: { from: "#2E7BE8", via: "#1A4A9C", to: "#08172E", ink: 0.18 },
+    palette: { from: "#5580B8", via: "#2C4A70", to: "#0D1D30", ink: 0.18 },
     relatedArtworkIds: ["prj-ngo"],
   },
   {
@@ -77,7 +77,7 @@ export const artists: Artist[] = [
     statement:
       "You can't inspect quality in at the end. You build the department that produces it by default.",
     seed: "dev-department-head-03",
-    palette: { from: "#2FA6BF", via: "#145E70", to: "#05212A", ink: 0.16 },
+    palette: { from: "#6690C2", via: "#2E4F78", to: "#0E2038", ink: 0.16 },
     relatedArtworkIds: ["prj-food", "prj-beauty"],
   },
   {
@@ -99,7 +99,7 @@ export const artists: Artist[] = [
     statement:
       "Most businesses don't have a lead problem. They have a follow-up problem — and that's an automation problem we can fix.",
     seed: "automation-crm-head-04",
-    palette: { from: "#4AA0E8", via: "#235C9C", to: "#071A2E", ink: 0.18 },
+    palette: { from: "#FFA347", via: "#B3691F", to: "#2E1B08", ink: 0.18 },
     relatedArtworkIds: ["prj-wholesale"],
   },
   {
@@ -121,7 +121,7 @@ export const artists: Artist[] = [
     statement:
       "A build is only finished when someone other than the person who wrote it can run it, read it and extend it.",
     seed: "team-fullstack-01",
-    palette: { from: "#3E6BE8", via: "#24408F", to: "#0E1633", ink: 0.18 },
+    palette: { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.18 },
     relatedArtworkIds: ["prj-food"],
   },
   {
@@ -143,7 +143,7 @@ export const artists: Artist[] = [
     statement:
       "If a user has to be taught how to use the screen, the screen is the thing that needs changing.",
     seed: "team-uiux-02",
-    palette: { from: "#34D399", via: "#146848", to: "#052117", ink: 0.16 },
+    palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
     relatedArtworkIds: ["prj-ngo", "prj-stitcher"],
   },
   {
@@ -165,7 +165,7 @@ export const artists: Artist[] = [
     statement:
       "Traffic that doesn't convert isn't marketing — it's just an expensive way to be visited.",
     seed: "team-marketers-03",
-    palette: { from: "#F0913A", via: "#9C4E17", to: "#2A1305", ink: 0.16 },
+    palette: { from: "#FF9807", via: "#B35F00", to: "#2A1500", ink: 0.16 },
     relatedArtworkIds: ["prj-crafting"],
   },
   {
@@ -187,7 +187,7 @@ export const artists: Artist[] = [
     statement:
       "Most slow WordPress sites aren't a hosting problem. They're a build problem.",
     seed: "team-wordpress-04",
-    palette: { from: "#2FBFA8", via: "#146458", to: "#04211C", ink: 0.16 },
+    palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
     relatedArtworkIds: ["prj-beauty"],
   },
   {
@@ -209,7 +209,7 @@ export const artists: Artist[] = [
     statement:
       "A pipeline that can't tell you where a deal stands isn't a CRM — it's a spreadsheet with better colours.",
     seed: "team-ghl-05",
-    palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
+    palette: { from: "#FFB347", via: "#C97A1A", to: "#2E1B05", ink: 0.18 },
     relatedArtworkIds: ["prj-wholesale"],
   },
   {
@@ -231,7 +231,7 @@ export const artists: Artist[] = [
     statement:
       "Clear timelines and honest communication, so you always know exactly where your project stands.",
     seed: "team-qa-06",
-    palette: { from: "#D6A24A", via: "#8A5F1C", to: "#241705", ink: 0.16 },
+    palette: { from: "#FFA733", via: "#B36B12", to: "#2E1A05", ink: 0.16 },
     relatedArtworkIds: ["prj-food", "prj-ngo"],
   },
 ];

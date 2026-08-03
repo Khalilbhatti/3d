@@ -21,7 +21,7 @@ export const stories: Story[] = [
     readingTime: "5 min read",
     category: "Web & Apps",
     seed: "story-perf-01",
-    palette: { from: "#3E6BE8", via: "#24408F", to: "#0E1633", ink: 0.18 },
+    palette: { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.18 },
     blocks: [
       {
         type: "paragraph",
@@ -68,7 +68,7 @@ export const stories: Story[] = [
     readingTime: "6 min read",
     category: "WordPress",
     seed: "story-wp-02",
-    palette: { from: "#2FBFA8", via: "#146458", to: "#04211C", ink: 0.16 },
+    palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
     blocks: [
       {
         type: "paragraph",
@@ -112,7 +112,7 @@ export const stories: Story[] = [
     readingTime: "6 min read",
     category: "CRM & Automation",
     seed: "story-ghl-03",
-    palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
+    palette: { from: "#FFB347", via: "#C97A1A", to: "#2E1B05", ink: 0.18 },
     blocks: [
       {
         type: "paragraph",
@@ -155,7 +155,7 @@ export const stories: Story[] = [
     readingTime: "5 min read",
     category: "Product Design",
     seed: "story-ux-04",
-    palette: { from: "#34D399", via: "#146848", to: "#052117", ink: 0.16 },
+    palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
     blocks: [
       {
         type: "paragraph",

@@ -26,7 +26,7 @@ export const chapters: Chapter[] = [
     date: "4 Years",
     location: "Years of experience",
     artworkIds: ["prj-food", "prj-crafting"],
-    palette: { from: "#3E6BE8", via: "#24408F", to: "#0E1633", ink: 0.18 },
+    palette: { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.18 },
   },
   {
     id: "ch-approach",
@@ -40,7 +40,7 @@ export const chapters: Chapter[] = [
     date: "200+",
     location: "Completed projects",
     artworkIds: ["prj-wholesale", "prj-mindway"],
-    palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
+    palette: { from: "#FFB347", via: "#C97A1A", to: "#2E1B05", ink: 0.18 },
   },
   {
     id: "ch-talent",
@@ -58,7 +58,7 @@ export const chapters: Chapter[] = [
     date: "48h",
     location: "To a working plan",
     artworkIds: ["prj-stitcher"],
-    palette: { from: "#EC5F9B", via: "#8E2455", to: "#2B0A18", ink: 0.16 },
+    palette: { from: "#6B8FC4", via: "#33547F", to: "#101F33", ink: 0.16 },
   },
   {
     id: "ch-process",
@@ -72,7 +72,7 @@ export const chapters: Chapter[] = [
     date: "3 Steps",
     location: "Idea → design → delivery",
     artworkIds: ["prj-food"],
-    palette: { from: "#F0913A", via: "#9C4E17", to: "#2A1305", ink: 0.16 },
+    palette: { from: "#FF9807", via: "#B35F00", to: "#2A1500", ink: 0.16 },
   },
   {
     id: "ch-why",
@@ -90,7 +90,7 @@ export const chapters: Chapter[] = [
     date: "2k+",
     location: "Happy customers",
     artworkIds: ["prj-ngo", "prj-wholesale"],
-    palette: { from: "#D6A24A", via: "#8A5F1C", to: "#241705", ink: 0.16 },
+    palette: { from: "#FFA733", via: "#B36B12", to: "#2E1A05", ink: 0.16 },
   },
   {
     id: "ch-services",
@@ -104,6 +104,6 @@ export const chapters: Chapter[] = [
     date: "6",
     location: "Core disciplines",
     artworkIds: ["prj-beauty", "prj-ngo"],
-    palette: { from: "#2FBFA8", via: "#146458", to: "#04211C", ink: 0.16 },
+    palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
   },
 ];
