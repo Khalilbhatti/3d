@@ -28,7 +28,7 @@ export const collections: Collection[] = [
     palette: { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.18 },
     image: "/portfolio/mindway.png",
     featuredArtistIds: ["team-fullstack", "team-qa"],
-    artworkIds: ["prj-mindway", "prj-food"],
+    artworkIds: ["prj-mindway", "prj-makflip", "prj-maximalt", "prj-food"],
     relatedStoryIds: ["story-web-performance"],
     timelineIds: ["tl-ideas", "tl-design", "tl-final"],
     credits: [
@@ -156,7 +156,7 @@ export const collections: Collection[] = [
     palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
     image: "/services/ui-ux-designing.jpg",
     featuredArtistIds: ["team-uiux", "team-qa"],
-    artworkIds: ["prj-ngo"],
+    artworkIds: ["prj-ngo", "prj-chayah"],
     relatedStoryIds: ["story-design-systems"],
     timelineIds: ["tl-design", "tl-final"],
     credits: [
