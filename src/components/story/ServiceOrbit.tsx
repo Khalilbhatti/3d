@@ -41,10 +41,13 @@ function IconWordPress({ className }: IconProps) {
   );
 }
 
-function IconZap({ className }: IconProps) {
+/** GoHighLevel — three-arrow brand mark, traced from the client-supplied logo. */
+function IconHighLevel({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    <svg viewBox="0 0 24 24" className={className}>
+      <path fill="#F7A621" d="M4.4,19 L4.4,10.5 L2.6,10.5 L5.5,4 L8.4,10.5 L6.6,10.5 L6.6,19 Z" />
+      <path fill="#27AE60" d="M17.4,19 L17.4,10.5 L15.6,10.5 L18.5,4 L21.4,10.5 L19.6,10.5 L19.6,19 Z" />
+      <path fill="#2F80ED" d="M10.9,19 L10.9,13.5 L9.1,13.5 L12,8.5 L14.9,13.5 L13.1,13.5 L13.1,19 Z" />
     </svg>
   );
 }
@@ -72,9 +75,15 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   "web-app-development": IconReact,
   "digital-marketing": IconTrendingUp,
   "wordpress-development": IconWordPress,
-  "gohighlevel-crm": IconZap,
+  "gohighlevel-crm": IconHighLevel,
   "graphic-designing": IconPen,
   "ui-ux-designing": IconLayers,
+};
+
+/** Client-supplied logo crops — take priority over the hand-drawn icons above. */
+const IMAGE_ICONS: Record<string, string> = {
+  "graphic-designing": "/services/icon-graphic-designing.png",
+  "ui-ux-designing": "/services/icon-ui-ux-designing.png",
 };
 
 const RADIUS = 3.2;
@@ -99,6 +108,7 @@ function OrbitRing({ collections, paused }: { collections: Collection[]; paused:
   return (
     <>
       {collections.map((c, i) => {
+        const imageSrc = IMAGE_ICONS[c.slug];
         const Icon = ICONS[c.slug] ?? IconLayers;
         return (
           <group key={c.id} ref={(el) => { anchors.current[i] = el; }}>
@@ -109,13 +119,18 @@ function OrbitRing({ collections, paused }: { collections: Collection[]; paused:
                 style={{ color: c.palette.from }}
               >
                 <span
-                  className="flex h-16 w-16 items-center justify-center rounded-full border-2 bg-paper/85 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110"
+                  className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 bg-paper/85 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110"
                   style={{
                     borderColor: `${c.palette.from}99`,
                     boxShadow: `0 0 26px ${c.palette.from}66, 0 0 4px ${c.palette.from}55 inset`,
                   }}
                 >
-                  <Icon className="h-7 w-7" />
+                  {imageSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={imageSrc} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    <Icon className="h-7 w-7" />
+                  )}
                 </span>
                 <span className="whitespace-nowrap font-mono text-[0.62rem] uppercase tracking-label text-ink/70 transition-colors group-hover:text-ink">
                   {c.title}
@@ -162,11 +177,17 @@ export function ServiceOrbit({ collections }: { collections: Collection[] }) {
     return (
       <div className="mt-16 grid gap-x-12 gap-y-2 border-t border-ink/15 sm:grid-cols-2">
         {collections.map((c, i) => {
+          const imageSrc = IMAGE_ICONS[c.slug];
           const Icon = ICONS[c.slug] ?? IconLayers;
           return (
             <Link key={c.id} href={`/services/${c.slug}`} className="group flex items-center gap-4 border-b border-ink/12 py-6">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors group-hover:border-accent group-hover:text-accent">
-                <Icon className="h-5 w-5" />
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-ink/15 text-ink/70 transition-colors group-hover:border-accent group-hover:text-accent">
+                {imageSrc ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={imageSrc} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <Icon className="h-5 w-5" />
+                )}
               </span>
               <span className="flex flex-col">
                 <span className="font-mono text-xs text-ink/40">{String(i + 1).padStart(2, "0")}</span>
