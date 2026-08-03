@@ -78,13 +78,9 @@ export function Header() {
     >
       <div className="container-editorial flex h-full items-center justify-between gap-6">
         <div className="flex items-center gap-9">
-          <Link
-            href="/"
-            className="font-display text-xl leading-none tracking-tight text-ink transition-colors"
-            aria-label={`${brand.full} — home`}
-          >
-            {brand.name}
-            <span className="text-accent">.</span>
+          <Link href="/" className="flex items-center" aria-label={`${brand.full} — home`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.png" alt="" className="h-9 w-auto" />
           </Link>
 
           {/* Full desktop navbar — collapses behind the hamburger below `lg`. */}

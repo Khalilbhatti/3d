@@ -13,10 +13,8 @@ export function Footer() {
       <div className="container-editorial py-16 md:py-24">
         <MReveal as="div" variant="up" className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            <p className="font-display text-4xl leading-none tracking-tight text-ink md:text-5xl">
-              {brand.name}
-              <span className="text-accent">.</span>
-            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.png" alt={brand.full} className="h-14 w-auto md:h-16" />
             <p className="mt-6 max-w-sm text-pretty text-sm leading-relaxed text-muted">{brand.description}</p>
             <p className="label mt-8">{brand.location} · {brand.hours}</p>
           </div>

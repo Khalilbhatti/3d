@@ -37,13 +37,13 @@ export const brand = {
  * token names so every component maps automatically.)
  */
 export const palette = {
-  paper: "#0B1220", // primary near-black navy surface
-  paperDeep: "#16233A", // elevated surface / raised panels
+  paper: "#0E2038", // rich navy surface (reads as navy, not near-black)
+  paperDeep: "#17304F", // elevated surface / raised panels
   ink: "#F3F5F8", // primary text (cool light)
-  inkSoft: "#B9C3D6", // secondary text
-  muted: "#6B7A93", // muted captions / metadata
-  accent: "#F5941F", // brand orange — configurable key colour
-  accentDeep: "#D9790A", // pressed / hover accent
+  inkSoft: "#C1CBDC", // secondary text
+  muted: "#7C90AC", // muted captions / metadata
+  accent: "#FF9807", // exact brand orange, sampled from the logo
+  accentDeep: "#E07E00", // pressed / hover accent
   line: "#F3F5F8", // hairline dividers (used at low alpha)
 } as const;
 
@@ -55,14 +55,14 @@ export const palette = {
  * changes — only this palette + the CSS it's written into.
  */
 export const paletteLight = {
-  paper: "#F4F6F9",
-  paperDeep: "#E4E9F1",
-  ink: "#101B2E",
-  inkSoft: "#33445E",
-  muted: "#64738D",
-  accent: "#9C4D00",
+  paper: "#F5F7FA",
+  paperDeep: "#E6EBF2",
+  ink: "#10325C", // exact brand navy, sampled from the logo
+  inkSoft: "#33507A",
+  muted: "#5E7290",
+  accent: "#A85200",
   accentDeep: "#7A3C00",
-  line: "#101B2E",
+  line: "#10325C",
 } as const;
 
 export const fonts = {
