@@ -143,8 +143,8 @@ function OrbitGuide() {
       <Html center distanceFactor={9} zIndexRange={[70, 0]}>
         <div className="relative flex h-36 w-36 items-center justify-center">
           <div className="absolute inset-0 animate-pulse rounded-full bg-accent/30 blur-2xl" />
-          <div className="relative h-28 w-28 overflow-hidden rounded-full border-2 border-accent/70 shadow-xl shadow-accent/30">
-            <LogoAnimation />
+          <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-2 border-accent/70 bg-paper shadow-xl shadow-accent/30">
+            <LogoAnimation fit="contain" className="h-20 w-20" />
           </div>
         </div>
       </Html>

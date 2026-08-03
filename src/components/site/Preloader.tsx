@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { brand } from "@/config/theme";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
@@ -8,16 +8,24 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { LogoAnimation } from "@/components/media/LogoAnimation";
 
 const KEY = "auren:loaded";
+// Cosmetic counter duration until the video's real length is known, and a
+// last-resort cap so a video that fails to load/play never traps a visitor.
+const FALLBACK_DURATION = 4000;
+const MAX_WAIT = 9000;
 
 /**
- * First-load preloader: an animated 0 → 100 counter over an paper curtain that
- * lifts to reveal the site. Shown once per session (sessionStorage) and kept
- * brief for reduced-motion users. Locks scroll while visible.
+ * First-load preloader: the full brand logo video plays once, full-bleed,
+ * behind a 0 → 100 counter — the site only reveals once the video has
+ * actually finished (or the safety cap trips). Shown once per session
+ * (sessionStorage). Reduced-motion visitors skip the video and dismiss
+ * quickly. Locks scroll while visible.
  */
 export function Preloader() {
   const reduced = usePrefersReducedMotion();
   const [visible, setVisible] = useState(true);
   const [count, setCount] = useState(0);
+  const durationRef = useRef(FALLBACK_DURATION);
+  const doneRef = useRef(false);
 
   // Skip instantly (pre-paint) if already shown this session.
   useIsomorphicLayoutEffect(() => {
@@ -28,29 +36,41 @@ export function Preloader() {
     }
   }, []);
 
+  function finish() {
+    if (doneRef.current) return;
+    doneRef.current = true;
+    setCount(100);
+    try {
+      sessionStorage.setItem(KEY, "1");
+    } catch {}
+    setTimeout(() => setVisible(false), 350);
+  }
+
+  // Cosmetic 0 → 100 counter, timed to the video's real duration once known.
   useEffect(() => {
     if (!visible) return;
     document.documentElement.style.overflow = "hidden";
 
-    const duration = reduced ? 400 : 1900;
     let raf = 0;
     let start = 0;
     const tick = (ts: number) => {
       if (!start) start = ts;
-      const p = Math.min(1, (ts - start) / duration);
-      // ease-out for a natural settle
+      const p = Math.min(1, (ts - start) / durationRef.current);
       const eased = 1 - Math.pow(1 - p, 3);
-      setCount(Math.round(eased * 100));
-      if (p < 1) raf = requestAnimationFrame(tick);
-      else {
-        try {
-          sessionStorage.setItem(KEY, "1");
-        } catch {}
-        setTimeout(() => setVisible(false), 350);
-      }
+      if (!doneRef.current) setCount(Math.round(eased * 100));
+      if (p < 1 && !doneRef.current) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
+  }, [visible]);
+
+  // Reduced motion: no video, dismiss quickly. Full motion: safety cap only
+  // — normal dismissal is driven by the video's own `ended` event below.
+  useEffect(() => {
+    if (!visible) return;
+    const t = setTimeout(finish, reduced ? 400 : MAX_WAIT);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, reduced]);
 
   useEffect(() => {
@@ -67,7 +87,17 @@ export function Preloader() {
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.9, ease: [0.83, 0, 0.17, 1] }}
         >
-          <LogoAnimation className="absolute inset-0 h-full w-full object-cover opacity-70" />
+          {!reduced ? (
+            <LogoAnimation
+              loop={false}
+              className="absolute inset-0 h-full w-full opacity-70"
+              onEnded={finish}
+              onLoadedMetadata={(e) => {
+                const d = e.currentTarget.duration;
+                if (Number.isFinite(d) && d > 0) durationRef.current = d * 1000;
+              }}
+            />
+          ) : null}
           <div className="absolute inset-0 bg-paper/55" />
 
           <div className="relative flex items-center justify-between">
