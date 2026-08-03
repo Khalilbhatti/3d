@@ -207,7 +207,7 @@ export const artists: Artist[] = [
       "They integrate the WhatsApp Business API and deploy chatbots that qualify leads 24/7, connect third-party tools, and build reporting dashboards you can read at a glance.",
     ],
     statement:
-      "Most businesses don't have a lead problem. They have a follow-up problem.",
+      "A pipeline that can't tell you where a deal stands isn't a CRM — it's a spreadsheet with better colours.",
     seed: "team-ghl-05",
     palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
     relatedArtworkIds: ["prj-wholesale"],

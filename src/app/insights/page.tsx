@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getStories } from "@/content/index";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { StoryCard } from "@/components/journal/StoryCard";
+import { CategoryShowcase } from "@/components/journal/CategoryShowcase";
 import { SectionDivider } from "@/components/typography/primitives";
 
 export const metadata: Metadata = {
@@ -23,9 +24,12 @@ export default function JournalPage() {
       />
 
       <div className="container-editorial pb-28">
+        <SectionDivider label="Browse by category" className="mb-8" />
+        <CategoryShowcase />
+
         {feature ? (
           <>
-            <SectionDivider label="Latest" className="mb-12" />
+            <SectionDivider label="Latest" className="mb-12 mt-20" />
             <StoryCard story={feature} feature index={0} className="mb-20" />
           </>
         ) : null}

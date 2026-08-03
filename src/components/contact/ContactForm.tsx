@@ -23,7 +23,7 @@ export function ContactForm() {
     const data = new FormData(form);
     const name = String(data.get("name") ?? "");
     const email = String(data.get("email") ?? "");
-    const subject = String(data.get("subject") ?? "Archive enquiry");
+    const subject = String(data.get("subject") ?? "Project enquiry");
     const message = String(data.get("message") ?? "");
 
     if (!endpoint) {

@@ -23,7 +23,7 @@ export default function ArchivePage({
     <>
       <PageHeader
         kicker="Our work · Portfolio"
-        title="Our excellent portfolio."
+        title="Work that speaks for itself."
         deck="End-to-end builds — from complete UI design systems to custom full-stack development and cloud deployment. Filter by service or industry, and open any project to read the case study."
       />
       <Suspense>

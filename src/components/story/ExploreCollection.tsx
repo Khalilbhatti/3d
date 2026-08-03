@@ -2,13 +2,14 @@ import Link from "next/link";
 import { collections } from "@/content/collections";
 import { getArtworks } from "@/content/index";
 import { SplitReveal } from "@/components/typography/SplitReveal";
-import { Reveal } from "@/components/typography/Reveal";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { Kicker } from "@/components/typography/primitives";
+import { ServiceOrbit } from "./ServiceOrbit";
 
 /**
- * Closing chapter of the home story: a dark call-to-action inviting the reader
- * out of the narrative and into the collections and the searchable archive.
+ * Closing chapter of the home story: a WebGL orbit of every service
+ * revolving around a glowing hub, plus a call-to-action into the collections
+ * and the searchable archive.
  */
 export function ExploreCollection() {
   const total = getArtworks().length;
@@ -16,7 +17,7 @@ export function ExploreCollection() {
     <section
       id="contact"
       data-chapter={collections.length + 6}
-      className="relative scroll-mt-[var(--header-h)] overflow-hidden bg-paper py-28 text-ink md:py-40"
+      className="relative scroll-mt-[var(--header-h)] overflow-hidden bg-paper/80 py-28 text-ink md:py-40"
     >
       <div
         aria-hidden
@@ -36,24 +37,7 @@ export function ExploreCollection() {
           Ready to take your business to the next level?
         </SplitReveal>
 
-        <div className="mt-16 grid gap-x-12 gap-y-2 border-t border-ink/15 md:grid-cols-2">
-          {collections.map((c, i) => (
-            <Reveal key={c.id} delay={(i % 2) * 90} className="border-b border-ink/12">
-              <Link
-                href={`/services/${c.slug}`}
-                className="group flex items-baseline justify-between gap-6 py-6"
-              >
-                <span className="flex items-baseline gap-4">
-                  <span className="font-mono text-xs text-ink/40">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="font-display text-2xl leading-tight text-ink transition-colors group-hover:text-accent md:text-3xl">
-                    {c.title}
-                  </span>
-                </span>
-                <span className="label hidden shrink-0 text-ink/40 sm:block">{c.period}</span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <ServiceOrbit collections={collections} />
 
         <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
           <MagneticButton>

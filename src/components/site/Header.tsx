@@ -9,9 +9,9 @@ import { chapters } from "@/content/chapters";
 import { ThemeToggle } from "@/components/providers/ThemeToggle";
 import { cn, smoothScrollToId } from "@/lib/utils";
 
-/** Primary nav items shown inline in the desktop navbar (skip Home — the
- *  logo already covers it — and Contact, which gets its own CTA button). */
-const desktopNav = primaryNav.filter((item) => item.href !== "/" && item.href !== "/contact");
+/** Primary nav items shown inline in the desktop navbar (skip Contact, which
+ *  gets its own CTA button on the right). */
+const desktopNav = primaryNav.filter((item) => item.href !== "/contact");
 
 /**
  * Minimal fixed header. Transparent over the hero, gains a paper backdrop and
@@ -52,7 +52,7 @@ export function Header() {
   /** On the homepage, a nav item with a matching section scrolls in place
    *  instead of navigating — everywhere else it's a normal route change. */
   function handleNavClick(item: NavItem, e: MouseEvent<HTMLAnchorElement>) {
-    if (!isHome || !item.sectionId) return;
+    if (!isHome || (!item.sectionId && item.href !== "/")) return;
     e.preventDefault();
     smoothScrollToId(item.sectionId);
   }
