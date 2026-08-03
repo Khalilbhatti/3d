@@ -44,9 +44,9 @@ export function ScrollProgress() {
       <div className="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[2px] bg-transparent">
         <div ref={bar} className="h-full origin-left scale-x-0 bg-accent will-change-transform" />
       </div>
-      {isHome && chapterCount > 0 ? (
+      {isHome && chapterCount > 0 && activeChapter >= 0 && activeChapter < chapterCount ? (
         <div className="pointer-events-none fixed bottom-6 right-5 z-[70] hidden font-mono text-xs tracking-label text-muted md:block">
-          <span className="text-ink">{String(Math.min(activeChapter + 1, chapterCount)).padStart(2, "0")}</span>
+          <span className="text-ink">{String(activeChapter + 1).padStart(2, "0")}</span>
           <span className="mx-1 opacity-50">/</span>
           <span>{String(chapterCount).padStart(2, "0")}</span>
         </div>

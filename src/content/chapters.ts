@@ -3,8 +3,11 @@ import type { Chapter } from "./types";
 /**
  * The home page is a long-form, scroll-driven narrative broken into chapters.
  * Each chapter drives a scene: background colour, imagery, typography.
- * These are the GitzTech home sections — about, approach, services, talent,
- * process and proof. The scroll system reads this array in order.
+ * These are the GitzTech home sections — about, approach, talent, process,
+ * proof and services. The scroll system reads this array in order; the
+ * animated services showcase (<ExploreCollection>) is inserted between
+ * chapters 2 and 3 by <HomeStory>, in the slot "Our Services" used to occupy;
+ * that chapter now closes the sequence instead.
  */
 export const chapters: Chapter[] = [
   {
@@ -40,22 +43,8 @@ export const chapters: Chapter[] = [
     palette: { from: "#8B5CF6", via: "#4A278C", to: "#150B2B", ink: 0.18 },
   },
   {
-    id: "ch-services",
-    index: "03",
-    kicker: "Our Services",
-    title: "We deliver exceptional services.",
-    lede:
-      "A dedicated team focused on quality, innovation, and measurable results — across every discipline your business needs.",
-    body:
-      "Web and app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — six disciplines, one connected team. From idea to launch and beyond, it's end-to-end digital services built to grow your business, all under one roof.",
-    date: "6",
-    location: "Core disciplines",
-    artworkIds: ["prj-beauty", "prj-ngo"],
-    palette: { from: "#2FBFA8", via: "#146458", to: "#04211C", ink: 0.16 },
-  },
-  {
     id: "ch-talent",
-    index: "04",
+    index: "03",
     kicker: "Hire Talent",
     title: "Empower your vision — hire top developers today.",
     lede:
@@ -73,7 +62,7 @@ export const chapters: Chapter[] = [
   },
   {
     id: "ch-process",
-    index: "05",
+    index: "04",
     kicker: "Work Process",
     title: "Our development process.",
     lede:
@@ -87,7 +76,7 @@ export const chapters: Chapter[] = [
   },
   {
     id: "ch-why",
-    index: "06",
+    index: "05",
     kicker: "Why Choose Us",
     title: "Choose us for quality and exceptional service.",
     lede:
@@ -102,5 +91,19 @@ export const chapters: Chapter[] = [
     location: "Happy customers",
     artworkIds: ["prj-ngo", "prj-wholesale"],
     palette: { from: "#D6A24A", via: "#8A5F1C", to: "#241705", ink: 0.16 },
+  },
+  {
+    id: "ch-services",
+    index: "06",
+    kicker: "Our Services",
+    title: "We deliver exceptional services.",
+    lede:
+      "A dedicated team focused on quality, innovation, and measurable results — across every discipline your business needs.",
+    body:
+      "Web and app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — six disciplines, one connected team. From idea to launch and beyond, it's end-to-end digital services built to grow your business, all under one roof.",
+    date: "6",
+    location: "Core disciplines",
+    artworkIds: ["prj-beauty", "prj-ngo"],
+    palette: { from: "#2FBFA8", via: "#146458", to: "#04211C", ink: 0.16 },
   },
 ];

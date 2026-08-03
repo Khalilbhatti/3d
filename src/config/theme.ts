@@ -87,12 +87,12 @@ export type NavItem = {
 
 export const primaryNav: NavItem[] = [
   { label: "Home", href: "/", note: "Smart solutions for your business" },
-  { label: "Services", href: "/services", note: "What we build & deliver", sectionId: "ch-services" },
+  { label: "Services", href: "/services", note: "What we build & deliver", sectionId: "our-services" },
   { label: "Portfolio", href: "/portfolio", note: "Every project we've shipped" },
   { label: "Our Team", href: "/team", note: "The people behind your project" },
   { label: "Insights", href: "/insights", note: "Guides & field notes" },
   { label: "About", href: "/about", note: "Who we are & how we work", sectionId: "ch-about" },
-  { label: "Contact", href: "/contact", note: "Get a quote & book a call", sectionId: "contact" },
+  { label: "Contact", href: "/contact", note: "Get a quote & book a call", sectionId: "our-contact" },
 ];
 
 export const socialLinks: NavItem[] = [

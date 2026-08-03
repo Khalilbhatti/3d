@@ -7,7 +7,7 @@ import { Kicker } from "@/components/typography/primitives";
 import { ServiceOrbit } from "./ServiceOrbit";
 
 /**
- * Closing chapter of the home story: a WebGL orbit of every service
+ * The home story's "Our Services" chapter: a WebGL orbit of every service
  * revolving around a glowing hub, plus a call-to-action into the collections
  * and the searchable archive.
  */
@@ -15,7 +15,7 @@ export function ExploreCollection() {
   const total = getArtworks().length;
   return (
     <section
-      id="contact"
+      id="our-services"
       data-chapter={collections.length + 6}
       className="relative scroll-mt-[var(--header-h)] overflow-hidden bg-paper/80 py-28 text-ink md:py-40"
     >
