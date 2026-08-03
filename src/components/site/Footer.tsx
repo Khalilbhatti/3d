@@ -14,7 +14,7 @@ export function Footer() {
         <MReveal as="div" variant="up" className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr]">
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-mark.png" alt={brand.full} className="h-14 w-auto md:h-16" />
+            <img src="/logo.png" alt={brand.full} className="h-20 w-auto md:h-24" />
             <p className="mt-6 max-w-sm text-pretty text-sm leading-relaxed text-muted">{brand.description}</p>
             <p className="label mt-8">{brand.location} · {brand.hours}</p>
           </div>
