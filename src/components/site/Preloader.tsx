@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { brand } from "@/config/theme";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { LogoAnimation } from "@/components/media/LogoAnimation";
 
 const KEY = "auren:loaded";
 
@@ -69,6 +70,12 @@ export function Preloader() {
           <div className="flex items-center justify-between">
             <span className="label text-ink/70">{brand.full}</span>
             <span className="label text-ink/50">Digital agency</span>
+          </div>
+
+          <div className="flex flex-1 items-center justify-center">
+            <div className="h-28 w-28 overflow-hidden rounded-full border border-accent/40 shadow-lg shadow-ink/10 sm:h-40 sm:w-40">
+              <LogoAnimation />
+            </div>
           </div>
 
           <div className="flex items-end justify-between">

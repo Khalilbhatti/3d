@@ -9,6 +9,7 @@ import type { Collection } from "@/content/types";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { useIsMobile } from "@/hooks/useMediaQuery";
+import { LogoAnimation } from "@/components/media/LogoAnimation";
 import { cn } from "@/lib/utils";
 
 type IconProps = { className?: string };
@@ -123,12 +124,10 @@ function OrbitRing({ collections, paused }: { collections: Collection[]; paused:
   );
 }
 
-/** Thin flat ring outline marking the orbit path, plus a soft glowing hub. */
+/** Thin flat ring outline marking the orbit path, plus the animated logo hub. */
 function OrbitGuide() {
   const inkRgb = useThemeColor("--ink");
-  const accentRgb = useThemeColor("--accent");
   const ringColor = useMemo(() => new THREE.Color(...inkRgb), [inkRgb]);
-  const hubColor = useMemo(() => new THREE.Color(...accentRgb), [accentRgb]);
 
   return (
     <>
@@ -136,10 +135,11 @@ function OrbitGuide() {
         <ringGeometry args={[RADIUS - 0.012, RADIUS + 0.012, 96]} />
         <meshBasicMaterial color={ringColor} transparent opacity={0.18} side={THREE.DoubleSide} />
       </mesh>
-      <mesh>
-        <sphereGeometry args={[0.22, 24, 24]} />
-        <meshBasicMaterial color={hubColor} transparent opacity={0.85} />
-      </mesh>
+      <Html center distanceFactor={9} zIndexRange={[70, 0]}>
+        <div className="h-20 w-20 overflow-hidden rounded-full border border-accent/40 bg-paper/80 shadow-lg shadow-ink/10 backdrop-blur-sm">
+          <LogoAnimation />
+        </div>
+      </Html>
     </>
   );
 }
