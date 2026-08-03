@@ -198,7 +198,7 @@ export function HorizontalCollections() {
               className="relative flex h-full w-screen shrink-0 items-center"
               style={{
                 backgroundColor: "rgb(var(--paper) / 0.80)",
-                backgroundImage: `radial-gradient(60% 70% at ${i % 2 ? "82%" : "18%"} 30%, ${collection.palette.from}33, transparent 62%)`,
+                backgroundImage: `radial-gradient(60% 70% at ${i % 2 ? "82%" : "18%"} 30%, ${collection.palette.from}5C, transparent 62%)`,
               }}
             >
               <div className="container-editorial grid w-full items-center gap-10 md:grid-cols-12 md:gap-12">

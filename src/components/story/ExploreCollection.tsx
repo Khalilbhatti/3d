@@ -21,6 +21,14 @@ export function ExploreCollection() {
     >
       <div
         aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(65% 60% at 12% 0%, rgb(var(--accent) / 0.22), transparent 60%), radial-gradient(55% 55% at 92% 100%, rgb(var(--accent) / 0.14), transparent 62%)",
+        }}
+      />
+      <div
+        aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay"
         style={{
           backgroundImage:

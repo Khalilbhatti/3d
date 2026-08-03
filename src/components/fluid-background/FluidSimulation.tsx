@@ -195,20 +195,29 @@ const DISPLAY_FRAG = /* glsl */ `
   uniform vec3 uBaseColor;
   void main () {
     vec3 c = texture2D(uTexture, vUv).rgb;
-    // themed base + gentle vignette so the smoke reads against it
+    // Mix toward the dye's own normalized hue instead of adding raw light —
+    // additive blending clips straight to white on a bright (light-mode)
+    // base, washing the colour out entirely. A hue mix reads correctly,
+    // vividly, on both a dark and a light themed base.
+    float peak = max(c.r, max(c.g, c.b));
+    vec3 dyeColor = c / max(peak, 0.0001);
+    float mixAmt = clamp(peak * 0.85, 0.0, 0.92);
+    vec3 col = mix(uBaseColor, dyeColor, mixAmt);
     vec2 p = vUv - 0.5;
     float vig = 1.0 - dot(p, p) * 0.55;
-    gl_FragColor = vec4((uBaseColor + c) * vig, 1.0);
+    gl_FragColor = vec4(col * vig, 1.0);
   }
 `;
 
-// Brand-palette smoke tints — navy + orange, matching the logo. Each splat picks the next one.
+// Brand-palette smoke tints. The base wash is already navy (see uBaseColor),
+// so the dye itself is all warm orange/amber — navy-on-navy dye would be
+// nearly invisible, while warm dye pops with real contrast against it.
 const PALETTE: [number, number, number][] = [
   [1.0, 0.596, 0.027], // brand orange
-  [0.18, 0.361, 0.6], // brighter navy-blue
   [1.0, 0.702, 0.278], // amber
-  [0.106, 0.227, 0.388], // muted navy
-  [1.0, 0.757, 0.341], // bright amber highlight
+  [0.91, 0.447, 0.047], // deep orange
+  [1.0, 0.757, 0.341], // bright amber-gold
+  [1.0, 0.541, 0.239], // warm peach-orange
 ];
 
 interface DoubleFBO {
@@ -308,7 +317,7 @@ export function FluidSimulation({ intensity = 1 }: { intensity?: number }) {
   const CURL = 24;
   const SPLAT_RADIUS = 0.11; // small, refined
   const SPLAT_FORCE = 5200;
-  const DENSITY_DISSIPATION = 0.978;
+  const DENSITY_DISSIPATION = 0.982;
   const VELOCITY_DISSIPATION = 0.986;
   const PRESSURE = 0.8;
 
@@ -436,7 +445,7 @@ export function FluidSimulation({ intensity = 1 }: { intensity?: number }) {
       if (moved < 0.5) return;
       const c = PALETTE[colorIndex.current % PALETTE.length];
       colorIndex.current++;
-      const k = 0.22;
+      const k = 0.26;
       splats.current.push({ x, y, dx, dy, color: [c[0] * k, c[1] * k, c[2] * k] });
       if (splats.current.length > 24) splats.current.shift();
       lastInput.current = performance.now();
@@ -480,7 +489,7 @@ export function FluidSimulation({ intensity = 1 }: { intensity?: number }) {
       const dy = -Math.sin(t * 0.15) * 0.28 * SPLAT_FORCE * 0.012;
       const c = PALETTE[colorIndex.current % PALETTE.length];
       colorIndex.current++;
-      splats.current.push({ x, y, dx, dy, color: [c[0] * 0.09, c[1] * 0.09, c[2] * 0.09] });
+      splats.current.push({ x, y, dx, dy, color: [c[0] * 0.11, c[1] * 0.11, c[2] * 0.11] });
     }
 
     // 1. apply queued splats (velocity + dye)

@@ -46,11 +46,11 @@ export function Chapter({
   const bg = dark
     ? {
         backgroundColor: "rgb(var(--paper) / 0.80)",
-        backgroundImage: `radial-gradient(95% 75% at 20% 6%, ${chapter.palette.from}59, transparent 55%), radial-gradient(80% 85% at 82% 100%, ${chapter.palette.via ?? chapter.palette.to}4D, transparent 62%)`,
+        backgroundImage: `radial-gradient(95% 75% at 20% 6%, ${chapter.palette.from}80, transparent 55%), radial-gradient(80% 85% at 82% 100%, ${chapter.palette.via ?? chapter.palette.to}70, transparent 62%)`,
       }
     : {
         backgroundColor: "rgb(var(--paper) / 0.80)",
-        backgroundImage: `radial-gradient(70% 55% at 85% 12%, ${chapter.palette.from}40, transparent 60%), radial-gradient(60% 60% at 8% 92%, ${chapter.palette.via ?? chapter.palette.from}22, transparent 60%)`,
+        backgroundImage: `radial-gradient(70% 55% at 85% 12%, ${chapter.palette.from}66, transparent 60%), radial-gradient(60% 60% at 8% 92%, ${chapter.palette.via ?? chapter.palette.from}44, transparent 60%)`,
       };
 
   return (

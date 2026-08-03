@@ -16,6 +16,14 @@ export function ContactChapter() {
       data-chapter={100}
       className="relative scroll-mt-[var(--header-h)] overflow-hidden bg-paper/80 py-28 text-ink md:py-40"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(65% 60% at 88% 0%, rgb(var(--accent) / 0.22), transparent 60%), radial-gradient(55% 55% at 8% 100%, rgb(var(--accent) / 0.14), transparent 62%)",
+        }}
+      />
       <div className="container-editorial relative">
         <Kicker className="text-ink/60">Let&rsquo;s start the conversation</Kicker>
         <SplitReveal
