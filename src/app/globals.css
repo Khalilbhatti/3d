@@ -9,14 +9,14 @@
    place. Triplets are "R G B" so Tailwind's <alpha-value> works.
    =========================================================================== */
 :root {
-  --paper: 10 10 15;
-  --paper-deep: 20 20 27;
-  --ink: 244 241 234;
-  --ink-soft: 189 184 173;
-  --muted: 110 106 98;
-  --accent: 214 162 74;
-  --accent-deep: 176 126 48;
-  --line: 244 241 234;
+  --paper: 11 18 32;
+  --paper-deep: 22 35 58;
+  --ink: 243 245 248;
+  --ink-soft: 185 195 214;
+  --muted: 107 122 147;
+  --accent: 245 148 31;
+  --accent-deep: 217 121 10;
+  --line: 243 245 248;
 
   --header-h: 4.75rem;
 }

@@ -30,38 +30,39 @@ export const brand = {
 } as const;
 
 /**
- * Dark, cinematic palette. Near-black surfaces with warm light text and a single
- * configurable accent. The whole site reads these tokens, so this one object
- * controls the theme. (`paper` = the dark surface role, `ink` = the light text
- * role — kept as the original token names so every component maps automatically.)
+ * Dark, cinematic palette matched to the GitzTech brand mark: deep navy
+ * surfaces with cool light text and a warm orange accent. The whole site
+ * reads these tokens, so this one object controls the theme. (`paper` = the
+ * dark surface role, `ink` = the light text role — kept as the original
+ * token names so every component maps automatically.)
  */
 export const palette = {
-  paper: "#0A0A0F", // primary near-black surface
-  paperDeep: "#14141B", // elevated surface / raised panels
-  ink: "#F4F1EA", // primary text (warm light)
-  inkSoft: "#BDB8AD", // secondary text
-  muted: "#6E6A62", // muted captions / metadata
-  accent: "#D6A24A", // warm gold — configurable key colour
-  accentDeep: "#B07E30", // pressed / hover accent
-  line: "#F4F1EA", // hairline dividers (used at low alpha)
+  paper: "#0B1220", // primary near-black navy surface
+  paperDeep: "#16233A", // elevated surface / raised panels
+  ink: "#F3F5F8", // primary text (cool light)
+  inkSoft: "#B9C3D6", // secondary text
+  muted: "#6B7A93", // muted captions / metadata
+  accent: "#F5941F", // brand orange — configurable key colour
+  accentDeep: "#D9790A", // pressed / hover accent
+  line: "#F3F5F8", // hairline dividers (used at low alpha)
 } as const;
 
 /**
  * Light counterpart, toggled in via `[data-theme="light"]` on <html> (see
- * ThemeToggle). Same token roles, inverted: `paper` is the warm cream
- * surface, `ink` the near-black text. Every component already reads these
+ * ThemeToggle). Same token roles, inverted: `paper` is a cool off-white
+ * surface, `ink` the brand navy. Every component already reads these
  * roles rather than hardcoded colours, so the toggle needs no component
  * changes — only this palette + the CSS it's written into.
  */
 export const paletteLight = {
-  paper: "#F7F4EC",
-  paperDeep: "#ECE6D6",
-  ink: "#1A1712",
-  inkSoft: "#3D372C",
-  muted: "#8A8272",
-  accent: "#B07E30",
-  accentDeep: "#8C6425",
-  line: "#1A1712",
+  paper: "#F4F6F9",
+  paperDeep: "#E4E9F1",
+  ink: "#101B2E",
+  inkSoft: "#33445E",
+  muted: "#64738D",
+  accent: "#9C4D00",
+  accentDeep: "#7A3C00",
+  line: "#101B2E",
 } as const;
 
 export const fonts = {
