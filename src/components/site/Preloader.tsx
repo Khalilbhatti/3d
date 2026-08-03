@@ -67,18 +67,15 @@ export function Preloader() {
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.9, ease: [0.83, 0, 0.17, 1] }}
         >
-          <div className="flex items-center justify-between">
+          <LogoAnimation className="absolute inset-0 h-full w-full object-cover opacity-70" />
+          <div className="absolute inset-0 bg-paper/55" />
+
+          <div className="relative flex items-center justify-between">
             <span className="label text-ink/70">{brand.full}</span>
             <span className="label text-ink/50">Digital agency</span>
           </div>
 
-          <div className="flex flex-1 items-center justify-center">
-            <div className="h-28 w-28 overflow-hidden rounded-full border border-accent/40 shadow-lg shadow-ink/10 sm:h-40 sm:w-40">
-              <LogoAnimation />
-            </div>
-          </div>
-
-          <div className="flex items-end justify-between">
+          <div className="relative flex items-end justify-between">
             <p className="max-w-xs text-pretty text-sm leading-relaxed text-ink/60">
               Smart solutions for your business — every byte in excellence.
             </p>
