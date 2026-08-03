@@ -82,7 +82,7 @@ export function Preloader() {
       {visible ? (
         <motion.div
           key="preloader"
-          className="fixed inset-0 z-[120] flex flex-col justify-between bg-paper px-6 py-8 text-ink md:px-10"
+          className="fixed inset-0 z-[120] flex flex-col justify-between bg-[#0E2038] px-6 py-8 text-[#F3F5F8] md:px-10"
           initial={{ clipPath: "inset(0 0 0 0)" }}
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.9, ease: [0.83, 0, 0.17, 1] }}
@@ -98,28 +98,28 @@ export function Preloader() {
               }}
             />
           ) : null}
-          <div className="absolute inset-0 bg-paper/55" />
+          <div className="absolute inset-0 bg-[#0A1626]/55" />
 
           <div className="relative flex items-center justify-between">
-            <span className="label text-ink/70">{brand.full}</span>
-            <span className="label text-ink/50">Digital agency</span>
+            <span className="label text-[#F3F5F8]/70">{brand.full}</span>
+            <span className="label text-[#F3F5F8]/50">Digital agency</span>
           </div>
 
           <div className="relative flex items-end justify-between">
-            <p className="max-w-xs text-pretty text-sm leading-relaxed text-ink/60">
+            <p className="max-w-xs text-pretty text-sm leading-relaxed text-[#F3F5F8]/60">
               Smart solutions for your business — every byte in excellence.
             </p>
             <div className="text-right">
-              <span className="font-display text-[clamp(4rem,14vw,10rem)] leading-none text-ink">
+              <span className="font-display text-[clamp(4rem,14vw,10rem)] leading-none text-[#F3F5F8]">
                 {String(count).padStart(3, "0")}
               </span>
             </div>
           </div>
 
           {/* progress line */}
-          <div className="absolute inset-x-0 bottom-0 h-px bg-ink/15">
+          <div className="absolute inset-x-0 bottom-0 h-px bg-[#F3F5F8]/15">
             <motion.div
-              className="h-full origin-left bg-accent"
+              className="h-full origin-left bg-[#FF9807]"
               style={{ scaleX: count / 100 }}
             />
           </div>
