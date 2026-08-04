@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { collections } from "@/content/collections";
-import { getArtworks } from "@/content/index";
 import { SplitReveal } from "@/components/typography/SplitReveal";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { Kicker } from "@/components/typography/primitives";
@@ -12,7 +11,6 @@ import { ServiceOrbit } from "./ServiceOrbit";
  * and the searchable archive.
  */
 export function ExploreCollection() {
-  const total = getArtworks().length;
   return (
     <section
       id="our-services"
@@ -60,7 +58,7 @@ export function ExploreCollection() {
           <Link href="/services" className="link-underline text-ink/80 hover:text-ink">
             Browse all services
           </Link>
-          <span className="label ml-auto text-ink/40">{total} projects delivered</span>
+          <span className="label ml-auto text-ink/40">100+ projects delivered</span>
         </div>
       </div>
     </section>

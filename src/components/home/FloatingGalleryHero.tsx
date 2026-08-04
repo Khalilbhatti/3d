@@ -118,7 +118,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="flex items-center justify-between"
         >
-          <span className="label">Our portfolio · {works.length} projects</span>
+          <span className="label">Our portfolio · 100+ projects</span>
           <span className="label hidden sm:block">Drag to orbit · click to open</span>
         </motion.div>
 

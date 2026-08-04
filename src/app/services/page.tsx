@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getCollections, getArtworks } from "@/content/index";
+import { getCollections } from "@/content/index";
 import { brand } from "@/config/theme";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { HorizontalCollections } from "@/components/collections/HorizontalCollections";
@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 
 export default function CollectionsPage() {
   const collections = getCollections();
-  const workCount = getArtworks().length;
 
   return (
     <>
@@ -23,7 +22,7 @@ export default function CollectionsPage() {
       >
         <div className="flex flex-wrap gap-x-10 gap-y-3">
           <span className="label">{collections.length} collections</span>
-          <span className="label">{workCount} projects delivered</span>
+          <span className="label">100+ projects delivered</span>
           <span className="label">{brand.founded} – present</span>
         </div>
       </PageHeader>

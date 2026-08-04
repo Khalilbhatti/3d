@@ -80,7 +80,7 @@ export function Header() {
         <div className="flex items-center gap-9">
           <Link href="/" className="flex items-center" aria-label={`${brand.full} — home`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="" className="h-12 w-auto" />
+            <img src="/logo.png" alt="" className="h-16 w-auto md:h-[4.5rem]" />
           </Link>
 
           {/* Full desktop navbar — collapses behind the hamburger below `lg`. */}
