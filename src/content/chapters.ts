@@ -1,13 +1,13 @@
 import type { Chapter } from "./types";
 
 /**
- * The home page is a long-form, scroll-driven narrative broken into chapters.
- * Each chapter drives a scene: background colour, imagery, typography.
- * These are the GitzTech home sections — about, approach, talent, process,
- * proof and services. The scroll system reads this array in order; the
- * animated services showcase (<ExploreCollection>) is inserted between
- * chapters 2 and 3 by <HomeStory>, in the slot "Our Services" used to occupy;
- * that chapter now closes the sequence instead.
+ * The home page is a long-form, scroll-driven narrative broken into chapters,
+ * all pinned + crossfaded together by a single <ChapterStack> in one
+ * continuous scroll system. Each chapter drives a scene: background colour,
+ * imagery, typography. Chapter 3 (`kind: "services"`) is the odd one out —
+ * <ChapterStack> renders it as the WebGL <ExploreCollection> orbit instead of
+ * the standard <Chapter> layout, but it still occupies a numbered slot in the
+ * same sequence like every other chapter.
  */
 export const chapters: Chapter[] = [
   {
@@ -43,8 +43,23 @@ export const chapters: Chapter[] = [
     palette: { from: "#FFB347", via: "#C97A1A", to: "#2E1B05", ink: 0.18 },
   },
   {
-    id: "ch-talent",
+    id: "our-services",
     index: "03",
+    kicker: "Our Services",
+    title: "Ready to take your business to the next level?",
+    lede:
+      "A dedicated team focused on quality, innovation, and measurable results — across every discipline your business needs.",
+    body:
+      "Web and app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — six disciplines, one connected team. From idea to launch and beyond, it's end-to-end digital services built to grow your business, all under one roof.",
+    date: "6",
+    location: "Core disciplines",
+    artworkIds: [],
+    palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
+    kind: "services",
+  },
+  {
+    id: "ch-talent",
+    index: "04",
     kicker: "Hire Talent",
     title: "Empower your vision — hire top developers today.",
     lede:
@@ -62,7 +77,7 @@ export const chapters: Chapter[] = [
   },
   {
     id: "ch-process",
-    index: "04",
+    index: "05",
     kicker: "Work Process",
     title: "Our development process.",
     lede:
@@ -76,7 +91,7 @@ export const chapters: Chapter[] = [
   },
   {
     id: "ch-why",
-    index: "05",
+    index: "06",
     kicker: "Why Choose Us",
     title: "Choose us for quality and exceptional service.",
     lede:
@@ -91,19 +106,5 @@ export const chapters: Chapter[] = [
     location: "Happy customers",
     artworkIds: ["prj-ngo", "prj-wholesale"],
     palette: { from: "#FFA733", via: "#B36B12", to: "#2E1A05", ink: 0.16 },
-  },
-  {
-    id: "ch-services",
-    index: "06",
-    kicker: "Our Services",
-    title: "We deliver exceptional services.",
-    lede:
-      "A dedicated team focused on quality, innovation, and measurable results — across every discipline your business needs.",
-    body:
-      "Web and app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — six disciplines, one connected team. From idea to launch and beyond, it's end-to-end digital services built to grow your business, all under one roof.",
-    date: "6",
-    location: "Core disciplines",
-    artworkIds: ["prj-beauty", "prj-ngo"],
-    palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
   },
 ];

@@ -167,8 +167,23 @@ function OrbitGuide() {
  * around a glowing hub on a flat orbital ring, each rendered as a real,
  * clickable chip via drei's <Html> so it always stays upright and readable.
  * Falls back to a static list for reduced motion, mobile, and no-JS.
+ *
+ * `active` gates the render loop — this chapter lives inside `ChapterStack`'s
+ * pinned crossfade, where every card stays mounted and in-viewport for the
+ * whole pin duration even while faded out, so plain IntersectionObserver
+ * visibility can't tell "on screen" from "the currently visible card." Only
+ * the caller (which tracks the crossfade's active index) knows that. Without
+ * this, the six drei `<Html>` chips would recompute their screen-space
+ * transform every animation frame for the entire pinned scroll run, stealing
+ * main-thread budget from scroll compositing and showing up as jank.
  */
-export function ServiceOrbit({ collections }: { collections: Collection[] }) {
+export function ServiceOrbit({
+  collections,
+  active = true,
+}: {
+  collections: Collection[];
+  active?: boolean;
+}) {
   const reduced = usePrefersReducedMotion();
   const isMobile = useIsMobile();
   const [paused, setPaused] = useState(false);
@@ -212,6 +227,7 @@ export function ServiceOrbit({ collections }: { collections: Collection[] }) {
         camera={{ position: [0, 3.7, 7.4], fov: 42 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 2]}
+        frameloop={active ? "always" : "never"}
       >
         <OrbitGuide />
         <OrbitRing collections={collections} paused={paused} />

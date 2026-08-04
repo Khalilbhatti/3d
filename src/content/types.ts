@@ -176,6 +176,13 @@ export interface Chapter {
   /** Artwork ids used as the chapter's imagery. */
   artworkIds: string[];
   palette: ArtPalette;
+  /**
+   * "services" renders as the `<ExploreCollection>` orbit instead of the
+   * standard `<Chapter>` layout — same numbered slot in the scroll sequence,
+   * different content shape (no artwork/quote, has the WebGL service ring).
+   * Omitted/"content" is the normal narrative chapter.
+   */
+  kind?: "content" | "services";
 }
 
 /** Minimal shape the 3D gallery + fullscreen viewer share. */

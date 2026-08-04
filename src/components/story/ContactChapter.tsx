@@ -3,6 +3,7 @@ import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Kicker } from "@/components/typography/primitives";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { MetaList } from "@/components/ui/MetaList";
+import { MReveal } from "@/components/motion/reveal";
 
 /**
  * The home story's closing "Contact" chapter — the nav's Contact link
@@ -37,7 +38,7 @@ export function ContactChapter() {
           Tell us about your project and we&rsquo;ll reply with next steps within one business day.
         </p>
 
-        <div className="mt-16 grid gap-14 md:grid-cols-12">
+        <MReveal variant="scale" className="mt-16 grid gap-14 md:grid-cols-12">
           <div className="md:col-span-7">
             <ContactForm />
           </div>
@@ -82,7 +83,7 @@ export function ContactChapter() {
               </div>
             </div>
           </aside>
-        </div>
+        </MReveal>
       </div>
     </section>
   );

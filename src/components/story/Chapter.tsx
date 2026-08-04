@@ -20,11 +20,16 @@ export function Chapter({
   chapter,
   index,
   dark,
+  variant = "flow",
 }: {
   chapter: ChapterType;
   index: number;
   /** Precomputed by the parent so the type theme is stable across SSR. */
   dark: boolean;
+  /** "panel" is used inside `ChapterStack`'s pinned crossfade — fills its
+   *  pinned box instead of the normal document flow, and skips `data-chapter`
+   *  since the stack reports the active chapter itself. */
+  variant?: "flow" | "panel";
 }) {
   const works = chapter.artworkIds
     .map((id) => getArtworkById(id))
@@ -56,9 +61,14 @@ export function Chapter({
   return (
     <section
       id={chapter.id}
-      data-chapter={index}
+      data-chapter={variant === "flow" ? index : undefined}
       aria-labelledby={`${chapter.id}-title`}
-      className="relative flex min-h-screen scroll-mt-[var(--header-h)] items-center overflow-hidden py-24 md:py-32"
+      className={cn(
+        "relative flex items-center",
+        variant === "flow"
+          ? "min-h-screen scroll-mt-[var(--header-h)] overflow-hidden py-24 md:py-32"
+          : "h-full w-full overflow-x-hidden overflow-y-auto py-16 md:py-20"
+      )}
       style={bg}
     >
       <div

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { type Artwork } from "@/content/types";
 import { getArtworks, getFeaturedArtworks, getArtistById } from "@/content/index";
@@ -13,6 +13,8 @@ import { lockScroll } from "@/components/providers/SmoothScrollProvider";
 import { useAppStore } from "@/lib/store";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useIsMobile } from "@/hooks/useMediaQuery";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 const GalleryCanvas = dynamic(() => import("@/components/webgl/GalleryCanvas"), { ssr: false });
@@ -62,6 +64,33 @@ function WebGLHero({ works }: { works: Artwork[] }) {
   const [active, setActive] = useState(-1);
   const [focused, setFocused] = useState(-1);
   const setOverlayOpen = useAppStore((s) => s.setOverlayOpen);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Recede like a card being lifted away as the hero scrolls out — the same
+  // shrink-and-fade language `ChapterStack` uses between chapters, so the
+  // handoff into the first pinned chapter reads as one continuous system
+  // instead of the hero just abruptly scrolling off.
+  useIsomorphicLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const ctx = gsap.context(() => {
+      gsap.to(section, {
+        scale: 0.94,
+        opacity: 0.85,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, section);
+    return () => {
+      ctx.revert();
+      ScrollTrigger.refresh();
+    };
+  }, []);
 
   const activeWork = active >= 0 ? works[active] : null;
   const activeArtist = activeWork ? getArtistById(activeWork.artistId) : null;
@@ -90,8 +119,29 @@ function WebGLHero({ works }: { works: Artwork[] }) {
     };
   }, [setOverlayOpen]);
 
+  // The background video reads only while nothing's hovered/open — the WebGL
+  // canvas is transparent that whole time (see `FloatingGallery`'s scene
+  // background logic) so the video shows straight through it; hovering a card
+  // or opening one hands the backdrop back to the canvas's own tinted paint.
+  const showVideo = active < 0 && !isFocused;
+
   return (
-    <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-paper">
+    <section ref={sectionRef} className="relative h-[100svh] min-h-[640px] overflow-hidden bg-paper">
+      <video
+        aria-hidden
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className={cn(
+          "pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-editorial",
+          showVideo ? "opacity-100" : "opacity-0"
+        )}
+      >
+        <source src="/video/hero-loop.mp4" type="video/mp4" />
+      </video>
+
       <GalleryCanvas
         artworks={works}
         layout={layout}

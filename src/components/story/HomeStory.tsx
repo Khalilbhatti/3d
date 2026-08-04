@@ -3,20 +3,18 @@
 import { useEffect, useRef } from "react";
 import { chapters } from "@/content/chapters";
 import { useAppStore } from "@/lib/store";
-import { paletteIsDark } from "@/lib/utils";
 import { FloatingGalleryHero } from "@/components/home/FloatingGalleryHero";
-import { Chapter } from "./Chapter";
-import { ExploreCollection } from "./ExploreCollection";
+import { ChapterStack } from "./ChapterStack";
 import { ContactChapter } from "./ContactChapter";
 
 /**
- * Orchestrates the home story: renders the opening floating gallery, every
- * chapter, and the animated services showcase + closing Contact chapter
- * (<ExploreCollection>, <ContactChapter>) in their own narrative slots.
- * Tracks which chapter is centred in the viewport (for the header kicker +
- * progress counter) with a single IntersectionObserver — no scroll hijacking.
- * Chapter type theme (light/dark) is computed here so it is stable between
- * server and client renders.
+ * Orchestrates the home story: renders the opening floating gallery, then
+ * every chapter (including the animated services showcase, chapter 3) pinned
+ * and crossfaded together in one continuous <ChapterStack>, then the closing
+ * Contact chapter. Tracks which chapter is centred in the viewport (for the
+ * header kicker + progress counter) with a single IntersectionObserver — no
+ * scroll hijacking. Chapter type theme (light/dark) is computed here so it is
+ * stable between server and client renders.
  */
 export function HomeStory() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -55,15 +53,7 @@ export function HomeStory() {
   return (
     <div ref={rootRef}>
       <FloatingGalleryHero />
-      {chapters.slice(0, 2).map((chapter, i) => (
-        <Chapter key={chapter.id} chapter={chapter} index={i} dark={paletteIsDark(chapter.palette)} />
-      ))}
-      {/* The animated services showcase takes the "Our Services" narrative
-          slot; the rest of the chapters continue after it. */}
-      <ExploreCollection />
-      {chapters.slice(2).map((chapter, i) => (
-        <Chapter key={chapter.id} chapter={chapter} index={i + 2} dark={paletteIsDark(chapter.palette)} />
-      ))}
+      <ChapterStack chapters={chapters} startIndex={0} />
       <ContactChapter />
     </div>
   );
