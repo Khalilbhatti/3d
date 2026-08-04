@@ -28,7 +28,7 @@ export default function GalleryCanvas({
   return (
     <Canvas
       dpr={[1, 1.6]}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
       camera={{ position: [0, 0, 13], fov: 42 }}
       style={{ position: "absolute", inset: 0 }}
     >

@@ -180,9 +180,15 @@ function OrbitGuide() {
 export function ServiceOrbit({
   collections,
   active = true,
+  compact = false,
 }: {
   collections: Collection[];
   active?: boolean;
+  /** Smaller fixed height for `ChapterStack`'s pinned panel, which has a
+   *  hard `h-[100svh]` ceiling to fit inside alongside the heading and CTA
+   *  row — the roomier default height is sized for the unconstrained flow
+   *  layout on the standalone /services-style page. */
+  compact?: boolean;
 }) {
   const reduced = usePrefersReducedMotion();
   const isMobile = useIsMobile();
@@ -219,7 +225,10 @@ export function ServiceOrbit({
 
   return (
     <div
-      className={cn("relative mt-16 h-[440px] w-full border-t border-ink/15 sm:h-[500px]")}
+      className={cn(
+        "relative w-full border-t border-ink/15",
+        compact ? "mt-8 h-[260px] sm:h-[300px]" : "mt-16 h-[440px] sm:h-[500px]"
+      )}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

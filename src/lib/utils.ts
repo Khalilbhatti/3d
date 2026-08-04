@@ -1,3 +1,5 @@
+import { getChapterScrollTarget } from "@/lib/chapterScrollTargets";
+
 /** Tiny className joiner (no external dep). */
 export function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
@@ -8,6 +10,11 @@ export function cn(...parts: Array<string | false | null | undefined>): string {
  * offset for the fixed header. Prefers the Lenis instance the
  * SmoothScrollProvider exposes on `window.__lenis`; falls back to native
  * `scrollIntoView`/`scrollTo` when Lenis isn't running (reduced motion).
+ *
+ * Chapters pinned inside `<ChapterStack>` don't have a real document
+ * position of their own (they share one `absolute inset-0` box), so for
+ * those `getChapterScrollTarget` supplies the actual scroll-Y instead of the
+ * usual element-bounding-box math.
  */
 export function smoothScrollToId(id?: string) {
   if (typeof window === "undefined") return;
@@ -25,10 +32,13 @@ export function smoothScrollToId(id?: string) {
   const el = document.getElementById(id);
   if (!el) return;
 
+  const pinnedTarget = getChapterScrollTarget(id);
+
   if (lenis) {
-    lenis.scrollTo(el, { offset: -headerH, duration: 1.2 });
+    if (pinnedTarget != null) lenis.scrollTo(pinnedTarget, { duration: 1.2 });
+    else lenis.scrollTo(el, { offset: -headerH, duration: 1.2 });
   } else {
-    const top = el.getBoundingClientRect().top + window.scrollY - headerH;
+    const top = pinnedTarget != null ? pinnedTarget : el.getBoundingClientRect().top + window.scrollY - headerH;
     window.scrollTo({ top, behavior: "smooth" });
   }
 }

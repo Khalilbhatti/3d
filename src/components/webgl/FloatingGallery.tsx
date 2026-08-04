@@ -370,12 +370,7 @@ export function FloatingGallery({
       }
     }
 
-    // Transparent when idle — lets the hero's background video show through
-    // the canvas instead of this opaque paint. Hovering (or focusing a work)
-    // still paints the tinted/photo backdrop below, same as before.
-    const wantsBackdrop = focusing || hovered >= 0;
-    if (wantsBackdrop && scene.background !== bgTextureRef.current) scene.background = bgTextureRef.current;
-    else if (!wantsBackdrop && scene.background !== null) scene.background = null;
+    if (scene.background !== bgTextureRef.current) scene.background = bgTextureRef.current;
     if (!scene.fog) scene.fog = new THREE.Fog(baseBg.getHex(), 13, 30);
     if (focusing) {
       bgTarget.current.copy(baseBg).lerp(focusBg, p);

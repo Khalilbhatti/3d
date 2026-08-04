@@ -10,6 +10,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useAppStore } from "@/lib/store";
 import { paletteIsDark, cn } from "@/lib/utils";
+import { registerChapterScrollTarget, unregisterChapterScrollTarget } from "@/lib/chapterScrollTargets";
 
 /**
  * A run of chapters pinned into one viewport, crossfading from one to the
@@ -110,9 +111,25 @@ export function ChapterStack({
           i + 0.4
         );
       });
+
+      // Every card in the stack shares the same `absolute inset-0` box, so a
+      // plain `getElementById` + `getBoundingClientRect` (what nav links use
+      // everywhere else) always resolves to the top of the whole pin no
+      // matter which chapter's id is requested. Register the real scroll-Y
+      // for each chapter — derived from this ScrollTrigger's own resolved
+      // start/end — so `smoothScrollToId` can land on the right one.
+      const n = chapters.length - 1;
+      chapters.forEach((chapter, i) => {
+        registerChapterScrollTarget(chapter.id, () => {
+          const st = tl.scrollTrigger;
+          if (!st) return null;
+          return n > 0 ? st.start + (i / n) * (st.end - st.start) : st.start;
+        });
+      });
     }, section);
 
     return () => {
+      chapters.forEach((chapter) => unregisterChapterScrollTarget(chapter.id));
       ctx.revert();
       ScrollTrigger.refresh();
     };

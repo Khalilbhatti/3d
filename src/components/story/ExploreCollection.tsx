@@ -29,15 +29,17 @@ export function ExploreCollection({
   /** Whether this card is the one currently visible in the pinned crossfade — gates the WebGL render loop. */
   active?: boolean;
 }) {
+  const panel = variant === "panel";
+
   return (
     <section
       id={chapter.id}
       data-chapter={variant === "flow" ? index : undefined}
       className={cn(
         "relative overflow-hidden bg-paper/80 text-ink",
-        variant === "flow"
-          ? "scroll-mt-[var(--header-h)] py-28 md:py-40"
-          : "flex h-full w-full items-center overflow-x-hidden overflow-y-auto py-16 md:py-20"
+        panel
+          ? "flex h-full w-full items-center overflow-x-hidden overflow-y-auto py-10 md:py-12"
+          : "scroll-mt-[var(--header-h)] py-28 md:py-40"
       )}
     >
       <div
@@ -64,25 +66,30 @@ export function ExploreCollection({
       </div>
 
       <div className="container-editorial relative w-full">
-        <span
-          aria-hidden
-          className="block select-none font-display leading-[0.8] tracking-tighter text-[clamp(5rem,14vw,12rem)] text-ink/[0.07]"
-        >
-          {chapter.index}
-        </span>
+        {panel ? null : (
+          <span
+            aria-hidden
+            className="block select-none font-display leading-[0.8] tracking-tighter text-[clamp(5rem,14vw,12rem)] text-ink/[0.07]"
+          >
+            {chapter.index}
+          </span>
+        )}
 
-        <Kicker className="-mt-4 text-ink/60">Let us start the conversation</Kicker>
+        <Kicker className={cn(panel ? "" : "-mt-4", "text-ink/60")}>Let us start the conversation</Kicker>
         <SplitReveal
           as="h2"
           type="lines"
-          className="mt-6 max-w-[14ch] font-display text-display-lg text-ink"
+          className={cn(
+            "font-display text-ink",
+            panel ? "mt-4 max-w-[22ch] text-display-md" : "mt-6 max-w-[14ch] text-display-lg"
+          )}
         >
           <span id={`${chapter.id}-title`}>{chapter.title}</span>
         </SplitReveal>
 
-        <ServiceOrbit collections={collections} active={active} />
+        <ServiceOrbit collections={collections} active={active} compact={panel} />
 
-        <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div className={cn("flex flex-wrap items-center gap-x-8 gap-y-4", panel ? "mt-8" : "mt-14")}>
           <MagneticButton>
             <Link
               href="/contact"

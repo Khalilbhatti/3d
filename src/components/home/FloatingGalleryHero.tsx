@@ -119,29 +119,8 @@ function WebGLHero({ works }: { works: Artwork[] }) {
     };
   }, [setOverlayOpen]);
 
-  // The background video reads only while nothing's hovered/open — the WebGL
-  // canvas is transparent that whole time (see `FloatingGallery`'s scene
-  // background logic) so the video shows straight through it; hovering a card
-  // or opening one hands the backdrop back to the canvas's own tinted paint.
-  const showVideo = active < 0 && !isFocused;
-
   return (
     <section ref={sectionRef} className="relative h-[100svh] min-h-[640px] overflow-hidden bg-paper">
-      <video
-        aria-hidden
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className={cn(
-          "pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-editorial",
-          showVideo ? "opacity-100" : "opacity-0"
-        )}
-      >
-        <source src="/video/hero-loop.mp4" type="video/mp4" />
-      </video>
-
       <GalleryCanvas
         artworks={works}
         layout={layout}
@@ -154,6 +133,13 @@ function WebGLHero({ works }: { works: Artwork[] }) {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_46%,transparent_52%,rgba(0,0,0,0.16)_100%)]"
       />
+
+      {/* Legibility scrims — the hint/label text below needs to stay readable
+          no matter which bright project card the floating gallery happens to
+          drift behind at any given moment, so these are always on (not just
+          while focused, unlike the vignette above which is purely ambient). */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/45 to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/50 to-transparent" />
 
       {/* Gallery overlay — fades out while a work is focused */}
       <div
@@ -181,7 +167,9 @@ function WebGLHero({ works }: { works: Artwork[] }) {
           >
             Smart Solutions for Your Business
           </motion.span>
-          <h1 className="mt-4 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.98] tracking-tight text-ink">
+          <h1
+            className="mt-4 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.98] tracking-tight text-accent [text-shadow:0_2px_24px_rgb(0_0_0_/_0.45)]"
+          >
             {TITLE_LINES.map((line, li) => (
               <span key={li} className="block overflow-hidden">
                 <motion.span

@@ -64,10 +64,19 @@ export function Chapter({
       data-chapter={variant === "flow" ? index : undefined}
       aria-labelledby={`${chapter.id}-title`}
       className={cn(
-        "relative flex items-center",
+        "relative flex",
         variant === "flow"
-          ? "min-h-screen scroll-mt-[var(--header-h)] overflow-hidden py-24 md:py-32"
-          : "h-full w-full overflow-x-hidden overflow-y-auto py-16 md:py-20"
+          ? "min-h-screen items-center scroll-mt-[var(--header-h)] overflow-hidden py-24 md:py-32"
+          : // `items-start`, not `items-center`: this box is a hard h-[100svh]
+            // ceiling, and chapter copy length varies (quote or no quote, short
+            // lede or long) — a couple of these chapters run taller than a
+            // typical viewport once you add it up. Centered content that
+            // overflows clips symmetrically at both ends (losing the numeral
+            // up top and the date/location row at the bottom simultaneously);
+            // top-aligned content instead degrades gracefully — everything
+            // that matters most (numeral, heading, lede) stays visible, and
+            // only the tail end is ever at risk on unusually short viewports.
+            "h-full w-full items-start overflow-x-hidden overflow-y-auto py-10 md:py-12"
       )}
       style={bg}
     >
