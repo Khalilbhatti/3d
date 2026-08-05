@@ -163,7 +163,7 @@ export function HorizontalCollections() {
     <section ref={sectionRef} className="relative overflow-hidden bg-paper/80">
       <div ref={trackRef} className="flex h-[100svh] w-max flex-nowrap will-change-transform">
         {/* Intro panel */}
-        <article data-panel className="relative flex h-full w-screen shrink-0 items-center">
+        <article data-panel className="relative flex h-full w-screen shrink-0 items-start overflow-y-auto py-16">
           <div className="container-editorial">
             <span data-anim className="label text-accent">Six core disciplines</span>
             <h2 data-anim className="mt-5 max-w-[14ch] font-display text-display-lg leading-[0.98] text-ink">
@@ -195,7 +195,7 @@ export function HorizontalCollections() {
             <article
               key={collection.id}
               data-panel
-              className="relative flex h-full w-screen shrink-0 items-center"
+              className="relative flex h-full w-screen shrink-0 items-start overflow-y-auto py-16"
               style={{
                 backgroundColor: "rgb(var(--paper) / 0.80)",
                 backgroundImage: `radial-gradient(60% 70% at ${i % 2 ? "82%" : "18%"} 30%, ${collection.palette.from}5C, transparent 62%)`,
@@ -269,7 +269,7 @@ export function HorizontalCollections() {
         })}
 
         {/* Outro panel */}
-        <article data-panel className="relative flex h-full w-screen shrink-0 items-center bg-paper/80 text-ink">
+        <article data-panel className="relative flex h-full w-screen shrink-0 items-start overflow-y-auto py-16 bg-paper/80 text-ink">
           <div className="container-editorial">
             <span data-anim className="label text-accent">Ready when you are</span>
             <h2 data-anim className="mt-5 max-w-[14ch] font-display text-display-lg leading-[0.98] text-ink">
