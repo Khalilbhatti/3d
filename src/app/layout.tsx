@@ -7,7 +7,6 @@ import { GlobalFluidBackground } from "@/components/fluid-background/GlobalFluid
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { SkipLink } from "@/components/site/SkipLink";
 import { SiteChrome } from "@/components/site/SiteChrome";
-import { Preloader } from "@/components/site/Preloader";
 import { Footer } from "@/components/site/Footer";
 
 /* Optimised, self-hosted fonts via next/font — no layout shift, no external
@@ -100,7 +99,6 @@ export default function RootLayout({
       <body className="grain min-h-screen bg-paper font-sans text-ink-soft antialiased">
         <ThemeStyle />
         <GlobalFluidBackground />
-        <Preloader />
         <SkipLink />
         <SmoothScrollProvider>
           <SiteChrome />

@@ -79,7 +79,7 @@ src/
 │  ├─ gallery/              # Editorial / Horizontal / ArchiveGrid / FullscreenViewer / cards
 │  ├─ typography/           # SplitReveal, Reveal, ScrollParagraph, primitives
 │  ├─ media/                # ArtworkImage + PlaceholderArt
-│  ├─ site/                 # Header, FullscreenMenu, Footer, Preloader, CustomCursor, ScrollProgress
+│  ├─ site/                 # Header, FullscreenMenu, Footer, CustomCursor, ScrollProgress
 │  └─ journal/ artists/ collections/ contact/ artwork/ ui/
 ├─ content/                 # ← all editable data
 ├─ config/theme.ts          # ← brand, palette, fonts, navigation
