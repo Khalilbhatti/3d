@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { type Artwork } from "@/content/types";
 import {
   type Facets,
@@ -226,8 +227,28 @@ function ArchiveItem({
   index: number;
   onQuickView: () => void;
 }) {
+  const reduced = useReducedMotion();
+  // Each card starts scattered — a small random offset, drop, and tilt — and
+  // springs into its actual grid cell. The grid itself never moves; this is
+  // purely a transform+opacity entrance layered on top of the normal CSS
+  // Grid layout, so card size/position/functionality are untouched.
+  const scatter = useMemo(
+    () => ({
+      x: (Math.random() - 0.5) * 140,
+      y: 36 + Math.random() * 54,
+      rotate: (Math.random() - 0.5) * 12,
+    }),
+    []
+  );
+
   return (
-    <div className="group relative animate-fade-up" style={{ animationDelay: `${(index % 12) * 45}ms` }}>
+    <motion.div
+      className="group relative"
+      initial={reduced ? { opacity: 0 } : { opacity: 0, x: scatter.x, y: scatter.y, rotate: scatter.rotate, scale: 0.88 }}
+      whileInView={reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ type: "spring", stiffness: 90, damping: 16, delay: (index % 12) * 0.05 }}
+    >
       <div className="relative overflow-hidden">
         <Link
           href={`/portfolio/${artwork.slug}`}
@@ -275,6 +296,6 @@ function ArchiveItem({
       <Link href={`/portfolio/${artwork.slug}`} className="mt-4 block focus-visible:outline-none">
         <ArtworkCaption artwork={artwork} size="sm" />
       </Link>
-    </div>
+    </motion.div>
   );
 }
