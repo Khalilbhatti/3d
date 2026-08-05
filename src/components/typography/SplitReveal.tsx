@@ -45,8 +45,17 @@ export function SplitReveal({
     if (!el || reduced) return;
 
     let split: SplitText | null = null;
+    // `document.fonts.ready` can resolve after this effect's cleanup has
+    // already run (React Strict Mode's synchronous mount→unmount→remount
+    // guarantees this on every dev load). Without this guard, the first
+    // mount's stale `build()` fires after cleanup, mutating DOM the second
+    // mount already owns — React then finds DOM it doesn't recognize and
+    // throws removeChild/insertBefore errors on the next commit (confirmed
+    // via gstack:browse: consistent home-page crash on mobile widths).
+    let cancelled = false;
     const ctx = gsap.context(() => {
       const build = () => {
+        if (cancelled) return;
         split = new SplitText(el, {
           type,
           // GSAP 3.13 auto-wraps targets in overflow-hidden clip masks.
@@ -79,6 +88,7 @@ export function SplitReveal({
     }, ref);
 
     return () => {
+      cancelled = true;
       split?.revert();
       ctx.revert();
     };

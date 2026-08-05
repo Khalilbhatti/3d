@@ -32,7 +32,6 @@ const TITLE_LINES = ["Smart solutions", "for your business."];
 export function FloatingGalleryHero() {
   const reduced = usePrefersReducedMotion();
   const isMobile = useIsMobile();
-  const [supported, setSupported] = useState(false);
   const openViewer = useAppStore((s) => s.openViewer);
 
   const works = useMemo<Artwork[]>(() => {
@@ -42,16 +41,34 @@ export function FloatingGalleryHero() {
   }, []);
   const ids = useMemo(() => works.map((w) => w.id), [works]);
 
+  // WebGL support and `isMobile`/`reduced` used to resolve on independent
+  // effect timers. If the WebGL support check landed before the mobile media
+  // query did, useWebGL briefly went true on mobile, mounting <GalleryCanvas>
+  // — then isMobile caught up a tick later and tore it straight back down.
+  // Unmounting a live R3F canvas mid-flight is what crashed React's
+  // reconciler with a removeChild error (confirmed via gstack:browse at
+  // 375px). Resolving all three conditions together, synchronously, in one
+  // effect closes that race.
+  const [useWebGL, setUseWebGL] = useState(false);
+  const resolvedOnceRef = useRef(false);
+
   useEffect(() => {
+    let supported = false;
     try {
       const c = document.createElement("canvas");
-      setSupported(!!(c.getContext("webgl2") || c.getContext("webgl")));
+      supported = !!(c.getContext("webgl2") || c.getContext("webgl"));
     } catch {
-      setSupported(false);
+      supported = false;
     }
-  }, []);
-
-  const useWebGL = supported && !reduced && !isMobile;
+    if (!resolvedOnceRef.current) {
+      resolvedOnceRef.current = true;
+      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+      setUseWebGL(supported && !reducedNow && !mobileNow);
+      return;
+    }
+    setUseWebGL(supported && !reduced && !isMobile);
+  }, [reduced, isMobile]);
 
   if (!useWebGL) {
     return <FallbackHero works={works} animate={!reduced} onSelect={(i) => openViewer(ids, i)} />;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { useMemo, useRef, useState, type ComponentType } from "react";
+import { useEffect, useMemo, useRef, useState, type ComponentType } from "react";
 import * as THREE from "three";
 import type { Collection } from "@/content/types";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -93,6 +93,7 @@ const SPEED = 0.18; // radians / second
 /** Six service chips revolving around the centre on a flat ring in 3D space. */
 function OrbitRing({ collections, paused }: { collections: Collection[]; paused: boolean }) {
   const anchors = useRef<(THREE.Group | null)[]>([]);
+  const labels = useRef<(HTMLElement | null)[]>([]);
   const angle = useRef(0);
 
   useFrame((_, delta) => {
@@ -102,7 +103,21 @@ function OrbitRing({ collections, paused }: { collections: Collection[]; paused:
       const g = anchors.current[i];
       if (!g) return;
       const a = angle.current + i * step;
-      g.position.set(Math.cos(a) * RADIUS, 0, Math.sin(a) * RADIUS);
+      const z = Math.sin(a) * RADIUS;
+      g.position.set(Math.cos(a) * RADIUS, 0, z);
+      // Fade chips by depth (front of the ring vs. back) so labels never
+      // visually collide — 6 chips on a flat ring viewed at this camera
+      // angle periodically project close together in screen space as they
+      // rotate, and at full opacity their text overlapped and became
+      // unreadable (confirmed via gstack:browse). Only the 2-3 front-facing
+      // chips need to be legible at once; the rest recede like the far side
+      // of a real turntable.
+      const label = labels.current[i];
+      if (label) {
+        const t = (z / RADIUS + 1) / 2; // 0 = back of ring, 1 = front
+        const opacity = 0.14 + 0.86 * Math.pow(t, 1.6);
+        label.style.opacity = String(opacity);
+      }
     });
   });
 
@@ -115,6 +130,7 @@ function OrbitRing({ collections, paused }: { collections: Collection[]; paused:
           <group key={c.id} ref={(el) => { anchors.current[i] = el; }}>
             <Html center distanceFactor={9} zIndexRange={[60, 0]} style={{ pointerEvents: "auto" }}>
               <Link
+                ref={(el) => { labels.current[i] = el; }}
                 href={`/services/${c.slug}`}
                 className="group flex flex-col items-center gap-2"
                 style={{ color: c.palette.from }}
@@ -195,7 +211,28 @@ export function ServiceOrbit({
   const isMobile = useIsMobile();
   const [paused, setPaused] = useState(false);
 
-  if (reduced || isMobile) {
+  // Two-phase resolve, same pattern as ChapterStack/HorizontalCollections:
+  // `reduced`/`isMobile` default false and only reflect the real device one
+  // render after mount. Rendering the <Canvas> branch first and then tearing
+  // it down once mobile resolves true is what crashed React's reconciler
+  // with a removeChild error (confirmed via gstack:browse at 375px). Default
+  // to the static list and only ever promote *into* the canvas once real
+  // device capability is confirmed, so a live R3F canvas is never unmounted.
+  const [confirmedCanvas, setConfirmedCanvas] = useState(false);
+  const resolvedOnceRef = useRef(false);
+
+  useEffect(() => {
+    if (!resolvedOnceRef.current) {
+      resolvedOnceRef.current = true;
+      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+      setConfirmedCanvas(!reducedNow && !mobileNow);
+      return;
+    }
+    setConfirmedCanvas(!reduced && !isMobile);
+  }, [reduced, isMobile]);
+
+  if (!confirmedCanvas) {
     return (
       <div className="mt-16 grid gap-x-12 gap-y-2 border-t border-ink/15 sm:grid-cols-2">
         {collections.map((c, i) => {

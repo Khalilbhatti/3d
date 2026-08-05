@@ -92,13 +92,19 @@ export function Chapter({
         </VerticalLabel>
       </div>
 
-      <div className="container-editorial relative grid w-full items-center gap-y-14 md:grid-cols-12 md:gap-x-12">
+      <div className={cn("container-editorial relative grid w-full items-center md:grid-cols-12 md:gap-x-12", variant === "panel" ? "gap-y-6" : "gap-y-14")}>
         <div className="relative md:order-1 md:col-span-5">
           <span
             aria-hidden
             className={cn(
               "block select-none font-display leading-[0.8] tracking-tighter",
-              "text-[clamp(5rem,14vw,12rem)]",
+              // Panel variant sits in a hard h-[100svh] box, so the numeral
+              // can't afford flow's full dramatic size — at 14vw it alone ran
+              // up to 192px tall, the single biggest contributor to chapters
+              // clipping their last line on shorter viewports (confirmed via
+              // gstack:browse at 1440x750: chapters 01 and 02 both had their
+              // closing line cut off / overlapped by the scroll-hint bar).
+              variant === "panel" ? "text-[clamp(3rem,7vw,5.5rem)]" : "text-[clamp(5rem,14vw,12rem)]",
               tone.num
             )}
           >
@@ -128,16 +134,24 @@ export function Chapter({
           <Reveal
             variant="up"
             delay={200}
-            className={cn("mt-5 max-w-md text-pretty leading-relaxed", tone.body)}
+            className={cn(
+              "mt-5 max-w-md text-pretty leading-relaxed",
+              // Bounded to 3 lines in panel mode so body-copy length can never
+              // reopen the overflow this numeral shrink fixes, regardless of
+              // future content edits.
+              variant === "panel" && "line-clamp-3",
+              tone.body
+            )}
           >
             {chapter.body}
           </Reveal>
 
           {chapter.quote ? (
-            <Reveal as="figure" variant="up" delay={120} className="mt-9 max-w-md">
+            <Reveal as="figure" variant="up" delay={120} className={cn("max-w-md", variant === "panel" ? "mt-5" : "mt-9")}>
               <blockquote
                 className={cn(
-                  "font-display text-2xl leading-snug text-balance md:text-[1.7rem]",
+                  "font-display leading-snug text-balance",
+                  variant === "panel" ? "text-lg md:text-xl" : "text-2xl md:text-[1.7rem]",
                   tone.head
                 )}
               >
@@ -150,7 +164,7 @@ export function Chapter({
           <Reveal
             variant="up"
             delay={80}
-            className={cn("mt-10 flex items-end gap-6 border-t border-line/15 pt-5")}
+            className={cn("flex items-end gap-6 border-t border-line/15", variant === "panel" ? "mt-5 pt-4" : "mt-10 pt-5")}
           >
             {chapter.date ? (
               <span className={cn("font-display text-4xl leading-none", tone.head)}>{chapter.date}</span>

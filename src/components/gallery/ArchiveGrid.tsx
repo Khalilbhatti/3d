@@ -232,14 +232,24 @@ function ArchiveItem({
   // springs into its actual grid cell. The grid itself never moves; this is
   // purely a transform+opacity entrance layered on top of the normal CSS
   // Grid layout, so card size/position/functionality are untouched.
-  const scatter = useMemo(
-    () => ({
-      x: (Math.random() - 0.5) * 140,
-      y: 36 + Math.random() * 54,
-      rotate: (Math.random() - 0.5) * 12,
-    }),
-    []
-  );
+  // Seeded from `index` (not Math.random()) so SSR and client hydration
+  // compute identical values — Math.random() here caused a React hydration
+  // mismatch (server and client render different transform: translate/rotate).
+  // Integer-only bit mixing (no Math.sin/floating transcendentals) so the
+  // result is bit-identical across server/client V8 builds, not just close.
+  const scatter = useMemo(() => {
+    const rand = (n: number) => {
+      let t = ((index + 1) * 0x6d2b79f5) ^ Math.imul(n, 0x9e3779b9);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    return {
+      x: (rand(1) - 0.5) * 140,
+      y: 36 + rand(2) * 54,
+      rotate: (rand(3) - 0.5) * 12,
+    };
+  }, [index]);
 
   return (
     <motion.div
