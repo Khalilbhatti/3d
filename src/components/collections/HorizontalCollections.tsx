@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { collections, getArtworksByIds, getArtistById } from "@/content/index";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { CollectionCard } from "./CollectionCard";
+import { MReveal } from "@/components/motion/reveal";
 import { gsap } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -150,7 +151,9 @@ export function HorizontalCollections() {
     return (
       <div className="space-y-28 pb-28 md:space-y-40">
         {collections.map((c, i) => (
-          <CollectionCard key={c.id} collection={c} index={i} />
+          <MReveal key={c.id} variant="up" amount={0.15}>
+            <CollectionCard collection={c} index={i} />
+          </MReveal>
         ))}
       </div>
     );

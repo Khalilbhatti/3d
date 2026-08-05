@@ -155,7 +155,11 @@ function WebGLHero({ works }: { works: Artwork[] }) {
           className="flex items-center justify-between"
         >
           <span className="label">Our portfolio · 100+ projects</span>
-          <span className="label hidden sm:block">Drag to orbit · click to open</span>
+          {/* Only past 1024px, not sm's 640px — WebGLHero itself never renders
+              below 768px, and two full label strings side by side get tight
+              right at that point; hide the second until there's room proven
+              wide enough rather than guess at exact wrapping. */}
+          <span className="label hidden lg:block">Drag to orbit · click to open</span>
         </motion.div>
 
         <div className="mx-auto max-w-3xl text-center">

@@ -10,6 +10,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { LogoAnimation } from "@/components/media/LogoAnimation";
+import { MReveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
 type IconProps = { className?: string };
@@ -201,22 +202,24 @@ export function ServiceOrbit({
           const imageSrc = IMAGE_ICONS[c.slug];
           const Icon = ICONS[c.slug] ?? IconLayers;
           return (
-            <Link key={c.id} href={`/services/${c.slug}`} className="group flex items-center gap-4 border-b border-ink/12 py-6">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-ink/15 text-ink/70 transition-colors group-hover:border-accent group-hover:text-accent">
-                {imageSrc ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={imageSrc} alt="" className="h-full w-full object-cover" />
-                ) : (
-                  <Icon className="h-5 w-5" />
-                )}
-              </span>
-              <span className="flex flex-col">
-                <span className="font-mono text-xs text-ink/40">{String(i + 1).padStart(2, "0")}</span>
-                <span className="font-display text-xl leading-tight text-ink transition-colors group-hover:text-accent">
-                  {c.title}
+            <MReveal key={c.id} variant="up" delay={(i % 6) * 0.06} duration={0.5}>
+              <Link href={`/services/${c.slug}`} className="group flex items-center gap-4 border-b border-ink/12 py-6">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-ink/15 text-ink/70 transition-colors group-hover:border-accent group-hover:text-accent">
+                  {imageSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={imageSrc} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    <Icon className="h-5 w-5" />
+                  )}
                 </span>
-              </span>
-            </Link>
+                <span className="flex flex-col">
+                  <span className="font-mono text-xs text-ink/40">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-xl leading-tight text-ink transition-colors group-hover:text-accent">
+                    {c.title}
+                  </span>
+                </span>
+              </Link>
+            </MReveal>
           );
         })}
       </div>
