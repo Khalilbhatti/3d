@@ -41,16 +41,17 @@ export function FloatingGalleryHero() {
   }, []);
   const ids = useMemo(() => works.map((w) => w.id), [works]);
 
-  // WebGL support and `isMobile`/`reduced` used to resolve on independent
-  // effect timers. If the WebGL support check landed before the mobile media
-  // query did, useWebGL briefly went true on mobile, mounting <GalleryCanvas>
-  // — then isMobile caught up a tick later and tore it straight back down.
   // Unmounting a live R3F canvas mid-flight is what crashed React's
   // reconciler with a removeChild error (confirmed via gstack:browse at
-  // 375px). Resolving all three conditions together, synchronously, in one
-  // effect closes that race.
+  // 375px + effect-level tracing). Reading matchMedia directly on every
+  // invocation (rather than trusting the `reduced`/`isMobile` hook closures
+  // after a first "resolved" flag flips) matters: React Strict Mode invokes
+  // this effect a second time before those hooks' own independent effects
+  // have resolved, so a flag-gated "first vs. subsequent" branch reads stale
+  // (false, false) closures on that second invocation and wrongly promotes
+  // to WebGL — which then gets torn down a moment later once the hooks
+  // catch up. This way every invocation gets the real, current state.
   const [useWebGL, setUseWebGL] = useState(false);
-  const resolvedOnceRef = useRef(false);
 
   useEffect(() => {
     let supported = false;
@@ -60,14 +61,9 @@ export function FloatingGalleryHero() {
     } catch {
       supported = false;
     }
-    if (!resolvedOnceRef.current) {
-      resolvedOnceRef.current = true;
-      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
-      setUseWebGL(supported && !reducedNow && !mobileNow);
-      return;
-    }
-    setUseWebGL(supported && !reduced && !isMobile);
+    const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+    setUseWebGL(supported && !reducedNow && !mobileNow);
   }, [reduced, isMobile]);
 
   if (!useWebGL) {
@@ -171,12 +167,20 @@ function WebGLHero({ works }: { works: Artwork[] }) {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="flex items-center justify-between"
         >
-          <span className="label">Our portfolio · 100+ projects</span>
+          {/* The scrim gradients above darken a horizontal band, but the
+              floating gallery cards are bright enough that a light-colored
+              card drifting directly behind this text can still wash it out
+              regardless of any edge shadow — light text loses contrast
+              against a light backdrop no matter how it's outlined
+              (confirmed via gstack:browse screenshot at ~820px width). A
+              real backdrop chip guarantees contrast against any card color,
+              not just dark ones. */}
+          <span className="label rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px]">Our portfolio · 100+ projects</span>
           {/* Only past 1024px, not sm's 640px — WebGLHero itself never renders
               below 768px, and two full label strings side by side get tight
               right at that point; hide the second until there's room proven
               wide enough rather than guess at exact wrapping. */}
-          <span className="label hidden lg:block">Drag to orbit · click to open</span>
+          <span className="label hidden rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px] lg:block">Drag to orbit · click to open</span>
         </motion.div>
 
         <div className="mx-auto max-w-3xl text-center">
@@ -256,12 +260,12 @@ function WebGLHero({ works }: { works: Artwork[] }) {
                   <p className="label">{activeArtist?.name}, {activeWork.year}</p>
                 </motion.div>
               ) : (
-                <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="label hidden text-right sm:block">
+                <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="label hidden rounded-sm bg-ink/60 px-2 py-1 text-right backdrop-blur-[2px] sm:block">
                   Hover a project
                 </motion.p>
               )}
             </AnimatePresence>
-            <ScrollCue label="Scroll into the story" />
+            <ScrollCue label="Scroll into the story" className="rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px]" />
           </div>
         </div>
       </div>

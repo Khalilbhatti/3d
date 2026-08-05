@@ -50,8 +50,7 @@ export function SplitReveal({
     // guarantees this on every dev load). Without this guard, the first
     // mount's stale `build()` fires after cleanup, mutating DOM the second
     // mount already owns — React then finds DOM it doesn't recognize and
-    // throws removeChild/insertBefore errors on the next commit (confirmed
-    // via gstack:browse: consistent home-page crash on mobile widths).
+    // throws removeChild/insertBefore errors on the next commit.
     let cancelled = false;
     const ctx = gsap.context(() => {
       const build = () => {

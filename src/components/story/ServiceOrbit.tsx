@@ -211,25 +211,25 @@ export function ServiceOrbit({
   const isMobile = useIsMobile();
   const [paused, setPaused] = useState(false);
 
-  // Two-phase resolve, same pattern as ChapterStack/HorizontalCollections:
-  // `reduced`/`isMobile` default false and only reflect the real device one
-  // render after mount. Rendering the <Canvas> branch first and then tearing
-  // it down once mobile resolves true is what crashed React's reconciler
-  // with a removeChild error (confirmed via gstack:browse at 375px). Default
-  // to the static list and only ever promote *into* the canvas once real
-  // device capability is confirmed, so a live R3F canvas is never unmounted.
+  // Rendering the <Canvas> branch first and then tearing it down once mobile
+  // resolves true is what crashed React's reconciler with a removeChild
+  // error (confirmed via gstack:browse at 375px + effect-level tracing).
+  // Default to the static list and only ever promote *into* the canvas once
+  // real device capability is confirmed, so a live R3F canvas is never
+  // unmounted. Reading matchMedia directly on every invocation (rather than
+  // trusting the `reduced`/`isMobile` hook closures after a first "resolved"
+  // flag flips) matters: React Strict Mode invokes this effect a second
+  // time before those hooks' own independent effects have resolved, so a
+  // flag-gated "first vs. subsequent" branch reads stale (false, false)
+  // closures on that second invocation and wrongly promotes to the canvas —
+  // which then gets torn down a moment later once the hooks catch up. This
+  // way every invocation gets the real, current device state directly.
   const [confirmedCanvas, setConfirmedCanvas] = useState(false);
-  const resolvedOnceRef = useRef(false);
 
   useEffect(() => {
-    if (!resolvedOnceRef.current) {
-      resolvedOnceRef.current = true;
-      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
-      setConfirmedCanvas(!reducedNow && !mobileNow);
-      return;
-    }
-    setConfirmedCanvas(!reduced && !isMobile);
+    const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+    setConfirmedCanvas(!reducedNow && !mobileNow);
   }, [reduced, isMobile]);
 
   if (!confirmedCanvas) {

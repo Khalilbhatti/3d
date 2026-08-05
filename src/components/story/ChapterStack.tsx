@@ -36,25 +36,28 @@ export function ChapterStack({
   const barRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
-  // Same two-phase resolve `HorizontalCollections` uses: the very first client
-  // render must match the server-rendered fallback even if reduced-motion or
-  // mobile is already active at load, since `reduced`/`isMobile` can't reflect
-  // that until one render after mount. Tearing the pinned layout back down
-  // after a late-resolved value is what crashes React's reconciler (the
-  // pin-spacer ScrollTrigger inserts moves the section outside what React
-  // expects) — so we only ever promote straight into a fresh mount.
+  // The very first client render must match the server-rendered fallback
+  // even if reduced-motion or mobile is already active at load, since
+  // `reduced`/`isMobile` can't reflect that until their own hooks resolve —
+  // so this starts false and only ever promotes into the pinned layout once
+  // confirmed. Previously this used a `resolvedOnceRef` flag to special-case
+  // only the first effect invocation, trusting the `reduced`/`isMobile` hook
+  // closures for every later one — but React Strict Mode invokes this
+  // effect a second time before those hooks' own independent effects have
+  // resolved, so that second invocation read stale (false, false) closures,
+  // wrongly concluded desktop, and mounted the GSAP pin. It then correctly
+  // un-mounted a moment later once isMobile caught up — tearing down a pin
+  // that had just been built is what crashed React's reconciler (confirmed
+  // via gstack:browse + effect-level tracing). Reading matchMedia directly
+  // on every invocation sidesteps the stale-closure race entirely: no
+  // matter how many times or in what order this effect fires, it always
+  // gets the real, current device state rather than a hook's snapshot of it.
   const [confirmedFull, setConfirmedFull] = useState(false);
-  const resolvedOnceRef = useRef(false);
 
   useEffect(() => {
-    if (!resolvedOnceRef.current) {
-      resolvedOnceRef.current = true;
-      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
-      setConfirmedFull(!reducedNow && !mobileNow);
-      return;
-    }
-    setConfirmedFull(!reduced && !isMobile);
+    const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+    setConfirmedFull(!reducedNow && !mobileNow);
   }, [reduced, isMobile]);
 
   const canStack = chapters.length > 1;
