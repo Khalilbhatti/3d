@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getArtworks, getFacets } from "@/content/index";
+import { getArtworks, getFacets, getFeaturedArtworks } from "@/content/index";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ArchiveGrid } from "@/components/gallery/ArchiveGrid";
+import { FeaturedProjectsSelector } from "@/components/gallery/FeaturedProjectsSelector";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -18,6 +19,7 @@ export default function ArchivePage({
   const artworks = getArtworks();
   const facets = getFacets();
   const initialQuery = typeof searchParams.q === "string" ? searchParams.q : "";
+  const featured = getFeaturedArtworks().slice(0, 6);
 
   return (
     <>
@@ -29,6 +31,7 @@ export default function ArchivePage({
       <Suspense>
         <ArchiveGrid artworks={artworks} facets={facets} initialQuery={initialQuery} />
       </Suspense>
+      <FeaturedProjectsSelector artworks={featured} />
     </>
   );
 }
