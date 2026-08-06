@@ -110,6 +110,7 @@ export function FeaturedProjectsSelector({ artworks }: { artworks: Artwork[] }) 
                     href={`/portfolio/${artwork.slug}`}
                     aria-current={isActive ? "true" : undefined}
                     onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
                       if (!isActive) {
                         e.preventDefault();
                         setActive(i);
@@ -123,7 +124,7 @@ export function FeaturedProjectsSelector({ artworks }: { artworks: Artwork[] }) 
                           src={artwork.image}
                           alt={artwork.alt}
                           fill
-                          sizes={isActive ? "60vw" : "120px"}
+                          sizes="(max-width: 1024px) 60vw, 45vw"
                           className="object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
                         />
                       ) : (
@@ -151,6 +152,7 @@ export function FeaturedProjectsSelector({ artworks }: { artworks: Artwork[] }) 
                         )}
                       >
                         {artwork.title}
+                        {!isActive && <span className="sr-only"> — expand</span>}
                       </p>
                       <p
                         className={cn(
