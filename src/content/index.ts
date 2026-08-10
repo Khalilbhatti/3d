@@ -96,31 +96,78 @@ export const getArtworkViews = (list: Artwork[] = artworks): ArtworkView[] =>
 
 /* ------------------------- Archive filter facets -------------------------- */
 export interface Facets {
-  artists: { id: string; name: string }[];
-  periods: string[];
-  locations: string[];
-  mediums: string[];
+  stackCategories: { category: string; tags: string[] }[];
 }
+
+/**
+ * Curated Stack filter tags, grouped for display. Static (not derived from
+ * artwork data) so every tag renders as a clickable chip even before a
+ * project uses it. See
+ * docs/superpowers/specs/2026-08-10-portfolio-tech-stack-showcase-design.md.
+ */
+export const STACK_CATEGORIES: { category: string; tags: string[] }[] = [
+  {
+    category: "AI & Automation",
+    tags: [
+      "AI Agents",
+      "AI Automation",
+      "n8n",
+      "Make.com",
+      "Zapier",
+      "GoHighLevel",
+      "API Integration",
+      "3rd-Party Integrations",
+    ],
+  },
+  {
+    category: "Development",
+    tags: [
+      "Python",
+      "Node.js",
+      "Express.js",
+      "Laravel",
+      "PHP",
+      "React.js",
+      "Next.js",
+      "Vue.js",
+      "Angular",
+      "JavaScript",
+      "HTML",
+      "CSS",
+    ],
+  },
+  {
+    category: "Database & Cloud",
+    tags: [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Firebase",
+      "Redis",
+      "AWS",
+      "Azure",
+      "Google Cloud",
+      "Docker",
+      "CI/CD",
+    ],
+  },
+  {
+    category: "AI / ML",
+    tags: ["OpenAI API", "GPT", "Claude", "LangChain", "TensorFlow", "NLP", "Machine Learning"],
+  },
+  {
+    category: "CRM & Business Systems",
+    tags: ["GHL", "HubSpot", "Zoho", "Pipedrive", "Salesforce", "Active Campaign", "CRM Automation"],
+  },
+  {
+    category: "Mobile & E-commerce",
+    tags: ["React Native", "Flutter", "Shopify", "WooCommerce", "Stripe", "PayPal", "Razorpay"],
+  },
+];
 
 export function getFacets(): Facets {
-  const period = new Set<string>();
-  const location = new Set<string>();
-  const medium = new Set<string>();
-  for (const a of artworks) {
-    period.add(a.period);
-    location.add(a.location.split("·")[0].trim());
-    medium.add(a.medium.split(/ on |,/i)[0].trim());
-  }
-  return {
-    artists: artists
-      .filter((ar) => getArtworksByArtist(ar.id).length > 0)
-      .map((ar) => ({ id: ar.id, name: ar.name })),
-    periods: [...period].sort(),
-    locations: [...location].sort(),
-    mediums: [...medium].sort(),
-  };
+  return { stackCategories: STACK_CATEGORIES };
 }
 
-/** Normalisers used by the archive filter so labels match the facet buckets. */
-export const artworkLocationBucket = (a: Artwork) => a.location.split("·")[0].trim();
+/** Normaliser used by the archive filter so labels match the Stack facet buckets. */
 export const artworkMediumBucket = (a: Artwork) => a.medium.split(/ on |,/i)[0].trim();
