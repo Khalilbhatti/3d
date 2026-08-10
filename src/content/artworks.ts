@@ -154,29 +154,6 @@ export const artworks: Artwork[] = [
     featured: true,
   },
   {
-    id: "prj-beauty",
-    slug: "beauty-salon",
-    title: "Beauty Salon",
-    artistId: "team-wordpress",
-    year: "2025",
-    medium: "WordPress, WooCommerce, Custom Theme",
-    dimensions: "9 pages · online booking · 5 weeks",
-    location: "Beauty & Wellness · Lahore",
-    collectionId: "svc-wordpress",
-    period: "Website Build",
-    description:
-      "A booking-first website for a multi-branch salon: treatment menus, stylist profiles, and an appointment flow that fills quiet hours instead of leaving the phone ringing.",
-    historicalContext:
-      "The old site was a page-builder template that took eleven seconds to load on mobile. We rebuilt it as a custom theme with a native booking flow — pages now load in under two seconds and online bookings became the salon's largest source of new clients.",
-    orientation: "landscape",
-    seed: "prj-beauty-01",
-    palette: { from: "#FFAE6B", via: "#B3591A", to: "#2E1505", ink: 0.16 },
-    image: "/portfolio/beauty-salon.jpg",
-    alt: "Beauty Salon website project by GitzTech — a booking-first WordPress build for a beauty and wellness brand.",
-    relatedArtworkIds: ["prj-stitcher", "prj-crafting"],
-    featured: true,
-  },
-  {
     id: "prj-crafting",
     slug: "crafting-studio",
     title: "Crafting Studio",
@@ -196,7 +173,7 @@ export const artworks: Artwork[] = [
     palette: { from: "#FF9807", via: "#B35F00", to: "#2A1500", ink: 0.16 },
     image: "/portfolio/crafting-studio.jpg",
     alt: "Crafting Studio project by GitzTech — a full-funnel digital marketing programme for an arts and crafts e-commerce brand.",
-    relatedArtworkIds: ["prj-beauty", "prj-wholesale"],
+    relatedArtworkIds: ["prj-wholesale"],
     featured: true,
   },
   {
@@ -265,7 +242,7 @@ export const artworks: Artwork[] = [
     palette: { from: "#8FA9D6", via: "#3D5580", to: "#101B30", ink: 0.16 },
     image: "/portfolio/stitcher.jpg",
     alt: "Stitcher project by GitzTech — a complete brand identity and creative system for a fashion and tailoring house.",
-    relatedArtworkIds: ["prj-beauty", "prj-ngo"],
+    relatedArtworkIds: ["prj-thornton", "prj-ngo"],
     featured: true,
   },
   {

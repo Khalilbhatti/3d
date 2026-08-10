@@ -78,7 +78,7 @@ export const artists: Artist[] = [
       "You can't inspect quality in at the end. You build the department that produces it by default.",
     seed: "dev-department-head-03",
     palette: { from: "#6690C2", via: "#2E4F78", to: "#0E2038", ink: 0.16 },
-    relatedArtworkIds: ["prj-food", "prj-beauty"],
+    relatedArtworkIds: ["prj-food"],
   },
   {
     id: "automation-crm-head",
@@ -188,7 +188,7 @@ export const artists: Artist[] = [
       "Most slow WordPress sites aren't a hosting problem. They're a build problem.",
     seed: "team-wordpress-04",
     palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
-    relatedArtworkIds: ["prj-beauty"],
+    relatedArtworkIds: [],
   },
   {
     id: "team-ghl",

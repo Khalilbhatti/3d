@@ -90,14 +90,13 @@ export const stories: Story[] = [
         text: "A site your team can update without fear is worth more than a site that merely looked good on launch day.",
         cite: "GitzTech",
       },
-      { type: "image", artworkId: "prj-beauty", alt: "The Beauty Salon WordPress build by GitzTech." },
       { type: "heading", text: "How long does it take?" },
       {
         type: "paragraph",
         text: "A focused marketing site typically runs four to six weeks from kickoff to launch; WooCommerce builds take longer depending on catalogue size, payment and shipping rules. We agree the scope, rounds of revisions and launch date before starting, so the timeline isn't a surprise.",
       },
     ],
-    relatedArtworkIds: ["prj-beauty"],
+    relatedArtworkIds: [],
     relatedStoryIds: ["story-web-performance"],
   },
   {

@@ -81,7 +81,7 @@ export const collections: Collection[] = [
     palette: { from: "#4A78B8", via: "#2A4A73", to: "#0D1E33", ink: 0.16 },
     image: "/services/wordpress-development.jpg",
     featuredArtistIds: ["team-wordpress"],
-    artworkIds: ["prj-beauty"],
+    artworkIds: [],
     relatedStoryIds: ["story-wordpress-benefits"],
     timelineIds: ["tl-design", "tl-final"],
     credits: [{ role: "Discipline lead", name: "WordPress Developers" }],
