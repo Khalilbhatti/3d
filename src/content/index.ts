@@ -164,15 +164,8 @@ export const STACK_CATEGORIES: { category: string; tags: string[] }[] = [
     tags: ["React Native", "Flutter", "Shopify", "WooCommerce", "Stripe", "PayPal", "Razorpay"],
   },
   {
-    category: "Design & Prototyping",
-    tags: [
-      "UI/UX Design",
-      "Website Design",
-      "Mobile App Design",
-      "Wireframes",
-      "Mockups",
-      "Prototyping",
-    ],
+    category: "UI/UX Design & Prototyping",
+    tags: ["Website Design", "Mobile App Design", "Wireframes", "Mockups", "Prototyping"],
   },
 ];
 
