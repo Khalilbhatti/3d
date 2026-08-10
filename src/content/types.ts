@@ -187,3 +187,87 @@ export interface Chapter {
 
 /** Minimal shape the 3D gallery + fullscreen viewer share. */
 export type MediaItem = Artwork;
+
+/**
+ * A long-form case study — richer and more structured than an Artwork
+ * catalogue record. One record per deep-dive project write-up. See
+ * docs/superpowers/specs/2026-08-11-case-studies-design.md.
+ */
+export interface CaseStudy {
+  id: string;
+  slug: string;
+  /** References Artwork.id — links back to the matching /portfolio entry. */
+  artworkId: string;
+  title: string;
+  tagline: string;
+  eyebrow: string;
+  year: string;
+  /** Real screenshot paths, reused for both the hero and the full gallery. */
+  heroImages: string[];
+  liveUrl: string;
+
+  projectDetails: { label: string; value: string }[];
+
+  overview: { heading: string; body: string[] };
+  context: { heading: string; body: string[]; keywords: string[] };
+  problem: {
+    heading: string;
+    feelWords: string[];
+    remainWords: string[];
+    coreQuestion: string;
+  };
+  objectives: { number: string; title: string; body: string }[];
+  userGoals: string[];
+  audiences: { name: string; body: string; needs: string[] }[];
+  personas: {
+    name: string;
+    role: string;
+    age: string;
+    goal: string;
+    priorities: string;
+    concern: string;
+    needs: string[];
+  }[];
+  painPoints: { problem: string; solution: string }[];
+  uxStrategy: { stages: { name: string; body: string }[] };
+  sitemap: { label: string; children?: { label: string; children?: { label: string }[] }[] }[];
+  userFlows: { title: string; steps: string[] }[];
+  contentArchitecture: { section: string; question: string }[];
+  visualDirection: { heading: string; body: string; traits: string[] };
+  colorPalette: { name: string; hex: string; usage: string }[];
+  typography: {
+    display: { name: string; uses: string[] };
+    interface: { name: string; uses: string[] };
+    scale: { name: string; sizes: string }[];
+  };
+  grid: { device: string; spec: string[] }[];
+  spacing: { base: string; scale: number[] };
+  imageDirection: {
+    categories: { name: string; items: string[] }[];
+    treatment: string[];
+    ratios: { use: string; ratio: string }[];
+  };
+  iconography: string[];
+  buttonSystem: { primary: string; secondary: string; textLink: string; principles: string[] };
+  componentSystem: { core: string[]; states: string[] };
+  homepageSections: { title: string; question: string; body: string }[];
+  processSteps: { number: string; title: string; body: string }[];
+  personalization: { options: string[]; note: string };
+  lookbookCategories: string[];
+  bookingOptions: { title: string; body: string }[];
+  formFlow: string[];
+  responsive: { device: string; spec: string[] }[];
+  interactionDesign: { microInteractions: string[]; principle: string };
+  accessibility: string[];
+  conversionStrategy: { primary: string; supporting: string[] };
+  conversionPaths: { name: string; steps: string[] }[];
+  uxWriting: { focus: string[]; body: string };
+  designTokens: { group: string; tokens: string[] }[];
+  validation: string[];
+  decisions: { number: string; title: string; body: string }[];
+  challenges: { challenge: string; response: string }[];
+  outcome: string[];
+  delivered: { ux: string[]; ui: string[]; prototyping: string[] };
+  skills: string[];
+  reflection: { heading: string; body: string[] };
+}

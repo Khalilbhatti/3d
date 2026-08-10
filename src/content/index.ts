@@ -11,10 +11,11 @@ import { artists } from "./artists";
 import { stories } from "./stories";
 import { timeline } from "./timeline";
 import { chapters } from "./chapters";
-import type { Artwork, Artist, Collection, Story, TimelineEntry } from "./types";
+import { caseStudies } from "./case-studies";
+import type { Artwork, Artist, Collection, Story, TimelineEntry, CaseStudy } from "./types";
 
-export { artworks, collections, artists, stories, timeline, chapters };
-export type { Artwork, Artist, Collection, Story, TimelineEntry };
+export { artworks, collections, artists, stories, timeline, chapters, caseStudies };
+export type { Artwork, Artist, Collection, Story, TimelineEntry, CaseStudy };
 
 /* ------------------------------- Collections ------------------------------ */
 export const getCollections = (): Collection[] => collections;
@@ -76,6 +77,11 @@ export const getTimelineByIds = (ids: string[]): TimelineEntry[] =>
 
 /* -------------------------------- Chapters -------------------------------- */
 export const getChapters = () => chapters;
+
+/* ------------------------------ Case Studies ------------------------------ */
+export const getCaseStudies = (): CaseStudy[] => caseStudies;
+export const getCaseStudyBySlug = (slug: string) =>
+  caseStudies.find((c) => c.slug === slug);
 
 /* ------------------------------- Denormalise ------------------------------ */
 export interface ArtworkView extends Artwork {
