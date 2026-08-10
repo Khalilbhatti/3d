@@ -20,10 +20,10 @@ interface Filters {
 const EMPTY: Filters = { medium: null };
 
 /**
- * The grid archive. Filter by artist, period, location and medium; free-text
- * search across the catalogue; toggle grid / list views; and open any work in
- * the fullscreen viewer. Filtering re-keys the results so items re-animate in.
- * All controls are keyboard-operable with `aria-pressed` state and a live count.
+ * The grid archive. Filter by stack; free-text search across the catalogue;
+ * toggle grid / list views; and open any work in the fullscreen viewer.
+ * Filtering re-keys the results so items re-animate in. All controls are
+ * keyboard-operable with `aria-pressed` state and a live count.
  */
 export function ArchiveGrid({
   artworks,
