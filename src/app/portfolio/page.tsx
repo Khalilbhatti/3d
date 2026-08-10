@@ -26,7 +26,7 @@ export default function ArchivePage({
       <PageHeader
         kicker="Our work · Portfolio"
         title="Work that speaks for itself."
-        deck="End-to-end builds — from complete UI design systems to custom full-stack development and cloud deployment. Filter by service or industry, and open any project to read the case study."
+        deck="End-to-end builds — from complete UI design systems to custom full-stack development and cloud deployment. Filter by stack, and open any project to read the case study."
       />
       <Suspense>
         <ArchiveGrid artworks={artworks} facets={facets} initialQuery={initialQuery} />

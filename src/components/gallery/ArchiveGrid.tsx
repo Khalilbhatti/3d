@@ -4,12 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { type Artwork } from "@/content/types";
-import {
-  type Facets,
-  getArtistById,
-  artworkLocationBucket,
-  artworkMediumBucket,
-} from "@/content/index";
+import { type Facets, getArtistById, artworkMediumBucket } from "@/content/index";
 import { ArtworkImage } from "@/components/media/ArtworkImage";
 import { ArtworkCaption } from "./ArtworkCaption";
 import { ArtworkListRow } from "./ArtworkListRow";
@@ -19,13 +14,10 @@ import { cn } from "@/lib/utils";
 type ViewMode = "grid" | "list";
 
 interface Filters {
-  artist: string | null;
-  period: string | null;
-  location: string | null;
   medium: string | null;
 }
 
-const EMPTY: Filters = { artist: null, period: null, location: null, medium: null };
+const EMPTY: Filters = { medium: null };
 
 /**
  * The grid archive. Filter by artist, period, location and medium; free-text
@@ -57,9 +49,6 @@ export function ArchiveGrid({
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     return artworks.filter((a) => {
-      if (filters.artist && a.artistId !== filters.artist) return false;
-      if (filters.period && a.period !== filters.period) return false;
-      if (filters.location && artworkLocationBucket(a) !== filters.location) return false;
       if (filters.medium && artworkMediumBucket(a) !== filters.medium) return false;
       if (!q) return true;
       const artist = getArtistById(a.artistId)?.name ?? "";
@@ -69,11 +58,11 @@ export function ArchiveGrid({
   }, [artworks, filters, query]);
 
   const activeCount = Object.values(filters).filter(Boolean).length + (query ? 1 : 0);
-  const signature = `${query}|${filters.artist}|${filters.period}|${filters.location}|${filters.medium}|${view}`;
+  const signature = `${query}|${filters.medium}|${view}`;
   const ids = results.map((a) => a.id);
 
-  function toggle(key: keyof Filters, value: string) {
-    setFilters((f) => ({ ...f, [key]: f[key] === value ? null : value }));
+  function toggle(value: string) {
+    setFilters((f) => ({ medium: f.medium === value ? null : value }));
   }
   function clearAll() {
     setFilters(EMPTY);
@@ -119,31 +108,16 @@ export function ArchiveGrid({
           </div>
         </div>
 
-        <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          <FilterGroup
-            legend="Team"
-            options={facets.artists.map((a) => ({ label: a.name, value: a.id }))}
-            active={filters.artist}
-            onToggle={(v) => toggle("artist", v)}
-          />
-          <FilterGroup
-            legend="Service"
-            options={facets.periods.map((p) => ({ label: p.split(" · ")[0], value: p }))}
-            active={filters.period}
-            onToggle={(v) => toggle("period", v)}
-          />
-          <FilterGroup
-            legend="Industry"
-            options={facets.locations.map((l) => ({ label: l, value: l }))}
-            active={filters.location}
-            onToggle={(v) => toggle("location", v)}
-          />
-          <FilterGroup
-            legend="Stack"
-            options={facets.mediums.map((m) => ({ label: m, value: m }))}
-            active={filters.medium}
-            onToggle={(v) => toggle("medium", v)}
-          />
+        <div className="mt-6 grid gap-x-8 gap-y-6 md:grid-cols-2 xl:grid-cols-3">
+          {facets.stackCategories.map((cat) => (
+            <FilterGroup
+              key={cat.category}
+              legend={cat.category}
+              options={cat.tags.map((t) => ({ label: t, value: t }))}
+              active={filters.medium}
+              onToggle={toggle}
+            />
+          ))}
         </div>
       </div>
 
