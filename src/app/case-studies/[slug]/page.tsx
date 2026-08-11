@@ -62,7 +62,10 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
 
         <section>
           <SectionDivider label="The Problem" className="mb-10" />
-          <div className="grid gap-10 md:grid-cols-2">
+          <p className="max-w-2xl font-display text-3xl leading-tight text-ink text-balance md:text-4xl">
+            {cs.problem.heading}
+          </p>
+          <div className="mt-8 grid gap-10 md:grid-cols-2">
             <div>
               <p className="label">The website had to feel</p>
               <div className="mt-4">
@@ -182,6 +185,15 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <div className="mt-3">
             <ChipList items={cs.imageDirection.treatment} />
           </div>
+          <p className="label mt-8">Ratios</p>
+          <dl className="mt-3 grid gap-x-10 gap-y-1 sm:grid-cols-2">
+            {cs.imageDirection.ratios.map((r) => (
+              <div key={r.use} className="flex items-baseline justify-between gap-6 border-t border-line/15 py-3.5">
+                <dt className="label">{r.use}</dt>
+                <dd className="text-right text-ink-soft">{r.ratio}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section>
@@ -198,6 +210,20 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <div className="mt-3">
             <ChipList items={cs.componentSystem.states} />
           </div>
+          <dl className="mt-8 grid gap-x-10 gap-y-4 sm:grid-cols-3">
+            <div className="border-t border-line/15 pt-3.5">
+              <dt className="label">Primary button</dt>
+              <dd className="mt-1 text-sm text-ink-soft">{cs.buttonSystem.primary}</dd>
+            </div>
+            <div className="border-t border-line/15 pt-3.5">
+              <dt className="label">Secondary button</dt>
+              <dd className="mt-1 text-sm text-ink-soft">{cs.buttonSystem.secondary}</dd>
+            </div>
+            <div className="border-t border-line/15 pt-3.5">
+              <dt className="label">Text link</dt>
+              <dd className="mt-1 text-sm text-ink-soft">{cs.buttonSystem.textLink}</dd>
+            </div>
+          </dl>
           <ProseSection body={cs.buttonSystem.principles} className="mt-10" />
         </section>
 
