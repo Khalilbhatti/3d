@@ -156,7 +156,7 @@ export const collections: Collection[] = [
     palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
     image: "/services/ui-ux-designing.jpg",
     featuredArtistIds: ["team-uiux", "team-qa"],
-    artworkIds: ["prj-ngo", "prj-chayah", "prj-thornton", "prj-parko"],
+    artworkIds: ["prj-chayah", "prj-thornton", "prj-parko"],
     relatedStoryIds: ["story-design-systems"],
     timelineIds: ["tl-design", "tl-final"],
     credits: [

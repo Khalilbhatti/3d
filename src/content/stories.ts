@@ -167,10 +167,10 @@ export const stories: Story[] = [
         text: "We begin with user flows, competitor teardowns and real session behaviour. That way design decisions can be argued from insight rather than taste — and disagreements get resolved by testing instead of seniority.",
       },
       {
-        type: "paragraph",
-        text: "On a recent non-profit project, testing showed donors abandoning at the amount-selection step because the impact of each tier was unclear. Re-sequencing the journey and making impact concrete at the point of choice lifted completion measurably.",
+        type: "image",
+        artworkId: "prj-parko",
+        alt: "The Parko smart parking mobile app designed by GitzTech.",
       },
-      { type: "image", artworkId: "prj-ngo", alt: "The NGO Foundation donation journey redesigned by GitzTech." },
       {
         type: "pullquote",
         text: "If a user has to be taught how to use the screen, the screen is the thing that needs changing.",
@@ -181,9 +181,9 @@ export const stories: Story[] = [
         type: "paragraph",
         text: "Final interfaces are delivered as a documented design system — components, states, spacing and accessibility rules — so the build matches the design and stays consistent as the product grows.",
       },
-      { type: "gallery", artworkIds: ["prj-ngo", "prj-stitcher"] },
+      { type: "gallery", artworkIds: ["prj-parko", "prj-stitcher"] },
     ],
-    relatedArtworkIds: ["prj-ngo", "prj-stitcher"],
+    relatedArtworkIds: ["prj-parko", "prj-stitcher"],
     relatedStoryIds: ["story-wordpress-benefits"],
   },
 ];

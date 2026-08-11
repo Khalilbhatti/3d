@@ -104,7 +104,7 @@ export const chapters: Chapter[] = [
     },
     date: "2k+",
     location: "Happy customers",
-    artworkIds: ["prj-ngo", "prj-wholesale"],
+    artworkIds: ["prj-parko", "prj-wholesale"],
     palette: { from: "#FFA733", via: "#B36B12", to: "#2E1A05", ink: 0.16 },
   },
 ];

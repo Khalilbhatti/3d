@@ -48,7 +48,7 @@ export const artworks: Artwork[] = [
     alt: "Mindway EAP — an Australian Employee Assistance Program platform by GitzTech, spanning a web experience and native iOS and Android apps for confidential counselling and workplace wellbeing.",
     liveUrl: "https://mindwayeap.com.au/",
     appUrl: "https://play.google.com/store/apps/details?id=com.appmindway.mindway&hl=en",
-    relatedArtworkIds: ["prj-food", "prj-ngo"],
+    relatedArtworkIds: ["prj-food"],
     featured: true,
   },
   {
@@ -150,7 +150,7 @@ export const artworks: Artwork[] = [
     ],
     alt: "Chayah Villas — a luxury Bali villa booking website by GitzTech, showcasing a curated property collection, immersive brand storytelling, and a conversion-focused inquiry journey.",
     liveUrl: "https://darkblue-salamander-438519.hostingersite.com/",
-    relatedArtworkIds: ["prj-ngo", "prj-mindway"],
+    relatedArtworkIds: ["prj-mindway"],
     featured: true,
   },
   {
@@ -196,30 +196,7 @@ export const artworks: Artwork[] = [
     palette: { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.18 },
     image: "/portfolio/food-supply-co.jpg",
     alt: "Food Supply Co. project by GitzTech — a custom full-stack ordering and logistics platform for a food supply chain business.",
-    relatedArtworkIds: ["prj-wholesale", "prj-ngo"],
-    featured: true,
-  },
-  {
-    id: "prj-ngo",
-    slug: "ngo-foundation",
-    title: "NGO Foundation",
-    artistId: "team-uiux",
-    year: "2024",
-    medium: "UI/UX Research, Design System, Prototyping",
-    dimensions: "Donation journey · 3 rounds of testing",
-    location: "Non-Profit · Lahore",
-    collectionId: "svc-uiux",
-    period: "Product Design",
-    description:
-      "A research-led redesign of a foundation's donation and programme pages — built around how first-time donors actually decide, not around the internal org chart.",
-    historicalContext:
-      "Testing showed donors abandoning at the amount-selection step because the impact of each tier was unclear. Re-sequencing the journey and making impact concrete at the point of choice lifted completion on the donation flow.",
-    orientation: "landscape",
-    seed: "prj-ngo-04",
-    palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
-    image: "/portfolio/ngo-foundation.jpg",
-    alt: "NGO Foundation project by GitzTech — a research-led UI/UX redesign of a non-profit's donation journey.",
-    relatedArtworkIds: ["prj-stitcher", "prj-food"],
+    relatedArtworkIds: ["prj-wholesale"],
     featured: true,
   },
   {
@@ -242,7 +219,7 @@ export const artworks: Artwork[] = [
     palette: { from: "#8FA9D6", via: "#3D5580", to: "#101B30", ink: 0.16 },
     image: "/portfolio/stitcher.jpg",
     alt: "Stitcher project by GitzTech — a complete brand identity and creative system for a fashion and tailoring house.",
-    relatedArtworkIds: ["prj-thornton", "prj-ngo"],
+    relatedArtworkIds: ["prj-thornton"],
     featured: true,
   },
   {
@@ -298,7 +275,7 @@ export const artworks: Artwork[] = [
     ],
     alt: "Thornton & Co. — a UI/UX case study for a Savile Row bespoke tailoring website by GitzTech, spanning service discovery, craftsmanship storytelling, personalization, and an appointment-booking journey for both menswear and womenswear.",
     liveUrl: "https://stitcher.gitztech.com/",
-    relatedArtworkIds: ["prj-chayah", "prj-ngo", "prj-parko"],
+    relatedArtworkIds: ["prj-chayah", "prj-parko"],
     featured: true,
   },
   {

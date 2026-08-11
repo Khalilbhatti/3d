@@ -56,7 +56,7 @@ export const artists: Artist[] = [
       "A deadline nobody flagged as at-risk isn't a deadline — it's a surprise waiting to happen.",
     seed: "team-lead-02",
     palette: { from: "#5580B8", via: "#2C4A70", to: "#0D1D30", ink: 0.18 },
-    relatedArtworkIds: ["prj-ngo"],
+    relatedArtworkIds: [],
   },
   {
     id: "dev-department-head",
@@ -144,7 +144,7 @@ export const artists: Artist[] = [
       "If a user has to be taught how to use the screen, the screen is the thing that needs changing.",
     seed: "team-uiux-02",
     palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
-    relatedArtworkIds: ["prj-ngo", "prj-stitcher"],
+    relatedArtworkIds: ["prj-stitcher", "prj-parko"],
   },
   {
     id: "team-marketers",
@@ -232,6 +232,6 @@ export const artists: Artist[] = [
       "Clear timelines and honest communication, so you always know exactly where your project stands.",
     seed: "team-qa-06",
     palette: { from: "#FFA733", via: "#B36B12", to: "#2E1A05", ink: 0.16 },
-    relatedArtworkIds: ["prj-food", "prj-ngo"],
+    relatedArtworkIds: ["prj-food", "prj-parko"],
   },
 ];
