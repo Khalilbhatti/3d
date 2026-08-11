@@ -117,8 +117,16 @@ export function ObjectiveList({ items }: { items: { number: string; title: strin
   );
 }
 
-/** Titled cards with a short body — key decisions, challenges/responses, booking options. */
-export function DecisionList({ items }: { items: { number?: string; title: string; body: string }[] }) {
+/** Titled cards with a short body — key decisions, challenges/responses, booking options.
+ *  `meta` is optional — renders as a labelled third line when a source documents an
+ *  outcome/result per item (e.g. a 3-column challenges table). */
+export function DecisionList({
+  items,
+  metaLabel = "Outcome",
+}: {
+  items: { number?: string; title: string; body: string; meta?: string }[];
+  metaLabel?: string;
+}) {
   return (
     <Stagger className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
       {items.map((item) => (
@@ -126,6 +134,12 @@ export function DecisionList({ items }: { items: { number?: string; title: strin
           {item.number ? <span className="label text-accent">{item.number}</span> : null}
           <h3 className={cn("font-display text-lg text-ink", item.number && "mt-2")}>{item.title}</h3>
           <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-soft">{item.body}</p>
+          {item.meta ? (
+            <p className="mt-3 text-sm text-ink-soft">
+              <span className="label text-accent">{metaLabel} </span>
+              {item.meta}
+            </p>
+          ) : null}
         </StaggerItem>
       ))}
     </Stagger>

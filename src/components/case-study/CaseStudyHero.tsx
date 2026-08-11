@@ -10,6 +10,7 @@ import { MetaList } from "@/components/ui/MetaList";
 import { type CaseStudy } from "@/content/types";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useIsMobile } from "@/hooks/useMediaQuery";
+import { LottiePulse } from "./effects";
 
 const CaseStudyHero3D = dynamic(
   () => import("./CaseStudyHero3D").then((m) => m.CaseStudyHero3D),
@@ -46,10 +47,16 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
       {useWebGL ? (
         <>
           <div aria-hidden className="absolute inset-0">
-            <CaseStudyHero3D images={caseStudy.heroImages} />
+            <CaseStudyHero3D images={caseStudy.heroImages} aspect={caseStudy.heroAspect ?? 4 / 3} />
           </div>
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 to-transparent" />
           <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/55 to-transparent" />
+          {/* Parko-only motif: a hand-authored radar-pulse Lottie loop, echoing the
+              product's own "locate a space" moment. Gated by slug so Thornton's
+              already-reviewed hero renders through the exact same, untouched path. */}
+          {caseStudy.slug === "parko" ? (
+            <LottiePulse className="absolute right-8 top-24 hidden sm:block md:right-16" size={80} />
+          ) : null}
         </>
       ) : null}
       {/* pointer-events-none: this text/metadata column has no interactive
@@ -82,12 +89,12 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
           <MetaList items={caseStudy.projectDetails.map((d) => ({ label: d.label, value: d.value }))} columns={2} />
         </div>
         {!useWebGL ? (
-          <MReveal
-            variant="scale"
-            delay={0.2}
-            className="relative mt-12 aspect-[4/3] w-full overflow-hidden bg-paper-deep"
-          >
-            <Image src={caseStudy.heroImages[0]} alt={caseStudy.title} fill sizes="100vw" className="object-cover" priority />
+          <MReveal variant="scale" delay={0.2} className="mt-12 w-full overflow-hidden bg-paper-deep">
+            {/* MReveal doesn't forward `style` (see ColorPaletteBoard's note) — the
+                dynamic aspect ratio goes on this plain inner div instead. */}
+            <div className="relative w-full" style={{ aspectRatio: caseStudy.heroAspect ?? 4 / 3 }}>
+              <Image src={caseStudy.heroImages[0]} alt={caseStudy.title} fill sizes="100vw" className="object-cover" priority />
+            </div>
           </MReveal>
         ) : null}
       </div>

@@ -324,4 +324,481 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
   },
+  {
+    id: "cs-parko",
+    slug: "parko",
+    artworkId: "prj-parko",
+    title: "Parko",
+    tagline: "One Connected Flow, From Search to Parked",
+    eyebrow: "UI/UX Case Study — 2026",
+    year: "2026",
+    heroImages: [
+      "/portfolio/parko-cs-onboarding.jpg",
+      "/portfolio/parko-cs-login-home.jpg",
+      "/portfolio/parko-cs-detail.jpg",
+      "/portfolio/parko-cs-navigation.jpg",
+      "/portfolio/parko-cs-select-space.jpg",
+      "/portfolio/parko-cs-booking-active.jpg",
+      "/portfolio/parko-cs-booking-cancelled.jpg",
+    ],
+    heroAspect: 1122 / 1402,
+
+    projectDetails: [
+      { label: "Product", value: "Parko — Smart Parking Mobile App" },
+      { label: "Role", value: "UI/UX Design" },
+      { label: "Platform", value: "iOS-style Mobile App" },
+      { label: "Category", value: "Smart Parking / Mobility" },
+      { label: "Theme", value: "Dark + Orange" },
+      {
+        label: "Core Modules",
+        value: "Onboarding, Authentication, Home Discovery, Detail Pages, Navigation, Slot Selection, Ticketing, Booking Management",
+      },
+    ],
+
+    overview: {
+      heading: "A Single Digital Touchpoint for Parking, Start to Finish",
+      body: [
+        "Parko is a smart parking mobile application designed to help drivers discover nearby parking areas, review parking details, navigate to the selected location, reserve a slot, and manage bookings in one connected flow.",
+        "The application focuses on reducing parking stress through a dark premium interface, strong visual clarity, and task-oriented user journeys.",
+        "The Parko experience was designed to solve an everyday urban problem: parking friction. Drivers often lose time searching for an available space, comparing options manually, confirming trust, and navigating through unfamiliar areas. Parko brings these disconnected tasks together in a unified mobile experience — from quick access to parking information through to a digital QR ticket and confident, integrated navigation to the destination.",
+      ],
+    },
+
+    context: {
+      heading: "Turning a High-Friction Real-World Task Into One Digital Touchpoint",
+      body: [
+        "Parking is a high-friction real-world task. In busy commercial and urban areas, drivers commonly face uncertainty related to space availability, pricing, safety, location access, and booking confirmation — made worse when information is scattered across multiple channels or the user must physically explore several locations before deciding.",
+        "Parking providers need a digital way to present availability and facilities. Drivers need confidence before committing to a booking, immediate and understandable navigation to the selected space, and booking records that remain accessible after purchase for review, cancellation, or re-use.",
+        "The product vision: a reliable, easy-to-understand, and visually premium mobile parking experience that helps users move from discovery to confirmed booking with minimal cognitive effort.",
+      ],
+      keywords: ["Discover", "Evaluate", "Reserve", "Navigate", "Validate", "Manage"],
+    },
+
+    problem: {
+      heading: "Trust and Clarity, Without Slowing the Driver Down",
+      feelWords: ["Premium", "Focused", "Confident", "Immediate", "Trustworthy"],
+      remainWords: ["Fast", "Clear", "Accessible", "Uncluttered", "Reliable"],
+      coreQuestion:
+        "How might we make a premium, dark-themed parking experience feel immediate and trustworthy without slowing a driver down?",
+    },
+
+    objectives: [
+      { number: "01", title: "Fast Nearby Discovery", body: "Help users find nearby parking spaces quickly." },
+      { number: "02", title: "Confident Decisions", body: "Provide enough information for users to make confident decisions." },
+      { number: "03", title: "Smooth Reservation", body: "Enable smooth slot reservation and booking confirmation." },
+      { number: "04", title: "Seamless Navigation", body: "Support a seamless navigation experience to the chosen parking area." },
+      { number: "05", title: "Central Booking Control", body: "Allow users to review and manage booking status from a central dashboard." },
+    ],
+
+    userGoals: [
+      "Know which parking place is worth choosing",
+      "See transparent pricing and visible position/slot details",
+      "Navigate easily from current location to the destination",
+      "Verify access clearly after booking",
+      "Monitor and manage booking states",
+    ],
+
+    audiences: [
+      {
+        name: "Commuters",
+        body: "Commuters looking for quick parking near offices or transit points.",
+        needs: ["Transparent pricing", "Easy navigation", "Fast decisions"],
+      },
+      {
+        name: "Shoppers",
+        body: "Shoppers visiting malls and commercial areas.",
+        needs: ["Trustworthy facility details", "Clear position/slot information"],
+      },
+      {
+        name: "Event Attendees",
+        body: "Event attendees seeking structured access to nearby parking.",
+        needs: ["Structured booking", "Reliable confirmation"],
+      },
+      {
+        name: "Drivers in Unfamiliar Areas",
+        body: "Drivers in unfamiliar areas who require reliable guidance.",
+        needs: ["Clear navigation", "Route confidence"],
+      },
+      {
+        name: "Convenience-Focused Drivers",
+        body: "Users who value time savings, safety, and convenience.",
+        needs: ["Booking status control", "Minimal friction"],
+      },
+    ],
+
+    personas: [
+      {
+        name: "Busy City Driver",
+        goal: "Search nearby options, compare them quickly, and secure a spot without spending extra time on manual parking discovery.",
+        motivation: "Save time and reduce stress",
+        painPoint: "Uncertainty about availability and safety",
+        needs: ["Fast booking", "Reliable navigation"],
+      },
+      {
+        name: "Mall or Event Visitor",
+        goal: "Evaluate parking options based on distance, price, and convenience before arriving.",
+        motivation: "Convenience and trust",
+        painPoint: "Confusing parking layouts and crowded destinations",
+        needs: ["Clear reviews", "Facilities", "Confirmation details"],
+      },
+    ],
+
+    painPoints: [
+      { problem: "Difficulty finding available parking nearby.", solution: "A home discovery screen built around current location, quick search, and transportation-based entry points." },
+      { problem: "Lack of trust before selecting a parking location.", solution: "A detail page with facilities, description, pricing, and trust signals — 24/7, CCTV, security, emergency services." },
+      { problem: "Unclear visibility of facility features and service quality.", solution: "A dedicated Review tab with rating filters and visible user reviews." },
+      { problem: "No connected system for booking, ticketing, and navigation.", solution: "A digital QR ticket whose Start Navigation CTA connects booking directly to movement." },
+      { problem: "Weak visibility over active, upcoming, or cancelled bookings.", solution: "A My Booking dashboard with All / Active / Cancelled state filtering." },
+    ],
+
+    uxStrategy: {
+      stages: [
+        { name: "Discover", body: "Search nearby areas and explore transportation-based entry points from the home screen." },
+        { name: "Evaluate", body: "Review facility details, pricing, ratings, and reviews before committing." },
+        { name: "Reserve", body: "Select floor, sector, and slot, then confirm the booking." },
+        { name: "Navigate", body: "Follow a simplified route to the reserved parking space." },
+        { name: "Validate", body: "Scan the digital QR ticket on arrival for entry." },
+        { name: "Manage", body: "Track active, upcoming, and cancelled bookings from a central dashboard." },
+      ],
+    },
+
+    sitemap: [
+      { label: "Splash" },
+      { label: "Onboarding" },
+      { label: "Authentication" },
+      { label: "Home / Discovery" },
+      { label: "Parking Detail", children: [{ label: "About" }, { label: "Review" }] },
+      { label: "Navigation" },
+      { label: "Select Space", children: [{ label: "Floor" }, { label: "Sector" }, { label: "Slot" }] },
+      { label: "Digital Ticket" },
+      { label: "My Booking", children: [{ label: "All Booking" }, { label: "Active" }, { label: "Cancelled" }] },
+      { label: "Profile" },
+    ],
+
+    userFlows: [
+      {
+        title: "End-to-End Journey",
+        steps: [
+          "Launch the app",
+          "View splash and onboarding",
+          "Sign in or create an account",
+          "Review home and search nearby areas",
+          "Choose a transportation category",
+          "Open a parking location detail page",
+          "Read About and Review tabs",
+          "Start booking the chosen place",
+          "Select floor, sector, and slot",
+          "Confirm booking and receive digital ticket",
+          "Navigate to the parking space",
+          "Manage bookings in My Booking",
+        ],
+      },
+    ],
+
+    contentArchitecture: [
+      { section: "Splash", question: "What does this brand feel like?" },
+      { section: "Onboarding", question: "Why should I care?" },
+      { section: "Login", question: "How do I get in quickly?" },
+      { section: "Home", question: "Where do I start?" },
+      { section: "Parking Detail", question: "Can I trust this space?" },
+      { section: "Navigation", question: "How do I get there?" },
+      { section: "Select Space", question: "Which slot is mine?" },
+      { section: "Digital Ticket", question: "How do I get in?" },
+      { section: "My Booking", question: "What's the status of my bookings?" },
+    ],
+
+    researchDirection: {
+      questions: [
+        "What information is essential before a user trusts a parking place?",
+        "How much context should be visible on the detail screen before booking?",
+        "How can navigation feel immediate without overwhelming the user?",
+        "Which booking states matter most after confirmation?",
+        "How can a dark premium visual style remain readable and accessible?",
+      ],
+      findings: [
+        "Users need clear distance and pricing information immediately.",
+        "Trust signals such as facilities, reviews, and safety indicators matter before booking.",
+        "Navigation must emphasize route clarity over map complexity.",
+        "After booking, users want simple access to status, time, and slot details.",
+        "Strong visual hierarchy is critical in a dark interface.",
+      ],
+    },
+
+    competitiveThinking:
+      "Products in mapping, mobility, and booking categories commonly succeed when they minimize friction and present fast decision support. Parko adopts this principle by combining location-driven discovery, clear component states, and action-oriented CTAs. The design intentionally keeps the interface premium but practical.",
+
+    visualDirection: {
+      heading: "A Dark, Premium Interface Built Around One Accent Color",
+      body: "The interface uses a dark theme to support premium perception and focus, with orange as the primary action and attention color. White and gray values carry readability and information hierarchy, key actions are given strong button hierarchy, and every screen is kept to a single dominant purpose to avoid clutter.",
+      traits: ["Dark", "Premium", "High-Contrast", "Focused", "Warm Accent", "Uncluttered"],
+    },
+
+    colorPalette: [
+      { name: "Brand 50", hex: "#FCEEE3", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 100", hex: "#FBEADC", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 200", hex: "#FAE5D3", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 300", hex: "#F9DFC8", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 400", hex: "#F7D7BA", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 500", hex: "#F5CDA9", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 600", hex: "#F3C194", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 700", hex: "#F0B279", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 800", hex: "#EC9F58", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 900", hex: "#E7872E", usage: "Primary actions, highlights, selected states" },
+      { name: "Brand 950", hex: "#E57B1A", usage: "Primary actions, highlights, selected states" },
+      { name: "Gray 50", hex: "#FAFAFA", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 100", hex: "#EFEFEF", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 200", hex: "#DCDCDC", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 300", hex: "#BDBDBD", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 400", hex: "#989898", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 500", hex: "#7C7C7C", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 600", hex: "#656565", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 700", hex: "#525252", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 800", hex: "#383838", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 900", hex: "#161616", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Gray 950", hex: "#000000", usage: "Text, surfaces, contrast, neutral UI structure" },
+      { name: "Error 50", hex: "#FDE4E4", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 100", hex: "#FDDDDD", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 200", hex: "#FDD4D4", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 300", hex: "#FDC9C9", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 400", hex: "#FCBCBC", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 500", hex: "#FBABAB", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 600", hex: "#FA9696", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 700", hex: "#F97C7C", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 800", hex: "#F75B5B", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 900", hex: "#F53232", usage: "Warnings, destructive states, cancelled state" },
+      { name: "Error 950", hex: "#F41F1F", usage: "Warnings, destructive states, cancelled state" },
+    ],
+
+    typography: {
+      display: { name: "Titillium Web", uses: ["Hero moments", "Welcome screens", "Major headlines", "Screen emphasis"] },
+      interface: {
+        name: "Titillium Web",
+        uses: ["Primary section titles", "Sub-sections", "Cards and structured headings", "Primary paragraph text", "Supportive information", "Meta and helper text", "Labels, tiny metadata"],
+      },
+      scale: [
+        { name: "Display XL", sizes: "60px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "Display LG", sizes: "48px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "H1", sizes: "36px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "H2", sizes: "30px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "H3", sizes: "24px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "H4", sizes: "20px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "H5", sizes: "18px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "Body 1", sizes: "16px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "Body 2", sizes: "14px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "Body 3", sizes: "12px", weight: "Light / Regular / Semi-bold / Bold" },
+        { name: "Micro", sizes: "10px", weight: "Light / Regular / Semi-bold / Bold" },
+      ],
+    },
+
+    iconography: [
+      "Search", "Location Pin", "Notification Bell", "Home", "Navigate", "Ticket", "Car", "History",
+      "Profile", "Settings", "Back Arrow", "Chevron", "Checkmark", "Close", "Star Rating", "Bookmark",
+      "Calendar", "Lock", "Eye / Visibility Toggle", "Mail", "Phone", "Camera", "Shield", "Refresh", "More Options", "Add",
+    ],
+
+    buttonSystem: {
+      primary: "Solid orange fill, high contrast — e.g. Get Started, Book Now, Continue",
+      secondary: "Outline, tertiary, and ghost variants for supporting actions — e.g. Cancel Booking",
+      textLink: "Minimal icon and text buttons for tertiary actions",
+      principles: [
+        "Primary actions should be the most visually dominant.",
+        "Destructive or error states should use the red system.",
+        "Inputs should remain clean, high-contrast, and easy to scan.",
+        "Tabs should support quick filtering and state changes.",
+        "Cards should group decision-critical information compactly.",
+      ],
+    },
+
+    componentSystem: {
+      core: [
+        "Primary buttons", "Secondary and tertiary buttons", "Outline buttons", "Icon buttons", "Input fields",
+        "Search bars", "Tabs", "Status bars", "Navbar", "OTP inputs", "Switches", "Radio buttons", "Checkboxes",
+        "Cards", "Ticket and booking modules",
+      ],
+      states: ["Default", "Focused", "Filled", "Error", "Disabled", "Pressed", "Available", "Active", "Cancelled"],
+    },
+
+    processSteps: [
+      { number: "01", title: "Choose Floor", body: "Navigate between floors to find available space." },
+      { number: "02", title: "Select Sector", body: "Choose the sector from a dropdown list." },
+      { number: "03", title: "Pick Slot", body: "Real-time slot status supports a quick decision." },
+      { number: "04", title: "Continue", body: "A clear, prominent CTA advances the task." },
+      { number: "05", title: "Receive Ticket", body: "A scannable digital ticket confirms the booking." },
+    ],
+
+    interactionDesign: {
+      microInteractions: [
+        "Segmented tabs support fast state switching",
+        "Orange CTAs drive attention to high-priority actions",
+        "Search inputs are prominent and easy to reuse",
+        "Bottom navigation ensures consistent wayfinding",
+        "Cards are used as compact, repeatable information containers",
+        "Selected tabs highlight active context",
+        "Action buttons change hierarchy based on importance",
+        "Booking state colors reduce ambiguity",
+        "QR ticket layout communicates machine-readiness visually",
+      ],
+      principle: "Clear, immediate feedback on every state change builds confidence without slowing the driver down.",
+    },
+
+    accessibility: [
+      "High contrast between text and dark surfaces improves readability",
+      "Large touch targets meet minimum touch-target standards",
+      "Typography hierarchy and ample spacing support fast, easy reading",
+      "Color is supported by structure and spacing, not used alone",
+      "Buttons and segmented controls show clear selected and unselected states",
+      "Status changes such as cancelled vs active are visually distinct",
+      "States, colors, and indicators communicate system status instantly",
+    ],
+
+    conversionStrategy: {
+      primary:
+        "Booking is the one dominant conversion action across the app — Get Started, Book Now, Booking, and Continue recur as the primary CTA at every key decision point.",
+      supporting: ["Get Direction", "Start Navigation", "Cancel Booking"],
+    },
+
+    decisions: [
+      {
+        number: "01",
+        title: "Why a Dark Theme?",
+        body: "Matches a premium, technology-forward brand tone, helps the orange accent stand out clearly, and supports a focused, immersive mobile experience.",
+      },
+      {
+        number: "02",
+        title: "Why Orange as the Accent?",
+        body: "Warm, energetic, and highly visible — supports strong CTA emphasis and works well with mobility and navigation metaphors.",
+      },
+      {
+        number: "03",
+        title: "Why Large Cards and Rounded Components?",
+        body: "Improves touch comfort on mobile, makes clustered information easier to digest, and creates a friendlier, more modern interface.",
+      },
+    ],
+
+    challenges: [
+      { challenge: "Too much information before booking", response: "Separated detail into About and Review tabs.", outcome: "Cleaner decision-making flow" },
+      { challenge: "Navigation can become visually cluttered", response: "Used simplified route emphasis and limited overlays.", outcome: "Better clarity while moving" },
+      { challenge: "Parking slot selection can be confusing", response: "Created floor/sector/slot hierarchy.", outcome: "Faster and clearer reservation flow" },
+      { challenge: "Users need trust before booking", response: "Added facilities, reviews, pricing, and clear visuals.", outcome: "Higher confidence" },
+      { challenge: "Post-booking management is often weak", response: "Created filtered booking states and ticket module.", outcome: "Stronger end-to-end experience" },
+    ],
+
+    outcome: [
+      "Faster parking discovery",
+      "More confident booking decisions",
+      "Reduced stress during travel",
+      "Simpler access at the destination",
+      "Better post-booking control",
+      "Improved booking conversion",
+      "Higher perceived trust and professionalism",
+      "Stronger retention through booking management utility",
+      "Better overall product coherence",
+    ],
+
+    skills: [
+      "UI Design", "UX Design", "Mobile App Design", "Information Architecture", "User Journey Mapping",
+      "Interaction Design", "Visual Design", "Typography", "Color Systems", "Design Systems",
+      "Component Design", "Accessibility", "Wireframing", "Prototyping",
+    ],
+
+    reflection: {
+      heading: "Clarity, Trust, and Speed",
+      body: [
+        "Parko is a complete smart parking concept built around clarity, trust, and speed. The design system, task flows, and screen architecture work together to create a smooth user journey from brand entry to post-booking management.",
+        "By combining strong visual identity with practical mobility-oriented UX thinking, the product delivers a premium yet usable parking experience.",
+      ],
+    },
+
+    keyLearnings: [
+      "Trust in mobility products depends on clarity as much as utility.",
+      "Users make faster decisions when information is grouped and prioritized well.",
+      "A strong component system speeds design consistency and reduces confusion.",
+      "Navigation experiences work best when the route is visually dominant.",
+      "Booking management should be treated as an active product area, not an afterthought.",
+    ],
+
+    futureImprovements: [
+      "Real-time availability sync",
+      "Live ETA and parking occupancy updates",
+      "Saved favorites and recently used places",
+      "In-app payment history",
+      "Push reminders before arrival or expiry",
+      "Advanced review filtering and sorting",
+      "Accessibility settings such as larger text or alternate contrast modes",
+      "Multi-language support",
+    ],
+
+    mockupGuide: [
+      "Mockup 01: Splash + Onboarding",
+      "Mockup 02: Login + Home",
+      "Mockup 03: Parking Detail About + Parking Detail Review",
+      "Mockup 04: Navigation states",
+      "Mockup 05: Select Space + Digital Ticket",
+      "Mockup 06: My Booking overview + Active booking",
+      "Mockup 07: Active booking + Cancelled booking",
+    ],
+
+    screenBreakdown: [
+      {
+        number: "15.1",
+        title: "Splash Screen",
+        body: "The splash screen introduces the Parko identity and creates an immediate branded first impression. The minimal composition keeps the user focused on the app mark while a progress indicator suggests transition and system readiness.",
+        bullets: ["Purpose: Brand entry point", "UX Role: Set tone and reduce perceived wait time", "Visual Direction: Dark background with subtle orange glow"],
+      },
+      {
+        number: "15.2",
+        title: "Onboarding Screen",
+        body: "The onboarding screen introduces the core value proposition: quick and easy parking and payment. The illustration-driven layout makes the concept instantly understandable while keeping the CTA obvious.",
+        bullets: ["Primary Message: Book and pay parking quickly", "CTA: Get Started", "Design Rationale: Focused, minimal, and motivational"],
+      },
+      {
+        number: "15.3",
+        title: "Authentication / Login",
+        body: "The login screen balances brand personality with practical account access. The layout gives strong emphasis to the welcome headline and the Continue CTA while also providing Google and Apple alternatives.",
+        bullets: ["Trust Element: Clear structure and familiar social sign-in", "Usability Element: Remember Me and Forgot Password are easy to locate", "Visual Element: Orange field outline highlights active attention"],
+      },
+      {
+        number: "15.4",
+        title: "Home / Discovery",
+        body: "The home screen acts as the central discovery dashboard. It prioritizes three things: current location, quick search, and transportation-based entry points. Recent places further reduce effort by presenting previously relevant destinations in a card carousel.",
+        bullets: ["Top Value: Start finding parking immediately", "Navigation Support: Bottom navigation keeps primary modules visible", "Decision Support: Recent place cards mix location context and pricing"],
+      },
+      {
+        number: "15.5",
+        title: "Parking Detail — About",
+        body: "The About tab is focused on clarity and reassurance. A large visual preview helps the user understand the environment, while facilities, supporting description, and pricing explain why the parking place is worth choosing.",
+        bullets: ["Trust Signals: 24/7, CCTV, security, emergency services", "Action Support: Pricing and Booking CTA remain visible", "Design Benefit: Reduces uncertainty before decision-making"],
+      },
+      {
+        number: "15.6",
+        title: "Parking Detail — Review",
+        body: "The Review tab provides social proof. Ratings filters and visible user reviews help the user validate expectations through real feedback.",
+        bullets: ["Confidence Builder: Review summaries and user voices", "Decision Support: Helps compare quality beyond price alone", "UX Benefit: Makes the booking decision feel safer"],
+      },
+      {
+        number: "15.7",
+        title: "Navigation",
+        body: "The navigation module uses a simplified visual map so the user can focus on route clarity rather than geographic detail overload. Orange path emphasis keeps the route unmistakable. Booking cards remain available as contextual overlays without breaking orientation.",
+        bullets: ["Current location remains visible", "Route emphasis uses the brand accent color", "Parking markers reinforce destination awareness", "Contextual cards allow direct action while navigating"],
+      },
+      {
+        number: "15.8",
+        title: "Select Space",
+        body: "The slot selection screen transforms a potentially confusing real-world process into a structured interface. Floor, sector, and slot states are made explicit so users can move from choice to confirmation quickly.",
+        bullets: ["Controls: Floor navigation, sector dropdown", "Visual Logic: Distinct available / unavailable states", "Action Path: Continue CTA clearly advances the task"],
+      },
+      {
+        number: "15.9",
+        title: "Digital Ticket",
+        body: "The digital ticket screen acts as a compact post-booking confirmation asset. It combines scannable access with structured trip and booking data.",
+        bullets: ["Key Contents: QR code, booking ID, vehicle number, parking slot, arrival/departure time", "Operational Role: Helps on-site validation", "Extended Benefit: Start Navigation CTA connects booking to movement"],
+      },
+      {
+        number: "15.10",
+        title: "My Booking — Overview / Active / Cancelled",
+        body: "The My Booking section gives the user operational control after reservation. Booking cards present time, pricing, position, and status in a compact format. State filtering through All Booking, Active, and Cancelled tabs improves clarity and reduces information overload.",
+        bullets: ["Overview: Central place to monitor all bookings", "Active: Encourages direct action through Get Direction", "Cancelled: Uses red destructive color for immediate recognition"],
+      },
+    ],
+  },
 ];

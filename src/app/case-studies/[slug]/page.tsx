@@ -20,7 +20,10 @@ import {
   TypographySpecimen,
   ScreenGallery,
   StageFlow,
+  ScreenBreakdownList,
+  TwoColumnList,
 } from "@/components/case-study/visuals";
+import { AnimatedGridPattern, BorderBeam } from "@/components/case-study/effects";
 import { SectionDivider } from "@/components/typography/primitives";
 
 export function generateStaticParams() {
@@ -146,6 +149,25 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           </dl>
         </section>
 
+        {cs.researchDirection ? (
+          <section>
+            <SectionDivider label="Research Direction" className="mb-10" labelAs="h2" />
+            <TwoColumnList
+              leftLabel="Assumed research questions"
+              left={cs.researchDirection.questions}
+              rightLabel="Likely findings applied in design"
+              right={cs.researchDirection.findings}
+            />
+          </section>
+        ) : null}
+
+        {cs.competitiveThinking ? (
+          <section>
+            <SectionDivider label="Competitive Thinking" className="mb-10" labelAs="h2" />
+            <p className="max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">{cs.competitiveThinking}</p>
+          </section>
+        ) : null}
+
         <section>
           <SectionDivider label="Visual Direction" className="mb-10" labelAs="h2" />
           <ProseSection heading={cs.visualDirection.heading} body={[cs.visualDirection.body]} />
@@ -164,39 +186,43 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <TypographySpecimen display={cs.typography.display} interfaceFont={cs.typography.interface} scale={cs.typography.scale} />
         </section>
 
-        <section>
-          <SectionDivider label="Layout System" className="mb-10" labelAs="h2" />
-          <SpecGrid items={cs.grid} />
-          <p className="label mt-10">Spacing base — {cs.spacing.base}</p>
-          <div className="mt-4">
-            <ChipList items={cs.spacing.scale.map((n) => `${n}px`)} />
-          </div>
-        </section>
-
-        <section>
-          <SectionDivider label="Image Direction" className="mb-10" labelAs="h2" />
-          {cs.imageDirection.categories.map((cat) => (
-            <div key={cat.name} className="mt-6 first:mt-0">
-              <p className="label">{cat.name}</p>
-              <div className="mt-3">
-                <ChipList items={cat.items} />
-              </div>
+        {cs.grid && cs.spacing ? (
+          <section>
+            <SectionDivider label="Layout System" className="mb-10" labelAs="h2" />
+            <SpecGrid items={cs.grid} />
+            <p className="label mt-10">Spacing base — {cs.spacing.base}</p>
+            <div className="mt-4">
+              <ChipList items={cs.spacing.scale.map((n) => `${n}px`)} />
             </div>
-          ))}
-          <p className="label mt-8">Treatment</p>
-          <div className="mt-3">
-            <ChipList items={cs.imageDirection.treatment} />
-          </div>
-          <p className="label mt-8">Ratios</p>
-          <dl className="mt-3 grid gap-x-10 gap-y-1 sm:grid-cols-2">
-            {cs.imageDirection.ratios.map((r) => (
-              <div key={r.use} className="flex items-baseline justify-between gap-6 border-t border-line/15 py-3.5">
-                <dt className="label">{r.use}</dt>
-                <dd className="text-right text-ink-soft">{r.ratio}</dd>
+          </section>
+        ) : null}
+
+        {cs.imageDirection ? (
+          <section>
+            <SectionDivider label="Image Direction" className="mb-10" labelAs="h2" />
+            {cs.imageDirection.categories.map((cat) => (
+              <div key={cat.name} className="mt-6 first:mt-0">
+                <p className="label">{cat.name}</p>
+                <div className="mt-3">
+                  <ChipList items={cat.items} />
+                </div>
               </div>
             ))}
-          </dl>
-        </section>
+            <p className="label mt-8">Treatment</p>
+            <div className="mt-3">
+              <ChipList items={cs.imageDirection.treatment} />
+            </div>
+            <p className="label mt-8">Ratios</p>
+            <dl className="mt-3 grid gap-x-10 gap-y-1 sm:grid-cols-2">
+              {cs.imageDirection.ratios.map((r) => (
+                <div key={r.use} className="flex items-baseline justify-between gap-6 border-t border-line/15 py-3.5">
+                  <dt className="label">{r.use}</dt>
+                  <dd className="text-right text-ink-soft">{r.ratio}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="Component System" className="mb-10" labelAs="h2" />
@@ -229,47 +255,69 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <ProseSection body={cs.buttonSystem.principles} className="mt-10" />
         </section>
 
-        <section>
-          <SectionDivider label="Homepage, Section by Section" className="mb-10" labelAs="h2" />
-          <ObjectiveList
-            items={cs.homepageSections.map((s, i) => ({
-              number: String(i + 1).padStart(2, "0"),
-              title: `${s.title} — ${s.question}`,
-              body: s.body,
-            }))}
-          />
-        </section>
+        {cs.homepageSections ? (
+          <section>
+            <SectionDivider label="Homepage, Section by Section" className="mb-10" labelAs="h2" />
+            <ObjectiveList
+              items={cs.homepageSections.map((s, i) => ({
+                number: String(i + 1).padStart(2, "0"),
+                title: `${s.title} — ${s.question}`,
+                body: s.body,
+              }))}
+            />
+          </section>
+        ) : null}
+
+        {cs.screenBreakdown ? (
+          <section className="relative overflow-hidden">
+            <AnimatedGridPattern numSquares={48} className="opacity-60" />
+            <div className="relative">
+              <SectionDivider label="Screen-by-Screen Case Study" className="mb-10" labelAs="h2" />
+              <ScreenBreakdownList items={cs.screenBreakdown} />
+            </div>
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="The Process" className="mb-10" labelAs="h2" />
           <StageFlow stages={cs.processSteps.map((p) => ({ number: p.number, name: p.title, body: p.body }))} />
         </section>
 
-        <section>
-          <SectionDivider label="Personalization" className="mb-10" labelAs="h2" />
-          <ChipList items={cs.personalization.options} />
-          <p className="mt-6 max-w-2xl text-pretty text-lg text-ink-soft">{cs.personalization.note}</p>
-        </section>
+        {cs.personalization ? (
+          <section>
+            <SectionDivider label="Personalization" className="mb-10" labelAs="h2" />
+            <ChipList items={cs.personalization.options} />
+            <p className="mt-6 max-w-2xl text-pretty text-lg text-ink-soft">{cs.personalization.note}</p>
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="Lookbook" className="mb-10" labelAs="h2" />
-          <ChipList items={cs.lookbookCategories} />
-        </section>
+        {cs.lookbookCategories ? (
+          <section>
+            <SectionDivider label="Lookbook" className="mb-10" labelAs="h2" />
+            <ChipList items={cs.lookbookCategories} />
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="Booking Experience" className="mb-10" labelAs="h2" />
-          <DecisionList items={cs.bookingOptions} />
-        </section>
+        {cs.bookingOptions ? (
+          <section>
+            <SectionDivider label="Booking Experience" className="mb-10" labelAs="h2" />
+            <DecisionList items={cs.bookingOptions} />
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="Booking Flow" className="mb-10" labelAs="h2" />
-          <FlowDiagram steps={cs.formFlow} />
-        </section>
+        {cs.formFlow ? (
+          <section>
+            <SectionDivider label="Booking Flow" className="mb-10" labelAs="h2" />
+            <FlowDiagram steps={cs.formFlow} />
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="Responsive Design" className="mb-10" labelAs="h2" />
-          <SpecGrid items={cs.responsive} />
-        </section>
+        {cs.responsive ? (
+          <section>
+            <SectionDivider label="Responsive Design" className="mb-10" labelAs="h2" />
+            <SpecGrid items={cs.responsive} />
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="Interaction Design" className="mb-10" labelAs="h2" />
@@ -290,35 +338,43 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           </div>
         </section>
 
-        <section className="space-y-8">
-          <SectionDivider label="Conversion Paths" className="mb-2" labelAs="h2" />
-          {cs.conversionPaths.map((p) => (
-            <FlowDiagram key={p.name} title={p.name} steps={p.steps} />
-          ))}
-        </section>
+        {cs.conversionPaths ? (
+          <section className="space-y-8">
+            <SectionDivider label="Conversion Paths" className="mb-2" labelAs="h2" />
+            {cs.conversionPaths.map((p) => (
+              <FlowDiagram key={p.name} title={p.name} steps={p.steps} />
+            ))}
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="UX Writing" className="mb-10" labelAs="h2" />
-          <ChipList items={cs.uxWriting.focus} />
-          <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">{cs.uxWriting.body}</p>
-        </section>
+        {cs.uxWriting ? (
+          <section>
+            <SectionDivider label="UX Writing" className="mb-10" labelAs="h2" />
+            <ChipList items={cs.uxWriting.focus} />
+            <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">{cs.uxWriting.body}</p>
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="Design Tokens" className="mb-10" labelAs="h2" />
-          {cs.designTokens.map((g) => (
-            <div key={g.group} className="mt-6 first:mt-0">
-              <p className="label">{g.group}</p>
-              <div className="mt-3">
-                <ChipList items={g.tokens} />
+        {cs.designTokens ? (
+          <section>
+            <SectionDivider label="Design Tokens" className="mb-10" labelAs="h2" />
+            {cs.designTokens.map((g) => (
+              <div key={g.group} className="mt-6 first:mt-0">
+                <p className="label">{g.group}</p>
+                <div className="mt-3">
+                  <ChipList items={g.tokens} />
+                </div>
               </div>
-            </div>
-          ))}
-        </section>
+            ))}
+          </section>
+        ) : null}
 
-        <section>
-          <SectionDivider label="Design Validation" className="mb-10" labelAs="h2" />
-          <ChipList items={cs.validation} />
-        </section>
+        {cs.validation ? (
+          <section>
+            <SectionDivider label="Design Validation" className="mb-10" labelAs="h2" />
+            <ChipList items={cs.validation} />
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="Key Design Decisions" className="mb-10" labelAs="h2" />
@@ -330,9 +386,22 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <ScreenGallery images={cs.heroImages} alt={cs.title} />
         </section>
 
+        {cs.mockupGuide ? (
+          <section>
+            <SectionDivider label="Mockup Pairing Guide" className="mb-10" labelAs="h2" />
+            <div className="relative border border-line/15 p-6">
+              <BorderBeam />
+              <ChipList items={cs.mockupGuide} />
+            </div>
+          </section>
+        ) : null}
+
         <section>
           <SectionDivider label="Challenges" className="mb-10" labelAs="h2" />
-          <DecisionList items={cs.challenges.map((c) => ({ title: c.challenge, body: c.response }))} />
+          <DecisionList
+            metaLabel="Outcome"
+            items={cs.challenges.map((c) => ({ title: c.challenge, body: c.response, meta: c.outcome }))}
+          />
         </section>
 
         <section>
@@ -340,26 +409,48 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <ChipList items={cs.outcome} />
         </section>
 
-        <section>
-          <SectionDivider label="What We Delivered" className="mb-10" labelAs="h2" />
-          <p className="label">UX</p>
-          <div className="mt-3">
-            <ChipList items={cs.delivered.ux} />
-          </div>
-          <p className="label mt-8">UI</p>
-          <div className="mt-3">
-            <ChipList items={cs.delivered.ui} />
-          </div>
-          <p className="label mt-8">Prototyping</p>
-          <div className="mt-3">
-            <ChipList items={cs.delivered.prototyping} />
-          </div>
-        </section>
+        {cs.delivered ? (
+          <section>
+            <SectionDivider label="What We Delivered" className="mb-10" labelAs="h2" />
+            <p className="label">UX</p>
+            <div className="mt-3">
+              <ChipList items={cs.delivered.ux} />
+            </div>
+            <p className="label mt-8">UI</p>
+            <div className="mt-3">
+              <ChipList items={cs.delivered.ui} />
+            </div>
+            <p className="label mt-8">Prototyping</p>
+            <div className="mt-3">
+              <ChipList items={cs.delivered.prototyping} />
+            </div>
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="Skills Demonstrated" className="mb-10" labelAs="h2" />
           <ChipList items={cs.skills} />
         </section>
+
+        {cs.keyLearnings ? (
+          <section>
+            <SectionDivider label="Key Learnings" className="mb-10" labelAs="h2" />
+            <ul className="grid gap-x-10 gap-y-4 sm:grid-cols-2">
+              {cs.keyLearnings.map((l) => (
+                <li key={l} className="border-t border-line/15 pt-3 text-ink-soft">
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {cs.futureImprovements ? (
+          <section>
+            <SectionDivider label="Future Improvements" className="mb-10" labelAs="h2" />
+            <ChipList items={cs.futureImprovements} />
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="Final Reflection" className="mb-10" labelAs="h2" />
@@ -370,17 +461,19 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <Link href={portfolioHref} className="link-underline text-ink">
             ← Back to the portfolio entry
           </Link>
-          <a
-            href={cs.liveUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-3 border border-line/25 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-accent hover:text-accent"
-          >
-            Visit website
-            <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-              ↗
-            </span>
-          </a>
+          {cs.liveUrl ? (
+            <a
+              href={cs.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-3 border border-line/25 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-accent hover:text-accent"
+            >
+              Visit website
+              <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                ↗
+              </span>
+            </a>
+          ) : null}
         </section>
       </div>
     </article>

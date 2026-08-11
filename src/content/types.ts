@@ -204,7 +204,12 @@ export interface CaseStudy {
   year: string;
   /** Real screenshot paths, reused for both the hero and the full gallery. */
   heroImages: string[];
-  liveUrl: string;
+  /** width/height of `heroImages`. Drives the hero's flat-fallback aspect and WebGL plane
+   *  geometry so portrait screenshots (e.g. phone mockups) aren't stretched to a landscape
+   *  frame. Defaults to 4/3 (Thornton & Co.'s landscape browser screenshots) when omitted. */
+  heroAspect?: number;
+  /** Optional — omitted when the write-up is a design exercise with no shipped/live product. */
+  liveUrl?: string;
 
   projectDetails: { label: string; value: string }[];
 
@@ -219,13 +224,21 @@ export interface CaseStudy {
   objectives: { number: string; title: string; body: string }[];
   userGoals: string[];
   audiences: { name: string; body: string; needs: string[] }[];
+  /**
+   * `role`/`age`/`priorities`/`concern` fit a client-facing persona brief
+   * (Thornton & Co.'s shape). `motivation`/`painPoint` fit a lighter
+   * motivation/pain-point/need snapshot (Parko's shape). Both are optional —
+   * a record populates whichever pair its source material actually has.
+   */
   personas: {
     name: string;
-    role: string;
-    age: string;
+    role?: string;
+    age?: string;
     goal: string;
-    priorities: string;
-    concern: string;
+    priorities?: string;
+    concern?: string;
+    motivation?: string;
+    painPoint?: string;
     needs: string[];
   }[];
   painPoints: { problem: string; solution: string }[];
@@ -238,11 +251,19 @@ export interface CaseStudy {
   typography: {
     display: { name: string; uses: string[] };
     interface: { name: string; uses: string[] };
-    scale: { name: string; sizes: string }[];
+    /** `weight` is optional — populated when the source spec lists a weight range per style (e.g. Parko's type hierarchy). */
+    scale: { name: string; sizes: string; weight?: string }[];
   };
-  grid: { device: string; spec: string[] }[];
-  spacing: { base: string; scale: number[] };
-  imageDirection: {
+  /** Assumed research questions + the likely findings applied in the design. Optional — not every write-up documents an explicit research direction. */
+  researchDirection?: { questions: string[]; findings: string[] };
+  /** Short paragraph on how the product reasons about its competitive landscape. Optional. */
+  competitiveThinking?: string;
+  /** All fields below marked optional are omitted when the source write-up genuinely
+   *  doesn't cover that concept (e.g. a mobile-only case study with no desktop grid
+   *  spec) — never populate them with invented specifics. */
+  grid?: { device: string; spec: string[] }[];
+  spacing?: { base: string; scale: number[] };
+  imageDirection?: {
     categories: { name: string; items: string[] }[];
     treatment: string[];
     ratios: { use: string; ratio: string }[];
@@ -250,24 +271,33 @@ export interface CaseStudy {
   iconography: string[];
   buttonSystem: { primary: string; secondary: string; textLink: string; principles: string[] };
   componentSystem: { core: string[]; states: string[] };
-  homepageSections: { title: string; question: string; body: string }[];
+  homepageSections?: { title: string; question: string; body: string }[];
   processSteps: { number: string; title: string; body: string }[];
-  personalization: { options: string[]; note: string };
-  lookbookCategories: string[];
-  bookingOptions: { title: string; body: string }[];
-  formFlow: string[];
-  responsive: { device: string; spec: string[] }[];
+  personalization?: { options: string[]; note: string };
+  lookbookCategories?: string[];
+  bookingOptions?: { title: string; body: string }[];
+  formFlow?: string[];
+  responsive?: { device: string; spec: string[] }[];
   interactionDesign: { microInteractions: string[]; principle: string };
   accessibility: string[];
   conversionStrategy: { primary: string; supporting: string[] };
-  conversionPaths: { name: string; steps: string[] }[];
-  uxWriting: { focus: string[]; body: string };
-  designTokens: { group: string; tokens: string[] }[];
-  validation: string[];
+  conversionPaths?: { name: string; steps: string[] }[];
+  uxWriting?: { focus: string[]; body: string };
+  designTokens?: { group: string; tokens: string[] }[];
+  validation?: string[];
   decisions: { number: string; title: string; body: string }[];
-  challenges: { challenge: string; response: string }[];
+  /** `outcome` is optional — populated when the source documents a per-challenge result column (e.g. Parko's 3-column table). */
+  challenges: { challenge: string; response: string; outcome?: string }[];
   outcome: string[];
-  delivered: { ux: string[]; ui: string[]; prototyping: string[] };
+  delivered?: { ux: string[]; ui: string[]; prototyping: string[] };
   skills: string[];
   reflection: { heading: string; body: string[] };
+  /** Numbered screen-by-screen breakdown (e.g. Parko's 15.1–15.10). Optional — most write-ups fold this into `homepageSections` instead. */
+  screenBreakdown?: { number: string; title: string; body: string; bullets: string[] }[];
+  /** Standalone bullet list of learnings, distinct from the closing `reflection` prose. Optional. */
+  keyLearnings?: string[];
+  /** Forward-looking feature list. Optional. */
+  futureImprovements?: string[];
+  /** Which real screenshot pairs with which named mockup board. Optional. */
+  mockupGuide?: string[];
 }

@@ -4,17 +4,20 @@ import Image from "next/image";
 import { MReveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
-/** Three persona cards — age, goal, priorities, concern, needs. */
+/** Persona cards. Renders whichever fields the record has: `role`/`age`/`priorities`/`concern`
+ *  (client-facing brief) or `motivation`/`painPoint` (lighter motivation/pain-point snapshot). */
 export function PersonaGrid({
   items,
 }: {
   items: {
     name: string;
-    role: string;
-    age: string;
+    role?: string;
+    age?: string;
     goal: string;
-    priorities: string;
-    concern: string;
+    priorities?: string;
+    concern?: string;
+    motivation?: string;
+    painPoint?: string;
     needs: string[];
   }[];
 }) {
@@ -22,25 +25,43 @@ export function PersonaGrid({
     <Stagger className="grid gap-8 md:grid-cols-3">
       {items.map((p) => (
         <StaggerItem key={p.name} as="article" variant="up" className="border border-line/15 p-6">
-          <p className="label text-accent">{p.role}</p>
-          <h3 className="mt-2 font-display text-2xl italic text-ink">{p.name}</h3>
+          {p.role ? <p className="label text-accent">{p.role}</p> : null}
+          <h3 className={cn("font-display text-2xl italic text-ink", !p.role && "mt-0")}>{p.name}</h3>
           <dl className="mt-5 space-y-3 text-sm">
-            <div>
-              <dt className="label">Age</dt>
-              <dd className="mt-1 text-ink-soft">{p.age}</dd>
-            </div>
+            {p.age ? (
+              <div>
+                <dt className="label">Age</dt>
+                <dd className="mt-1 text-ink-soft">{p.age}</dd>
+              </div>
+            ) : null}
             <div>
               <dt className="label">Goal</dt>
               <dd className="mt-1 text-ink-soft">{p.goal}</dd>
             </div>
-            <div>
-              <dt className="label">Priorities</dt>
-              <dd className="mt-1 text-ink-soft">{p.priorities}</dd>
-            </div>
-            <div>
-              <dt className="label">Concern</dt>
-              <dd className="mt-1 text-ink-soft">{p.concern}</dd>
-            </div>
+            {p.motivation ? (
+              <div>
+                <dt className="label">Motivation</dt>
+                <dd className="mt-1 text-ink-soft">{p.motivation}</dd>
+              </div>
+            ) : null}
+            {p.priorities ? (
+              <div>
+                <dt className="label">Priorities</dt>
+                <dd className="mt-1 text-ink-soft">{p.priorities}</dd>
+              </div>
+            ) : null}
+            {p.painPoint ? (
+              <div>
+                <dt className="label">Pain Point</dt>
+                <dd className="mt-1 text-ink-soft">{p.painPoint}</dd>
+              </div>
+            ) : null}
+            {p.concern ? (
+              <div>
+                <dt className="label">Concern</dt>
+                <dd className="mt-1 text-ink-soft">{p.concern}</dd>
+              </div>
+            ) : null}
           </dl>
           <p className="label mt-5">Needs</p>
           <ul className="mt-2 space-y-1">
@@ -116,7 +137,7 @@ export function TypographySpecimen({
 }: {
   display: { name: string; uses: string[] };
   interfaceFont: { name: string; uses: string[] };
-  scale: { name: string; sizes: string }[];
+  scale: { name: string; sizes: string; weight?: string }[];
 }) {
   return (
     <div>
@@ -136,7 +157,10 @@ export function TypographySpecimen({
         {scale.map((s) => (
           <div key={s.name} className="flex items-center justify-between gap-6 py-3">
             <dt className="label">{s.name}</dt>
-            <dd className="text-right text-sm text-ink-soft">{s.sizes}</dd>
+            <dd className="text-right text-sm text-ink-soft">
+              {s.sizes}
+              {s.weight ? <span className="text-muted"> · {s.weight}</span> : null}
+            </dd>
           </div>
         ))}
       </dl>
@@ -160,6 +184,70 @@ export function ScreenGallery({ images, alt }: { images: string[]; alt: string }
         </StaggerItem>
       ))}
     </Stagger>
+  );
+}
+
+/** Numbered screen-by-screen breakdown — title, a short paragraph, and a bullet list of labelled traits per screen. */
+export function ScreenBreakdownList({
+  items,
+}: {
+  items: { number: string; title: string; body: string; bullets: string[] }[];
+}) {
+  return (
+    <Stagger className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
+      {items.map((item) => (
+        <StaggerItem key={item.number} as="article" variant="up" className="border-t border-line/15 pt-5">
+          <span className="label text-accent">{item.number}</span>
+          <h3 className="mt-2 font-display text-xl text-ink">{item.title}</h3>
+          <p className="mt-2 text-pretty text-[0.95rem] leading-relaxed text-ink-soft">{item.body}</p>
+          <ul className="mt-4 space-y-1.5">
+            {item.bullets.map((b) => (
+              <li key={b} className="text-sm text-ink-soft">
+                — {b}
+              </li>
+            ))}
+          </ul>
+        </StaggerItem>
+      ))}
+    </Stagger>
+  );
+}
+
+/** Two side-by-side bullet columns — assumed research questions vs. likely findings applied. */
+export function TwoColumnList({
+  leftLabel,
+  left,
+  rightLabel,
+  right,
+}: {
+  leftLabel: string;
+  left: string[];
+  rightLabel: string;
+  right: string[];
+}) {
+  return (
+    <div className="grid gap-10 md:grid-cols-2">
+      <div>
+        <p className="label">{leftLabel}</p>
+        <ul className="mt-4 space-y-2.5 border-t border-line/15 pt-4">
+          {left.map((q) => (
+            <li key={q} className="text-sm leading-relaxed text-ink-soft">
+              — {q}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p className="label">{rightLabel}</p>
+        <ul className="mt-4 space-y-2.5 border-t border-line/15 pt-4">
+          {right.map((f) => (
+            <li key={f} className="text-sm leading-relaxed text-ink-soft">
+              — {f}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 

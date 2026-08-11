@@ -38,17 +38,25 @@ function TiltedPlane({
 }
 
 /**
- * Bespoke single-project hero: 1–2 layered planes of the real Thornton
+ * Bespoke single-project hero: 1–2 layered planes of the case study's real
  * screenshots, tilting toward the pointer with a slow idle float. Deliberately
  * simpler than the homepage's multi-card `FloatingGallery` (that component is
  * shaped for orbiting many artworks, not showcasing one hero image).
+ *
+ * Plane sizes derive from `aspect` (width/height) rather than a hardcoded
+ * landscape ratio, so portrait screenshots (e.g. phone mockups) render
+ * undistorted. Defaults to 4/3 — Thornton & Co.'s original landscape ratio.
  */
-export function CaseStudyHero3D({ images }: { images: string[] }) {
+export function CaseStudyHero3D({ images, aspect = 4 / 3 }: { images: string[]; aspect?: number }) {
+  const primaryWidth = 3.2;
+  const secondaryWidth = 1.47;
   return (
     <Canvas camera={{ position: [0, 0, 5], fov: 35 }} dpr={[1, 1.75]} gl={{ antialias: true, alpha: true }}>
       <Suspense fallback={null}>
-        <TiltedPlane src={images[0]} position={[0, 0, 0]} size={[3.2, 2.4]} />
-        {images[1] ? <TiltedPlane src={images[1]} position={[1.7, -0.5, 0.7]} size={[1.47, 1.1]} /> : null}
+        <TiltedPlane src={images[0]} position={[0, 0, 0]} size={[primaryWidth, primaryWidth / aspect]} />
+        {images[1] ? (
+          <TiltedPlane src={images[1]} position={[1.7, -0.5, 0.7]} size={[secondaryWidth, secondaryWidth / aspect]} />
+        ) : null}
       </Suspense>
     </Canvas>
   );
