@@ -70,11 +70,14 @@ export function ChapterNumber({
 export function SectionDivider({
   className,
   label,
+  labelAs = "span",
 }: {
   className?: string;
   label?: string;
+  labelAs?: "span" | "h2";
 }) {
   const { ref, inView } = useReveal<HTMLDivElement>({ threshold: 0.5 });
+  const LabelTag = labelAs;
   return (
     <div ref={ref} className={cn("flex items-center gap-6", className)}>
       <span
@@ -83,7 +86,7 @@ export function SectionDivider({
           inView ? "scale-x-100" : "scale-x-0"
         )}
       />
-      {label ? <span className="label shrink-0">{label}</span> : null}
+      {label ? <LabelTag className="label shrink-0">{label}</LabelTag> : null}
       {label ? (
         <span
           className={cn(
