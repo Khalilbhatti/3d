@@ -62,10 +62,20 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
           for its own non-interactive overlay chrome. */}
       <div className="container-editorial relative pointer-events-none">
         <Kicker accent>{caseStudy.eyebrow}</Kicker>
-        <SplitReveal as="h1" type="lines" immediate className="mt-6 max-w-[16ch] font-display text-display-lg text-balance text-ink">
+        <SplitReveal
+          as="h1"
+          type="lines"
+          immediate
+          className="mt-6 max-w-[16ch] font-display text-display-lg text-balance text-ink [text-shadow:0_2px_24px_rgb(0_0_0_/_0.45)]"
+        >
           {caseStudy.title}
         </SplitReveal>
-        <MReveal as="p" variant="up" delay={0.15} className="mt-4 max-w-md font-display text-2xl italic text-ink-soft">
+        <MReveal
+          as="p"
+          variant="up"
+          delay={0.15}
+          className="mt-4 max-w-md font-display text-2xl italic text-ink-soft [text-shadow:0_2px_20px_rgb(0_0_0_/_0.4)]"
+        >
           {caseStudy.tagline}
         </MReveal>
         <div className="mt-14 max-w-2xl">
