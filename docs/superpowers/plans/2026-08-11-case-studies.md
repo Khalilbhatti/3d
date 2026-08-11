@@ -2,6 +2,13 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Status: shipped.** All 8 tasks are complete (see `.superpowers/sdd/progress.md`). Do not re-run this plan's code blocks verbatim — several were superseded during implementation and review:
+> - Task 4's `CaseStudyHero` snippet uses `<MReveal as="h1">`, which does not compile (`MReveal`'s `Tag` union has no `"h1"`). The shipped code uses `<SplitReveal as="h1">` instead (commit `c730a9e`).
+> - Task 6's detail-page snippet predates a fix (commit `bd09b16`) that added rendering for `problem.heading`, `imageDirection.ratios`, and `buttonSystem.primary`/`.secondary`/`.textLink`, and predates a further fix (commit `b98db5a` + `7d68ca7`) that added a hero legibility scrim/text-shadow, fixed dead pointer-parallax, and gave every section a real `<h2>` via `SectionDivider`'s new `labelAs` prop.
+> - `SectionDivider` (`src/components/typography/primitives.tsx`) gained an optional `labelAs?: "span" | "h2"` prop after this plan was written (commit `b98db5a`) — existing calls without it are unaffected (defaults to `"span"`).
+>
+> For the current, correct code, read the actual files in `src/components/case-study/` and `src/app/case-studies/`, not this plan.
+
 **Goal:** Add a new "Case Studies" section — a listing page and a full, animated Thornton & Co. detail page — to the GitzTech site, additive to the existing `/portfolio` section.
 
 **Architecture:** A new fixed-shape `CaseStudy` content type (mirroring how `Artwork`/`Collection` already work) holds the entire 53-section Thornton & Co. document as typed data. A new `src/components/case-study/` directory holds ~15 small, focused, reusable section components built entirely from the site's existing Framer Motion primitives (`MReveal`/`Stagger`/`StaggerItem`, `Kicker`, `SectionDivider`, `MetaList`) plus one bespoke React Three Fiber hero (reusing existing `@react-three/fiber`/`three`/`@react-three/drei` dependencies, with the same WebGL→flat-fallback safety pattern `FloatingGalleryHero` already uses). Two new routes (`/case-studies`, `/case-studies/[slug]`) render it; a nav entry and a cross-link from the existing portfolio entry connect it to the rest of the site.
