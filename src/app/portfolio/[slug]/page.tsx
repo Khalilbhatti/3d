@@ -9,6 +9,7 @@ import {
   getCollectionById,
   getRelatedArtworks,
   getNextArtwork,
+  getCaseStudyBySlug,
 } from "@/content/index";
 import { ParallaxArtwork } from "@/components/story/ParallaxArtwork";
 import { RelatedArtworks } from "@/components/gallery/RelatedArtworks";
@@ -44,6 +45,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
   const next = getNextArtwork(artwork.id);
   const viewerIds = [artwork.id, ...related.map((r) => r.id)];
   const gallery = (artwork.images ?? []).filter((src) => src !== artwork.image);
+  const caseStudy = getCaseStudyBySlug(artwork.slug);
 
   return (
     <article>
@@ -133,7 +135,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
               { label: "Engagement", value: artwork.period },
             ]}
           />
-          {artwork.liveUrl || artwork.appUrl ? (
+          {artwork.liveUrl || artwork.appUrl || caseStudy ? (
             <div className="mt-8 flex flex-col gap-3">
               {artwork.liveUrl ? (
                 <a
@@ -156,6 +158,15 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
                   Get the app
                   <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
                 </a>
+              ) : null}
+              {caseStudy ? (
+                <Link
+                  href={`/case-studies/${caseStudy.slug}`}
+                  className="group inline-flex items-center justify-between gap-3 border border-accent/40 bg-accent/5 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-accent transition-colors hover:border-accent hover:bg-accent/10"
+                >
+                  Full Case Study
+                  <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                </Link>
               ) : null}
             </div>
           ) : null}
