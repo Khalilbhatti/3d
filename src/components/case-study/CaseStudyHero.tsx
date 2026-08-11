@@ -78,7 +78,7 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
         >
           {caseStudy.tagline}
         </MReveal>
-        <div className="mt-14 max-w-2xl">
+        <div className="mt-14 max-w-2xl [text-shadow:0_1px_16px_rgb(0_0_0_/_0.5)]">
           <MetaList items={caseStudy.projectDetails.map((d) => ({ label: d.label, value: d.value }))} columns={2} />
         </div>
         {!useWebGL ? (
