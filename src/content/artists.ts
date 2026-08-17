@@ -144,7 +144,7 @@ export const artists: Artist[] = [
       "If a user has to be taught how to use the screen, the screen is the thing that needs changing.",
     seed: "team-uiux-02",
     palette: { from: "#FFC157", via: "#D98A1F", to: "#331F05", ink: 0.16 },
-    relatedArtworkIds: ["prj-stitcher", "prj-parko"],
+    relatedArtworkIds: ["prj-parko"],
   },
   {
     id: "team-marketers",

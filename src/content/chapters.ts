@@ -72,7 +72,7 @@ export const chapters: Chapter[] = [
     },
     date: "48h",
     location: "To a working plan",
-    artworkIds: ["prj-stitcher"],
+    artworkIds: ["prj-mockups"],
     palette: { from: "#6B8FC4", via: "#33547F", to: "#101F33", ink: 0.16 },
   },
   {

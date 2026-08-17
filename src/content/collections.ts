@@ -131,7 +131,7 @@ export const collections: Collection[] = [
     palette: { from: "#6B8FC4", via: "#33547F", to: "#101F33", ink: 0.16 },
     image: "/services/graphic-designing.jpg",
     featuredArtistIds: ["team-uiux"],
-    artworkIds: ["prj-stitcher"],
+    artworkIds: [],
     relatedStoryIds: ["story-design-systems"],
     timelineIds: ["tl-design"],
     credits: [{ role: "Discipline lead", name: "UI/UX Designers" }],

@@ -181,9 +181,9 @@ export const stories: Story[] = [
         type: "paragraph",
         text: "Final interfaces are delivered as a documented design system — components, states, spacing and accessibility rules — so the build matches the design and stays consistent as the product grows.",
       },
-      { type: "gallery", artworkIds: ["prj-parko", "prj-stitcher"] },
+      { type: "gallery", artworkIds: ["prj-parko", "prj-mockups"] },
     ],
-    relatedArtworkIds: ["prj-parko", "prj-stitcher"],
+    relatedArtworkIds: ["prj-parko", "prj-mockups"],
     relatedStoryIds: ["story-wordpress-benefits"],
   },
 ];
