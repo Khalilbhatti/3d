@@ -418,7 +418,7 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "Website-to-RAG AI Knowledge Base — an n8n pipeline by GitzTech that crawls a website and embeds its content into Pinecone as a semantic-search-ready AI knowledge base.",
     relatedArtworkIds: ["prj-leadpilot", "prj-social-content-engine"],
-    featured: true,
+    featured: false,
   },
   {
     id: "prj-social-content-engine",
@@ -443,7 +443,7 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "AI Social Media Content & Publishing Engine — an n8n system by GitzTech that researches, drafts, and publishes platform-specific social content with a human-approval step.",
     relatedArtworkIds: ["prj-website-rag", "prj-ecommerce-assistant"],
-    featured: true,
+    featured: false,
   },
   {
     id: "prj-ecommerce-assistant",
@@ -468,7 +468,7 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "AI eCommerce Operations Assistant via Telegram — an n8n AI agent by GitzTech letting WooCommerce teams query and update store operations through natural-language Telegram messages.",
     relatedArtworkIds: ["prj-social-content-engine", "prj-recruitment-screening"],
-    featured: true,
+    featured: false,
   },
   {
     id: "prj-recruitment-screening",
@@ -493,7 +493,7 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "AI Recruitment Screening & Interview Scheduling on WhatsApp — an n8n automation by GitzTech that screens candidates, books interviews, and updates hiring status over WhatsApp.",
     relatedArtworkIds: ["prj-ecommerce-assistant", "prj-whatsapp-assistant"],
-    featured: true,
+    featured: false,
   },
   {
     id: "prj-whatsapp-assistant",
@@ -518,7 +518,7 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "Multimodal WhatsApp Personal AI Assistant — an n8n AI agent by GitzTech accepting text, voice, image and PDF input over WhatsApp, connected to Gmail, Calendar, Drive and Airtable.",
     relatedArtworkIds: ["prj-recruitment-screening", "prj-voice-receptionist"],
-    featured: true,
+    featured: false,
   },
   {
     id: "prj-voice-receptionist",
@@ -543,7 +543,7 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "AI Voice Receptionist Factory for Local Businesses — an n8n and Claude pipeline by GitzTech that discovers local businesses and deploys tailored AI voice receptionists through VAPI.",
     relatedArtworkIds: ["prj-whatsapp-assistant", "prj-video-content-factory"],
-    featured: true,
+    featured: false,
   },
   {
     id: "prj-video-content-factory",
@@ -568,6 +568,6 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "AI Video Content & Multi-Platform Publishing — an n8n pipeline by GitzTech that scripts, renders with Veo3, and auto-publishes short-form video across eight social platforms.",
     relatedArtworkIds: ["prj-voice-receptionist", "prj-b2b-leadgen"],
-    featured: true,
+    featured: false,
   },
 ];
