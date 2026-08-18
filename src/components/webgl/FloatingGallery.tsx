@@ -53,12 +53,22 @@ function computeTargets(
   if (layout === "sphere") {
     const r = 6.4;
     const golden = Math.PI * (1 + Math.sqrt(5));
+    // setFromUnitVectors only constrains which way a card faces (its forward
+    // axis) — it leaves roll (rotation around that axis) undefined, so three.js
+    // picks whatever minimal rotation it lands on. On a sphere that means some
+    // cards, depending purely on where the golden-angle spiral places them,
+    // land rolled ~180° and render upside-down. lookAt anchors roll to a
+    // consistent world-up reference instead, so every card stays right-side-up
+    // regardless of its position.
+    const helper = new THREE.Object3D();
     for (let i = 0; i < count; i++) {
       const y = 1 - (i + 0.5) / count * 2;
       const rad = Math.sqrt(Math.max(0, 1 - y * y));
       const theta = golden * i;
       posOut[i].set(Math.cos(theta) * rad * r, y * r, Math.sin(theta) * rad * r);
-      quatOut[i].setFromUnitVectors(FORWARD, posOut[i].clone().normalize());
+      helper.position.copy(posOut[i]);
+      helper.lookAt(0, 0, 0);
+      quatOut[i].copy(helper.quaternion);
     }
   } else {
     const rows = count > 8 ? 3 : 2;

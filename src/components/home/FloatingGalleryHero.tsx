@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { type Artwork } from "@/content/types";
-import { getArtworks, getFeaturedArtworks, getArtistById } from "@/content/index";
+import { getFeaturedArtworks, getArtistById } from "@/content/index";
 import { type GalleryLayout } from "@/components/webgl/FloatingGallery";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { ScrollCue } from "@/components/story/ScrollCue";
@@ -34,11 +34,11 @@ export function FloatingGalleryHero() {
   const isMobile = useIsMobile();
   const openViewer = useAppStore((s) => s.openViewer);
 
-  const works = useMemo<Artwork[]>(() => {
-    const featured = getFeaturedArtworks();
-    const rest = getArtworks().filter((a) => !a.featured);
-    return [...featured, ...rest].slice(0, 14);
-  }, []);
+  // Only featured artworks appear in the hero — no backfill from the rest of
+  // the catalogue. Padding out to a fixed count previously meant an
+  // under-featured moment would silently pull in whatever was next in
+  // artworks.ts declaration order, regardless of curation intent.
+  const works = useMemo<Artwork[]>(() => getFeaturedArtworks().slice(0, 14), []);
   const ids = useMemo(() => works.map((w) => w.id), [works]);
 
   // Unmounting a live R3F canvas mid-flight is what crashed React's
