@@ -134,7 +134,16 @@ export function FloatingGallery({
         if (a.image) {
           const [pw, ph] = planeSize(a.orientation);
           const planeAspect = pw / ph;
-          const tex = new THREE.TextureLoader().load(a.image, (loaded) => {
+          // Source screenshots run up to several MB at 2000px+ wide; these
+          // planes only ever render at a few hundred screen pixels. Loading
+          // the raw file as a WebGL texture was costing ~100MB+ of GPU memory
+          // and real per-frame sampling bandwidth across a dozen-plus cards —
+          // routing through Next's existing image-optimization endpoint (the
+          // same one <Image> already uses everywhere else on the site) cuts
+          // that by roughly two orders of magnitude with no visible quality
+          // loss at this display size.
+          const optimizedSrc = `/_next/image?url=${encodeURIComponent(a.image)}&w=750&q=75`;
+          const tex = new THREE.TextureLoader().load(optimizedSrc, (loaded) => {
             const src = loaded.image as HTMLImageElement;
             // Emulate CSS object-fit: cover via UV crop, so a real photo isn't
             // stretched to the plane's (orientation-derived) aspect ratio.
@@ -210,6 +219,7 @@ export function FloatingGallery({
   const lastHovered = useRef(-1);
   const bgSlideIndex = useRef(0);
   const bgSlideElapsed = useRef(0);
+  const lastBgDrawSignature = useRef("");
 
   // Focus morph state.
   const progress = useRef({ v: 0 });
@@ -416,13 +426,26 @@ export function FloatingGallery({
     const bgCanvas = bgCanvasRef.current;
     const bgCtx = bgCanvas?.getContext("2d");
     if (bgCanvas && bgCtx) {
+      const activeSrc = sources && sources[bgSlideIndex.current % sources.length];
+      const srcReady = !!(activeSrc && isSourceReady(activeSrc));
+      // The lerps above settle to bit-identical values once idle (no hover,
+      // background color at rest), so most frames would repaint pixel-identical
+      // output. Redrawing the canvas and re-uploading it as a GPU texture on
+      // every single frame regardless — as this used to do — burns real
+      // bandwidth for no visible change. Skip both unless something that
+      // actually affects the drawn pixels has moved since the last paint.
+      const signature = `${displayedBg.current.getHexString()}|${bgImageFade.current.toFixed(4)}|${srcReady ? bgSlideIndex.current : -1}`;
+      if (signature === lastBgDrawSignature.current) {
+        return;
+      }
+      lastBgDrawSignature.current = signature;
+
       const cw = bgCanvas.width;
       const ch = bgCanvas.height;
       bgCtx.globalAlpha = 1;
       bgCtx.fillStyle = `#${displayedBg.current.getHexString()}`;
       bgCtx.fillRect(0, 0, cw, ch);
 
-      const activeSrc = sources && sources[bgSlideIndex.current % sources.length];
       if (bgImageFade.current > 0.01 && activeSrc && isSourceReady(activeSrc)) {
         const [sw, sh] = sourceSize(activeSrc);
         const srcAspect = sw / sh;
