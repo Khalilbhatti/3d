@@ -368,7 +368,14 @@ export const artworks: Artwork[] = [
     imageFit: "contain",
     alt: "LeadPilot — a CRM sales-pipeline dashboard project by GitzTech, featuring lead pipeline stages, WhatsApp automation, and a visual workflow builder.",
     relatedArtworkIds: ["prj-b2b-leadgen", "prj-website-rag"],
-    featured: true,
+    // Source image is a capture of this site's own hero mid-render (the card
+    // shows rotated, with the hero's own heading text baked into the pixels)
+    // rather than a clean screenshot of the LeadPilot product — there's no
+    // crop that removes the stray text without cutting into the dashboard
+    // itself, since the card fills almost the entire frame diagonally.
+    // Excluded from the hero orbit (the highest-visibility spot) until a
+    // proper screenshot replaces it; still shown in the portfolio grid.
+    featured: false,
   },
   {
     id: "prj-b2b-leadgen",
