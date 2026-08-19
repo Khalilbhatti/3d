@@ -170,23 +170,28 @@ export function FloatingGallery({
     [artworks]
   );
   // What each hovered card shows as the full-bleed hero backdrop: the project's
-  // own extra images when it has any (cycled as a slider), otherwise the same
-  // texture already on the card (a real photo, or the generated art canvas) —
-  // every project always has *something* to show, never a blank hover.
+  // own extra images when it has any (cycled as a slider), otherwise its single
+  // card image — every project always has *something* to show, never a blank
+  // hover. Loaded from `a.image`/`a.images` directly rather than reused from
+  // `textures[i].image`: THREE.TextureLoader populates that property
+  // asynchronously once the network fetch completes, so reading it inside this
+  // memo (which runs synchronously, before any image has loaded) always saw
+  // `undefined` for cards without an explicit `images` array — and since this
+  // memo's dependency is the `textures` array reference, which three.js never
+  // replaces when it mutates `.image` in place, it never recomputed. Every
+  // artwork relying on this fallback (all 9 n8n cards, LeadPilot) was
+  // permanently stuck with no hover backdrop at all.
   const backdropSources = useMemo(
     () =>
-      artworks.map((a, i): BackdropSource[] => {
-        if (a.images && a.images.length) {
-          return a.images.map((src) => {
-            const img = new window.Image();
-            img.src = src;
-            return img;
-          });
-        }
-        const img = textures[i].image as BackdropSource | undefined;
-        return img ? [img] : [];
+      artworks.map((a): BackdropSource[] => {
+        const list = a.images && a.images.length ? a.images : a.image ? [a.image] : [];
+        return list.map((src) => {
+          const img = new window.Image();
+          img.src = src;
+          return img;
+        });
       }),
-    [artworks, textures]
+    [artworks]
   );
 
   const sizes = useMemo(() => artworks.map((a) => planeSize(a.orientation)), [artworks]);
