@@ -120,7 +120,7 @@ export const collections: Collection[] = [
     palette: { from: "#FFB347", via: "#C97A1A", to: "#2E1B05", ink: 0.18 },
     image: "/services/gohighlevel-crm.jpg",
     featuredArtistIds: ["team-ghl"],
-    artworkIds: ["prj-wholesale", "prj-saas-funnel"],
+    artworkIds: ["prj-wholesale", "prj-saas-funnel", "prj-realestate-funnel"],
     relatedStoryIds: ["story-ghl-automation"],
     timelineIds: ["tl-ideas", "tl-design", "tl-final"],
     credits: [{ role: "Discipline lead", name: "GoHighLevel & CRM Specialists" }],
