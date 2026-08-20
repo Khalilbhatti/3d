@@ -34,7 +34,6 @@ export const collections: Collection[] = [
       "prj-maximalt",
       "prj-food",
       "prj-b2b-leadgen",
-      "prj-leadpilot",
       "prj-website-rag",
       "prj-social-content-engine",
       "prj-ecommerce-assistant",

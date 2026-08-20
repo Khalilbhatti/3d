@@ -179,8 +179,8 @@ export function FloatingGallery({
   // `undefined` for cards without an explicit `images` array — and since this
   // memo's dependency is the `textures` array reference, which three.js never
   // replaces when it mutates `.image` in place, it never recomputed. Every
-  // artwork relying on this fallback (all 9 n8n cards, LeadPilot) was
-  // permanently stuck with no hover backdrop at all.
+  // artwork relying on this fallback (all 9 n8n cards) was permanently
+  // stuck with no hover backdrop at all.
   const backdropSources = useMemo(
     () =>
       artworks.map((a): BackdropSource[] => {

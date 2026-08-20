@@ -475,38 +475,6 @@ export const artworks: Artwork[] = [
     featured: true,
   },
   {
-    id: "prj-leadpilot",
-    slug: "leadpilot",
-    title: "LeadPilot",
-    artistId: "team-fullstack",
-    year: "2026",
-    medium: "GHL, CRM Dashboard, WhatsApp Automation",
-    dimensions: "Lead pipeline dashboard · WhatsApp automation · visual workflow builder",
-    location: "CRM & Sales Automation",
-    collectionId: "svc-web",
-    period: "AI Automation",
-    description:
-      "A GoHighLevel-style CRM dashboard for managing leads through a visual sales pipeline, with WhatsApp automation and a drag-and-drop workflow builder built in.",
-    historicalContext:
-      "Sales teams need pipeline visibility and follow-up that doesn't depend on someone remembering to send the next message. LeadPilot tracks every lead through New, Contacted, Proposal and Negotiation stages on one board, while WhatsApp automation and a visual workflow builder handle the follow-up sequencing in the background.",
-    orientation: "landscape",
-    seed: "prj-leadpilot-01",
-    palette: { from: "#8B5FBF", via: "#4A3172", to: "#161225", ink: 0.18 },
-    image: "/portfolio/leadpilot.png",
-    imageAspect: "713 / 651",
-    imageFit: "contain",
-    alt: "LeadPilot — a CRM sales-pipeline dashboard project by GitzTech, featuring lead pipeline stages, WhatsApp automation, and a visual workflow builder.",
-    relatedArtworkIds: ["prj-b2b-leadgen", "prj-website-rag"],
-    // Source image is a capture of this site's own hero mid-render (the card
-    // shows rotated, with the hero's own heading text baked into the pixels)
-    // rather than a clean screenshot of the LeadPilot product — there's no
-    // crop that removes the stray text without cutting into the dashboard
-    // itself, since the card fills almost the entire frame diagonally.
-    // Excluded from the hero orbit (the highest-visibility spot) until a
-    // proper screenshot replaces it; still shown in the portfolio grid.
-    featured: false,
-  },
-  {
     id: "prj-b2b-leadgen",
     slug: "ai-b2b-lead-generation-cold-email-engine",
     title: "AI B2B Lead Generation & Cold Email Engine",
@@ -528,7 +496,7 @@ export const artworks: Artwork[] = [
     imageAspect: "4 / 3",
     imageFit: "contain",
     alt: "AI B2B Lead Generation & Cold Email Engine — an n8n outbound automation by GitzTech spanning Google Maps lead sourcing, email personalization, AI reply classification, and CRM logging.",
-    relatedArtworkIds: ["prj-leadpilot", "prj-video-content-factory"],
+    relatedArtworkIds: ["prj-video-content-factory", "prj-website-rag"],
     featured: true,
   },
   {
@@ -553,7 +521,7 @@ export const artworks: Artwork[] = [
     imageAspect: "4 / 3",
     imageFit: "contain",
     alt: "Website-to-RAG AI Knowledge Base — an n8n pipeline by GitzTech that crawls a website and embeds its content into Pinecone as a semantic-search-ready AI knowledge base.",
-    relatedArtworkIds: ["prj-leadpilot", "prj-social-content-engine"],
+    relatedArtworkIds: ["prj-b2b-leadgen", "prj-social-content-engine"],
     featured: false,
   },
   {
