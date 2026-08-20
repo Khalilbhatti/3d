@@ -9,8 +9,6 @@ import { CollectionCard } from "./CollectionCard";
 import { MReveal } from "@/components/motion/reveal";
 import { gsap } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { paletteIsDark, cn } from "@/lib/utils";
 
 /**
@@ -22,8 +20,6 @@ import { paletteIsDark, cn } from "@/lib/utils";
  * vertical stack so the page stays usable and swipe-scrollable.
  */
 export function HorizontalCollections() {
-  const reduced = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -31,26 +27,24 @@ export function HorizontalCollections() {
 
   // Whether the GSAP-pinned experience has been confirmed appropriate for this
   // visitor. Starts false so the very first client render always matches the
-  // server-rendered fallback, even when reduced-motion or a mobile viewport is
-  // already active at load — `reduced`/`isMobile` can't reflect that until one
-  // render after mount, and hydration always renders against the server
-  // snapshot first regardless. Promoting straight into a fresh mount is safe;
-  // tearing the GSAP-pinned section back down because a value resolved late is
-  // what crashed React's reconciler with a removeChild error (the pin-spacer
-  // ScrollTrigger inserts moves the section outside what React expects).
+  // server-rendered fallback, and is decided once on mount, never again:
+  // this used to re-run on every `reduced`/`isMobile` change (via a
+  // `resolvedOnceRef`-gated branch that still lived-reacted after its first
+  // invocation), so resizing the window across the mobile breakpoint tore
+  // the GSAP-pinned section back down mid-session — ScrollTrigger's `pin`
+  // inserts its own pin-spacer wrapper divs directly into the DOM, outside
+  // React's tracking, so removing that pin while React's reconciler is
+  // mid-commit crashes it with "removeChild: not a child of this node"
+  // (confirmed via gstack:browse: resize desktop→mobile after the pinned
+  // track had already mounted). Nothing here needs to live-swap layouts
+  // mid-session, so freezing the decision at mount removes the race.
   const [confirmedFull, setConfirmedFull] = useState(false);
-  const resolvedOnceRef = useRef(false);
 
   useEffect(() => {
-    if (!resolvedOnceRef.current) {
-      resolvedOnceRef.current = true;
-      const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const mobileNow = window.matchMedia("(max-width: 767px)").matches;
-      setConfirmedFull(!reducedNow && !mobileNow);
-      return;
-    }
-    setConfirmedFull(!reduced && !isMobile);
-  }, [reduced, isMobile]);
+    const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileNow = window.matchMedia("(max-width: 767px)").matches;
+    setConfirmedFull(!reducedNow && !mobileNow);
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
     if (!confirmedFull) return;

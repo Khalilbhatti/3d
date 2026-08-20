@@ -6,8 +6,6 @@ import { Chapter } from "./Chapter";
 import { ExploreCollection } from "./ExploreCollection";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useAppStore } from "@/lib/store";
 import { paletteIsDark, cn } from "@/lib/utils";
 import { registerChapterScrollTarget, unregisterChapterScrollTarget } from "@/lib/chapterScrollTargets";
@@ -27,8 +25,6 @@ export function ChapterStack({
   chapters: ChapterType[];
   startIndex: number;
 }) {
-  const reduced = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
   const setActiveChapter = useAppStore((s) => s.setActiveChapter);
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -37,28 +33,26 @@ export function ChapterStack({
   const [active, setActive] = useState(0);
 
   // The very first client render must match the server-rendered fallback
-  // even if reduced-motion or mobile is already active at load, since
-  // `reduced`/`isMobile` can't reflect that until their own hooks resolve —
-  // so this starts false and only ever promotes into the pinned layout once
-  // confirmed. Previously this used a `resolvedOnceRef` flag to special-case
-  // only the first effect invocation, trusting the `reduced`/`isMobile` hook
-  // closures for every later one — but React Strict Mode invokes this
-  // effect a second time before those hooks' own independent effects have
-  // resolved, so that second invocation read stale (false, false) closures,
-  // wrongly concluded desktop, and mounted the GSAP pin. It then correctly
-  // un-mounted a moment later once isMobile caught up — tearing down a pin
-  // that had just been built is what crashed React's reconciler (confirmed
-  // via gstack:browse + effect-level tracing). Reading matchMedia directly
-  // on every invocation sidesteps the stale-closure race entirely: no
-  // matter how many times or in what order this effect fires, it always
-  // gets the real, current device state rather than a hook's snapshot of it.
+  // (starts false, only ever promotes into the pinned layout once confirmed
+  // on mount) and, once decided, is never re-evaluated. This used to depend
+  // on [reduced, isMobile] and re-run whenever either changed after mount —
+  // which meant resizing the window across the mobile breakpoint flipped
+  // `confirmedFull` back to false and unmounted a live GSAP ScrollTrigger
+  // pin mid-session. ScrollTrigger's `pin: true` inserts its own pin-spacer
+  // wrapper divs directly into the DOM, outside React's tracking; tearing
+  // that down while React's own reconciler is mid-commit is what crashed it
+  // with "removeChild: not a child of this node" (confirmed via
+  // gstack:browse: resize desktop→mobile after the pinned stack had already
+  // mounted). Nothing about this component needs to live-swap between the
+  // pinned and flow layouts mid-session, so freezing the decision at mount
+  // removes the teardown race entirely.
   const [confirmedFull, setConfirmedFull] = useState(false);
 
   useEffect(() => {
     const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobileNow = window.matchMedia("(max-width: 767px)").matches;
     setConfirmedFull(!reducedNow && !mobileNow);
-  }, [reduced, isMobile]);
+  }, []);
 
   const canStack = chapters.length > 1;
 

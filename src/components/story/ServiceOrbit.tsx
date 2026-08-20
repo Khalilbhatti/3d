@@ -6,9 +6,7 @@ import { Html } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState, type ComponentType } from "react";
 import * as THREE from "three";
 import type { Collection } from "@/content/types";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { LogoAnimation } from "@/components/media/LogoAnimation";
 import { MReveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
@@ -207,30 +205,25 @@ export function ServiceOrbit({
    *  layout on the standalone /services-style page. */
   compact?: boolean;
 }) {
-  const reduced = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
   const [paused, setPaused] = useState(false);
 
-  // Rendering the <Canvas> branch first and then tearing it down once mobile
-  // resolves true is what crashed React's reconciler with a removeChild
-  // error (confirmed via gstack:browse at 375px + effect-level tracing).
-  // Default to the static list and only ever promote *into* the canvas once
-  // real device capability is confirmed, so a live R3F canvas is never
-  // unmounted. Reading matchMedia directly on every invocation (rather than
-  // trusting the `reduced`/`isMobile` hook closures after a first "resolved"
-  // flag flips) matters: React Strict Mode invokes this effect a second
-  // time before those hooks' own independent effects have resolved, so a
-  // flag-gated "first vs. subsequent" branch reads stale (false, false)
-  // closures on that second invocation and wrongly promotes to the canvas —
-  // which then gets torn down a moment later once the hooks catch up. This
-  // way every invocation gets the real, current device state directly.
+  // Default to the static list and only ever promote *into* the canvas once,
+  // on mount, never again. This used to depend on [reduced, isMobile] and
+  // re-run whenever either changed, so resizing the window across the
+  // mobile breakpoint tore down a live R3F canvas mid-render, crashing
+  // React's reconciler with a removeChild error (confirmed via
+  // gstack:browse: resize desktop→mobile after the orbit canvas had already
+  // mounted — react-three-fiber's own DOM writes race with React's
+  // unmount). Nothing here needs to live-swap between the canvas and the
+  // static list mid-session, so freezing the decision at mount removes the
+  // teardown race entirely.
   const [confirmedCanvas, setConfirmedCanvas] = useState(false);
 
   useEffect(() => {
     const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobileNow = window.matchMedia("(max-width: 767px)").matches;
     setConfirmedCanvas(!reducedNow && !mobileNow);
-  }, [reduced, isMobile]);
+  }, []);
 
   if (!confirmedCanvas) {
     return (

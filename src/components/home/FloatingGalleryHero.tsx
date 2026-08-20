@@ -12,7 +12,6 @@ import { ScrollCue } from "@/components/story/ScrollCue";
 import { lockScroll } from "@/components/providers/SmoothScrollProvider";
 import { useAppStore } from "@/lib/store";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
@@ -31,7 +30,6 @@ const TITLE_LINES = ["Smart solutions", "for your business."];
  */
 export function FloatingGalleryHero() {
   const reduced = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
   const openViewer = useAppStore((s) => s.openViewer);
 
   // Only featured artworks appear in the hero — no backfill from the rest of
@@ -41,16 +39,16 @@ export function FloatingGalleryHero() {
   const works = useMemo<Artwork[]>(() => getFeaturedArtworks().slice(0, 14), []);
   const ids = useMemo(() => works.map((w) => w.id), [works]);
 
-  // Unmounting a live R3F canvas mid-flight is what crashed React's
-  // reconciler with a removeChild error (confirmed via gstack:browse at
-  // 375px + effect-level tracing). Reading matchMedia directly on every
-  // invocation (rather than trusting the `reduced`/`isMobile` hook closures
-  // after a first "resolved" flag flips) matters: React Strict Mode invokes
-  // this effect a second time before those hooks' own independent effects
-  // have resolved, so a flag-gated "first vs. subsequent" branch reads stale
-  // (false, false) closures on that second invocation and wrongly promotes
-  // to WebGL — which then gets torn down a moment later once the hooks
-  // catch up. This way every invocation gets the real, current state.
+  // Decided once at mount and never re-evaluated. This used to depend on
+  // [reduced, isMobile] and re-run whenever either changed, so resizing the
+  // window across the mobile breakpoint tore down the live WebGL canvas
+  // (react-three-fiber) mid-render — its own DOM writes race with React's
+  // unmount, crashing the reconciler with "insertBefore/removeChild: not a
+  // child of this node" (confirmed via gstack:browse: resize desktop→mobile
+  // after the WebGL hero had already rendered). Nothing about this hero
+  // needs to live-swap engines mid-session, so freezing the choice at mount
+  // removes the teardown race entirely — mobile still never pays for the
+  // WebGL canvas in the first place, same as before.
   const [useWebGL, setUseWebGL] = useState(false);
 
   useEffect(() => {
@@ -64,7 +62,7 @@ export function FloatingGalleryHero() {
     const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobileNow = window.matchMedia("(max-width: 767px)").matches;
     setUseWebGL(supported && !reducedNow && !mobileNow);
-  }, [reduced, isMobile]);
+  }, []);
 
   if (!useWebGL) {
     return <FallbackHero works={works} animate={!reduced} onSelect={(i) => openViewer(ids, i)} />;

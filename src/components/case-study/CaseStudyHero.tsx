@@ -8,8 +8,6 @@ import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Kicker } from "@/components/typography/primitives";
 import { MetaList } from "@/components/ui/MetaList";
 import { type CaseStudy } from "@/content/types";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { LottiePulse } from "./effects";
 
 const CaseStudyHero3D = dynamic(
@@ -20,13 +18,15 @@ const CaseStudyHero3D = dynamic(
 /**
  * Cover section: eyebrow, title, tagline, project-details metadata, and a
  * WebGL hero on capable desktops (a flat animated image everywhere else —
- * mobile, reduced-motion, no-WebGL). Reads matchMedia/WebGL support directly
- * inside the effect on every invocation — see Global Constraints in the plan
- * for why a "resolved once" gated flag is not safe here.
+ * mobile, reduced-motion, no-WebGL). Decided once on mount and never
+ * re-evaluated: re-deciding live on every viewport/preference change would
+ * unmount the WebGL canvas mid-session, racing react-three-fiber's own DOM
+ * writes against React's reconciler (the same "removeChild/insertBefore:
+ * not a child of this node" crash confirmed elsewhere in this codebase via
+ * gstack:browse, e.g. FloatingGalleryHero). Nothing here needs to
+ * live-swap mid-session, so this only ever resolves once.
  */
 export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
-  const reduced = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
   const [useWebGL, setUseWebGL] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
     const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobileNow = window.matchMedia("(max-width: 767px)").matches;
     setUseWebGL(supported && !reducedNow && !mobileNow);
-  }, [reduced, isMobile]);
+  }, []);
 
   return (
     <header className="relative min-h-[85vh] overflow-hidden bg-paper pb-16 pt-[calc(var(--header-h)+3rem)]">

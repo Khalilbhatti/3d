@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { type Artwork } from "@/content/types";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { MReveal } from "@/components/motion/reveal";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 
 function motifFor(artwork: Artwork): "field" | "portrait" | "manuscript" {
@@ -19,27 +17,20 @@ function motifFor(artwork: Artwork): "field" | "portrait" | "manuscript" {
  * featured projects, one expanded at a time via flex-grow. Mobile / reduced-
  * motion fall back to a plain vertical card stack — the same two-branch
  * safety pattern already used by ChapterStack, HorizontalCollections, and
- * ServiceOrbit elsewhere in this codebase, for the same reason: an R3F canvas
- * or GSAP-pinned layout mounted only for the "full" branch must never be
- * mounted then immediately torn down on a stale device-capability read.
- * This component has no canvas/GSAP, but keeps the same resolve shape for
- * consistency and because the underlying stale-closure risk is identical
- * for any conditional-mount branch driven by these two hooks.
+ * ServiceOrbit elsewhere in this codebase. This component has no canvas/GSAP
+ * of its own, but decided once on mount and never again for consistency with
+ * those siblings, where re-deciding live on resize unmounts an R3F canvas or
+ * GSAP-pinned layout mid-session and crashes React's reconciler.
  */
 export function FeaturedProjectsSelector({ artworks }: { artworks: Artwork[] }) {
-  const reduced = usePrefersReducedMotion();
-  const isMobile = useIsMobile();
   const [active, setActive] = useState(0);
 
-  // Reads matchMedia directly on every invocation rather than trusting the
-  // reduced/isMobile hook closures behind a "resolved once" flag — see
-  // Global Constraints in the plan this was built from.
   const [confirmedFull, setConfirmedFull] = useState(false);
   useEffect(() => {
     const reducedNow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobileNow = window.matchMedia("(max-width: 767px)").matches;
     setConfirmedFull(!reducedNow && !mobileNow);
-  }, [reduced, isMobile]);
+  }, []);
 
   if (artworks.length === 0) return null;
 
