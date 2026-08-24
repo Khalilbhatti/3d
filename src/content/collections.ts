@@ -128,6 +128,7 @@ export const collections: Collection[] = [
       "prj-medical-funnel",
       "prj-dentist-funnel",
       "prj-construction-funnel",
+      "prj-electrician-funnel",
     ],
     relatedStoryIds: ["story-ghl-automation"],
     timelineIds: ["tl-ideas", "tl-design", "tl-final"],
