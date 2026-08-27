@@ -42,7 +42,7 @@ export const collections: Collection[] = [
       "prj-voice-receptionist",
       "prj-video-content-factory",
     ],
-    relatedStoryIds: ["story-ai-lead-gen-automation"],
+    relatedStoryIds: ["story-ai-lead-gen-automation", "story-rag-ai-support-automation"],
     timelineIds: ["tl-ideas", "tl-design", "tl-final"],
     credits: [
       { role: "Discipline lead", name: "Full-Stack Developers" },
@@ -131,7 +131,7 @@ export const collections: Collection[] = [
       "prj-electrician-funnel",
       "prj-salon-funnel",
     ],
-    relatedStoryIds: ["story-ai-lead-gen-automation"],
+    relatedStoryIds: ["story-rag-ai-support-automation", "story-ai-lead-gen-automation"],
     timelineIds: ["tl-ideas", "tl-design", "tl-final"],
     credits: [{ role: "Discipline lead", name: "GoHighLevel & CRM Specialists" }],
   },
