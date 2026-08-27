@@ -5,9 +5,15 @@ import { getCaseStudies, getArtworkById } from "@/content/index";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { MReveal } from "@/components/motion/reveal";
 
+const description =
+  "Full case studies behind our work — the strategy, design system, and decisions, not just the finished screens.";
+
 export const metadata: Metadata = {
   title: "Case Studies",
-  description: "Full case studies behind our work — the strategy, design system, and decisions, not just the finished screens.",
+  description,
+  alternates: { canonical: "/case-studies" },
+  openGraph: { title: "Case Studies", description },
+  twitter: { title: "Case Studies", description },
 };
 
 export default function CaseStudiesPage() {

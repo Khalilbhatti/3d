@@ -58,11 +58,13 @@ export const metadata: Metadata = {
     title: brand.full,
     description: brand.description,
     url: siteUrl,
+    images: [{ url: brand.ogImage, width: 1536, height: 1024, alt: brand.full }],
   },
   twitter: {
     card: "summary_large_image",
     title: brand.full,
     description: brand.tagline,
+    images: [brand.ogImage],
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },

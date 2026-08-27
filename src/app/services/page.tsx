@@ -4,10 +4,15 @@ import { brand } from "@/config/theme";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { HorizontalCollections } from "@/components/collections/HorizontalCollections";
 
+const description =
+  "Web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — the six disciplines GitzTech delivers.";
+
 export const metadata: Metadata = {
   title: "Services",
-  description:
-    "Web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — the six disciplines GitzTech delivers.",
+  description,
+  alternates: { canonical: "/services" },
+  openGraph: { title: "Services", description },
+  twitter: { title: "Services", description },
 };
 
 export default function CollectionsPage() {

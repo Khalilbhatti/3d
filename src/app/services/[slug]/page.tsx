@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { brand } from "@/config/theme";
 import {
   collections,
   getCollectionBySlug,
@@ -21,6 +22,33 @@ import { MetaList } from "@/components/ui/MetaList";
 import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Reveal } from "@/components/typography/Reveal";
 import { Kicker, SectionDivider } from "@/components/typography/primitives";
+import type { Collection } from "@/content/types";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
+
+function collectionJsonLd(collection: Collection) {
+  const url = `${siteUrl}/services/${collection.slug}`;
+  const service = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}/#service`,
+    name: collection.title,
+    description: collection.summary,
+    provider: { "@type": "Organization", name: brand.full, "@id": `${siteUrl}/#organization` },
+    serviceType: collection.period,
+    url,
+  };
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
+      { "@type": "ListItem", position: 3, name: collection.title, item: url },
+    ],
+  };
+  return [service, breadcrumb];
+}
 
 export function generateStaticParams() {
   return collections.map((c) => ({ slug: c.slug }));
@@ -29,10 +57,13 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const collection = getCollectionBySlug(params.slug);
   if (!collection) return { title: "Service not found" };
+  const image = collection.image ?? brand.ogImage;
   return {
     title: collection.title,
     description: collection.summary,
-    openGraph: { title: collection.title, description: collection.summary },
+    alternates: { canonical: `/services/${collection.slug}` },
+    openGraph: { title: collection.title, description: collection.summary, images: [image] },
+    twitter: { title: collection.title, description: collection.summary, images: [image] },
   };
 }
 
@@ -49,6 +80,9 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
 
   return (
     <article>
+      {collectionJsonLd(collection).map((block, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+      ))}
       <header className="container-editorial grid items-end gap-10 pb-12 pt-[calc(var(--header-h)+3.5rem)] md:grid-cols-12 md:pt-[calc(var(--header-h)+5rem)]">
         <div className="md:col-span-7">
           <Kicker accent>{collection.period} · Service</Kicker>
@@ -65,7 +99,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
             items={[
               { label: "Led by", value: collection.curator },
               { label: "Discipline", value: collection.period },
-              { label: "Case studies", value: `${works.length}` },
+              ...(works.length ? [{ label: "Case studies", value: `${works.length}` }] : []),
               { label: "Specialists", value: artists.map((a) => a!.name).join(", ") },
             ]}
           />
@@ -129,19 +163,23 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
         </section>
       ) : null}
 
-      <section className="pb-20 md:pb-28">
-        <div className="container-editorial">
-          <SectionDivider label={`Work in this service · ${works.length}`} className="mb-12" />
-        </div>
-        <HorizontalGallery artworks={works} />
-      </section>
+      {works.length ? (
+        <>
+          <section className="pb-20 md:pb-28">
+            <div className="container-editorial">
+              <SectionDivider label={`Work in this service · ${works.length}`} className="mb-12" />
+            </div>
+            <HorizontalGallery artworks={works} />
+          </section>
 
-      <section className="py-16 md:py-24">
-        <div className="container-editorial">
-          <SectionDivider label="Selected projects, in detail" className="mb-16" />
-        </div>
-        <EditorialGallery artworks={works.slice(0, 3)} />
-      </section>
+          <section className="py-16 md:py-24">
+            <div className="container-editorial">
+              <SectionDivider label="Selected projects, in detail" className="mb-16" />
+            </div>
+            <EditorialGallery artworks={works.slice(0, 3)} />
+          </section>
+        </>
+      ) : null}
 
       {stories.length ? (
         <section className="container-editorial py-24 md:py-28">
@@ -176,7 +214,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
         title={next.title}
         href={`/services/${next.slug}`}
         palette={next.palette}
-        meta={`${next.period} · ${next.artworkIds.length} case studies`}
+        meta={next.artworkIds.length ? `${next.period} · ${next.artworkIds.length} case studies` : next.period}
       />
     </article>
   );

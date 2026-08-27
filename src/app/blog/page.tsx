@@ -5,10 +5,15 @@ import { StoryCard } from "@/components/journal/StoryCard";
 import { BlogCategoryShowcase } from "@/components/journal/BlogCategoryShowcase";
 import { SectionDivider } from "@/components/typography/primitives";
 
+const description =
+  "Strategy and field notes from the GitzTech team on AI automation, web performance, WordPress and CRM.";
+
 export const metadata: Metadata = {
   title: "Blog",
-  description:
-    "Strategy and field notes from the GitzTech team on AI automation, web performance, WordPress and CRM.",
+  description,
+  alternates: { canonical: "/blog" },
+  openGraph: { title: "Blog", description },
+  twitter: { title: "Blog", description },
 };
 
 export default function BlogPage() {

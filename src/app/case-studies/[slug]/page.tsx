@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { brand } from "@/config/theme";
 import { getCaseStudies, getCaseStudyBySlug, getArtworkById } from "@/content/index";
 import { CaseStudyHero } from "@/components/case-study/CaseStudyHero";
 import {
@@ -33,10 +34,13 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const cs = getCaseStudyBySlug(params.slug);
   if (!cs) return { title: "Case study not found" };
+  const image = cs.heroImages[0] ?? brand.ogImage;
   return {
     title: `${cs.title} — Case Study`,
     description: cs.overview.body[0],
-    openGraph: { title: cs.title, description: cs.overview.body[0] },
+    alternates: { canonical: `/case-studies/${cs.slug}` },
+    openGraph: { title: cs.title, description: cs.overview.body[0], images: [image] },
+    twitter: { title: cs.title, description: cs.overview.body[0], images: [image] },
   };
 }
 

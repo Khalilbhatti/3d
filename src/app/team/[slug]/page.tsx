@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { brand } from "@/config/theme";
 import {
   artists,
   getArtistBySlug,
@@ -22,10 +23,13 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const artist = getArtistBySlug(params.slug);
   if (!artist) return { title: "Team not found" };
+  const image = artist.portrait ?? brand.ogImage;
   return {
     title: artist.name,
     description: artist.summary,
-    openGraph: { title: artist.name, description: artist.summary },
+    alternates: { canonical: `/team/${artist.slug}` },
+    openGraph: { title: artist.name, description: artist.summary, images: [image] },
+    twitter: { title: artist.name, description: artist.summary, images: [image] },
   };
 }
 

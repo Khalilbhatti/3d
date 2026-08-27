@@ -37,8 +37,11 @@ export function Counter({
   const parsable = !Number.isNaN(target);
 
   const fmt = (n: number) => `${prefix}${grouped ? n.toLocaleString() : n}${suffix}`;
+  // Initial (server-rendered) paint always shows the real value — so it's never
+  // exposed as "0" before hydration or to crawlers. The reveal animation resets
+  // to zero and counts back up only once the element actually scrolls into view.
   const [display, setDisplay] = useState(() =>
-    !parsable || reduced ? value : fmt(0)
+    !parsable || reduced ? value : fmt(target)
   );
 
   useEffect(() => {
@@ -50,6 +53,7 @@ export function Counter({
 
     let raf = 0;
     let start = 0;
+    setDisplay(fmt(0));
     const tick = (ts: number) => {
       if (!start) start = ts;
       const p = Math.min(1, (ts - start) / duration);

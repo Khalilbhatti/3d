@@ -392,7 +392,7 @@ export const artworks: Artwork[] = [
     description:
       "An experience-led GoHighLevel booking funnel for travel agencies, tour operators, vacation planners and destination businesses — built around inspiration, trust, destination discovery and consultation.",
     historicalContext:
-      "Travel decisions are emotional and information-heavy — prospects want inspiration, confidence, package details, itinerary context and an easy way to speak with a travel professional. The funnel combines destination storytelling with packages, expert positioning, social proof, sample itineraries, FAQs and a free consultation CTA, structured around a clear conversion journey: establish the value proposition, educate the visitor, reinforce credibility, remove common objections, and present a strong next action, with a dedicated booking page for high-intent visitors.",
+      "Travel decisions are emotional and information-heavy — prospects want inspiration, confidence, package details, itinerary context and an easy way to speak with a travel professional. The funnel combines destination storytelling with packages, expert positioning, social proof, sample itineraries and FAQs, moving the visitor from destination inspiration through package comparison to a free consultation booking, with a dedicated booking page for high-intent visitors.",
     orientation: "landscape",
     seed: "prj-travel-funnel-01",
     palette: { from: "#4FD9D0", via: "#1C7A76", to: "#082623", ink: 0.16 },
@@ -425,7 +425,7 @@ export const artworks: Artwork[] = [
     description:
       "A trust-first GoHighLevel lead generation funnel for financial planners, tax consultants, wealth managers, accountants and investment professionals, built around professional credibility, service clarity and appointment generation.",
     historicalContext:
-      "Financial services require a high level of trust — prospective clients need to understand the advisor's expertise and service offering before they're comfortable sharing information or booking a consultation. The design uses a clean, professional hierarchy with service explanations, expertise-driven content, credibility elements, testimonials, and a direct appointment path, structured around a clear conversion journey: establish the value proposition, educate the visitor, reinforce credibility, remove common objections, and present a strong next action.",
+      "Financial services require a high level of trust — prospective clients need to understand the advisor's expertise and service offering before they're comfortable sharing information or booking a consultation. The design uses a clean, professional hierarchy with service explanations, expertise-driven content, credibility elements and testimonials, moving the visitor from a credibility-first introduction through service specifics to a low-friction consultation booking, without the harder sales push a financial decision doesn't respond well to.",
     orientation: "landscape",
     seed: "prj-financial-advisor-funnel-01",
     palette: { from: "#E8B23A", via: "#3D2E0A", to: "#0D0A04", ink: 0.2 },
@@ -488,7 +488,7 @@ export const artworks: Artwork[] = [
     description:
       "A specialized GoHighLevel dental lead-generation and appointment funnel for clinics, dentists and healthcare providers — attracting new patients, explaining services, establishing credibility and making booking straightforward.",
     historicalContext:
-      "Dental practices compete heavily on trust, convenience and perceived expertise — the site needs to communicate professional care while reducing friction between discovery and appointment scheduling. The funnel uses a modern healthcare presentation with specialized dental service sections, patient stories, trust signals, clear calls to action and an appointment page, structured around a clear conversion journey: establish the value proposition, educate the visitor, reinforce credibility, remove common objections, and present a strong next action.",
+      "Dental practices compete heavily on trust, convenience and perceived expertise — the site needs to communicate professional care while reducing friction between discovery and appointment scheduling. The funnel uses a modern healthcare presentation with specialized dental service sections, patient stories, trust signals and clear calls to action, moving the visitor from first impression through service and pricing clarity to a scheduled appointment, with reassurance placed right where dental-specific hesitation tends to show up.",
     orientation: "landscape",
     seed: "prj-dentist-funnel-01",
     palette: { from: "#4A7FBF", via: "#1C3A5C", to: "#070E17", ink: 0.18 },
@@ -523,7 +523,7 @@ export const artworks: Artwork[] = [
     description:
       "A high-trust GoHighLevel lead generation funnel for construction companies, remodelers, general contractors and renovation specialists — built around capability, project evidence and an easy path to a quote.",
     historicalContext:
-      "Construction is a high-consideration purchase — prospects need evidence of capability, relevant experience, project examples, credibility and an easy way to request a quote or consultation. The funnel emphasizes services, portfolio/projects, team credibility, differentiators, testimonials, case studies, FAQs and a quote CTA, structured around a clear conversion journey: establish the value proposition, educate the visitor, reinforce credibility, remove common objections, and present a strong next action.",
+      "Construction is a high-consideration purchase — prospects need evidence of capability, relevant experience, project examples, credibility and an easy way to request a quote or consultation. The funnel emphasizes services, portfolio/projects, team credibility, differentiators, testimonials and case studies, moving the visitor from proof of capability through past-project evidence to a quote request, front-loading the credibility signals a purchase this size demands.",
     orientation: "landscape",
     seed: "prj-construction-funnel-01",
     palette: { from: "#F0C23A", via: "#2A2410", to: "#0C0A05", ink: 0.2 },
@@ -558,7 +558,7 @@ export const artworks: Artwork[] = [
     description:
       "A local-service conversion funnel for electrical contractors, home-service providers and maintenance businesses — covering repairs, installations, emergency work, lighting, wiring, inspections and smart-home upgrades, with clear paths to a quote or booked appointment.",
     historicalContext:
-      "Local service businesses need to communicate availability, reliability and expertise fast, then make it effortless for a visitor to request service. The funnel organizes services into clear categories and adds trust and portfolio content — welcome and value proposition, an offer, service overview, project portfolio, testimonials, why-choose-us, pricing packages, FAQs and a booking/service-request flow — structured around a clear conversion journey: establish the value proposition, educate the visitor, reinforce credibility, remove common objections, and present a strong next action.",
+      "Local service businesses need to communicate availability, reliability and expertise fast, then make it effortless for a visitor to request service. The funnel organizes services into clear categories and adds trust and portfolio content — an offer, service overview, project portfolio, testimonials, why-choose-us, pricing packages, FAQs and a booking/service-request flow — moving the visitor from a 24/7-availability promise through service specifics to a booked call-out, prioritizing speed over persuasion since most visitors here are already mid-problem.",
     orientation: "landscape",
     seed: "prj-electrician-funnel-01",
     palette: { from: "#F2C230", via: "#1B3A6E", to: "#050B14", ink: 0.18 },
@@ -591,7 +591,7 @@ export const artworks: Artwork[] = [
     description:
       "A visual appointment-generation GoHighLevel funnel for hair salons, beauty parlors, stylists, spas and grooming businesses — covering cuts and styling, coloring, treatments, extensions, bridal hair, men's grooming and spa services, with a frictionless path to a booked appointment.",
     historicalContext:
-      "Beauty businesses sell transformation and experience as much as they sell services, so the digital experience needs strong visual presentation, clear service discovery, social proof and a frictionless appointment path. The funnel combines an attractive introduction, service overview, portfolio and transformation showcases, testimonials, why-choose-us, pricing packages, FAQs and an appointment CTA, structured around a clear conversion journey: establish the value proposition, educate the visitor, reinforce credibility, remove common objections, and present a strong next action.",
+      "Beauty businesses sell transformation and experience as much as they sell services, so the digital experience needs strong visual presentation, clear service discovery, social proof and a frictionless appointment path. The funnel combines an attractive introduction, service overview, portfolio and transformation showcases, testimonials, why-choose-us, pricing packages and FAQs, moving the visitor from visual inspiration through service and stylist detail to a booked appointment, leaning on portfolio and transformation imagery rather than argument to do the persuading.",
     orientation: "landscape",
     seed: "prj-salon-funnel-01",
     palette: { from: "#F03A2E", via: "#1A1310", to: "#050403", ink: 0.2 },

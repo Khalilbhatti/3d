@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { WebGLErrorBoundary } from "./WebGLErrorBoundary";
 
 const HeaderScene = dynamic(() => import("./HeaderScene"), { ssr: false });
 
@@ -45,7 +46,9 @@ export function HeaderCanvas({
 
   return (
     <div className={className} aria-hidden>
-      <HeaderScene color={color} />
+      <WebGLErrorBoundary fallback={null}>
+        <HeaderScene color={color} />
+      </WebGLErrorBoundary>
     </div>
   );
 }

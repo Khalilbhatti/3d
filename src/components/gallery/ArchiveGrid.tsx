@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { type Artwork } from "@/content/types";
@@ -28,13 +29,15 @@ const EMPTY: Filters = { medium: null };
 export function ArchiveGrid({
   artworks,
   facets,
-  initialQuery = "",
 }: {
   artworks: Artwork[];
   facets: Facets;
-  initialQuery?: string;
 }) {
-  const [query, setQuery] = useState(initialQuery);
+  // Read client-side (inside the parent's <Suspense>) rather than via the
+  // page's `searchParams` prop, so /portfolio stays statically prerendered
+  // instead of opting into per-request dynamic rendering.
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [filters, setFilters] = useState<Filters>(EMPTY);
   const [view, setView] = useState<ViewMode>("grid");
   const openViewer = useAppStore((s) => s.openViewer);

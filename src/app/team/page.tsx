@@ -4,10 +4,15 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ArtistCard } from "@/components/artists/ArtistCard";
 import { SectionDivider } from "@/components/typography/primitives";
 
+const description =
+  "Meet the GitzTech team — full-stack developers, UI/UX designers, digital marketers, WordPress developers, CRM specialists and project managers.";
+
 export const metadata: Metadata = {
   title: "Our Team",
-  description:
-    "Meet the GitzTech team — full-stack developers, UI/UX designers, digital marketers, WordPress developers, CRM specialists and project managers.",
+  description,
+  alternates: { canonical: "/team" },
+  openGraph: { title: "Our Team", description },
+  twitter: { title: "Our Team", description },
 };
 
 export default function ArtistsPage() {

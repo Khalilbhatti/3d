@@ -15,6 +15,9 @@ import { AnimatedQuote, Kicker, SectionDivider } from "@/components/typography/p
 export const metadata: Metadata = {
   title: "About",
   description: brand.description,
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About", description: brand.description },
+  twitter: { title: "About", description: brand.description },
 };
 
 const values = [

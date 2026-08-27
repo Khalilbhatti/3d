@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { type ArtPalette } from "@/content/types";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useIsMobile } from "@/hooks/useMediaQuery";
+import { WebGLErrorBoundary } from "./WebGLErrorBoundary";
 import { gradientFrom } from "@/lib/utils";
 
 const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
@@ -56,7 +57,11 @@ export function HeroCanvas({
         className="absolute inset-0"
         style={{ backgroundImage: gradientFrom(palette, 155) }}
       />
-      {useWebGL ? <HeroScene palette={palette} /> : null}
+      {useWebGL ? (
+        <WebGLErrorBoundary fallback={null}>
+          <HeroScene palette={palette} />
+        </WebGLErrorBoundary>
+      ) : null}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_100%_at_50%_38%,transparent_55%,rgba(0,0,0,0.28)_100%)]" />
     </div>
   );

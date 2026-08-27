@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { type Artwork } from "@/content/types";
 import { getFeaturedArtworks, getArtistById } from "@/content/index";
 import { type GalleryLayout } from "@/components/webgl/FloatingGallery";
+import { WebGLErrorBoundary } from "@/components/webgl/WebGLErrorBoundary";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { ScrollCue } from "@/components/story/ScrollCue";
 import { lockScroll } from "@/components/providers/SmoothScrollProvider";
@@ -64,10 +65,14 @@ export function FloatingGalleryHero() {
     setUseWebGL(supported && !reducedNow && !mobileNow);
   }, []);
 
-  if (!useWebGL) {
-    return <FallbackHero works={works} animate={!reduced} onSelect={(i) => openViewer(ids, i)} />;
-  }
-  return <WebGLHero works={works} />;
+  const fallback = <FallbackHero works={works} animate={!reduced} onSelect={(i) => openViewer(ids, i)} />;
+
+  if (!useWebGL) return fallback;
+  return (
+    <WebGLErrorBoundary fallback={fallback}>
+      <WebGLHero works={works} />
+    </WebGLErrorBoundary>
+  );
 }
 
 function WebGLHero({ works }: { works: Artwork[] }) {

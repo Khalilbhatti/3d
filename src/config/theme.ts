@@ -27,6 +27,8 @@ export const brand = {
   email: "info@gitztech.com",
   phone: "(+92) 343 191 1380",
   hours: "Mon – Fri 03:00 PM to 12:00 AM",
+  /** Default social-share image (Open Graph / Twitter Card) for pages with no project image of their own. */
+  ogImage: "/logo.png",
 } as const;
 
 /**

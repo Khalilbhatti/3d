@@ -4,10 +4,15 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { MetaList } from "@/components/ui/MetaList";
 
+const description =
+  "Get a quote from GitzTech — web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX.";
+
 export const metadata: Metadata = {
   title: "Contact",
-  description:
-    "Get a quote from GitzTech — web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX.",
+  description,
+  alternates: { canonical: "/contact" },
+  openGraph: { title: "Contact", description },
+  twitter: { title: "Contact", description },
 };
 
 export default function ContactPage() {
@@ -64,10 +69,7 @@ export default function ContactPage() {
             </div>
           </div>
           <p className="mt-10 text-pretty text-sm leading-relaxed text-muted">
-            Prefer to book a call? Message us with a time that suits you and we&rsquo;ll confirm your consultation. To wire
-            this form to your own inbox or CRM, set{" "}
-            <code className="font-mono text-xs text-ink-soft">NEXT_PUBLIC_CONTACT_ENDPOINT</code> — see the deployment
-            guide.
+            Prefer to book a call? Message us with a time that suits you and we&rsquo;ll confirm your consultation.
           </p>
         </aside>
       </div>

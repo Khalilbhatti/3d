@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { brand } from "@/config/theme";
 import {
   artworks,
   getArtworkBySlug,
@@ -28,10 +29,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const artwork = getArtworkBySlug(params.slug);
   if (!artwork) return { title: "Project not found" };
   const artist = getArtistById(artwork.artistId);
+  const image = artwork.image ?? brand.ogImage;
   return {
     title: `${artwork.title} — ${artist?.name ?? "Unknown"}`,
     description: artwork.description,
-    openGraph: { title: artwork.title, description: artwork.description },
+    alternates: { canonical: `/portfolio/${artwork.slug}` },
+    openGraph: { title: artwork.title, description: artwork.description, images: [image] },
+    twitter: { title: artwork.title, description: artwork.description, images: [image] },
   };
 }
 
