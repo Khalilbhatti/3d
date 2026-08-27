@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { collections, artworks, artists, stories } from "@/content/index";
+import { collections, artworks, artists, stories, blogPosts } from "@/content/index";
 
 const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
 
 /** Route-complete sitemap generated from the content layer. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/services", "/portfolio", "/team", "/insights", "/about", "/contact"].map(
+  const staticRoutes = ["", "/services", "/portfolio", "/team", "/insights", "/blog", "/about", "/contact"].map(
     (path) => ({
       url: `${base}${path}`,
       changeFrequency: "monthly" as const,
@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...artworks.map((a) => `/portfolio/${a.slug}`),
     ...artists.map((a) => `/team/${a.slug}`),
     ...stories.map((s) => `/insights/${s.slug}`),
+    ...blogPosts.map((p) => `/blog/${p.slug}`),
   ].map((path) => ({
     url: `${base}${path}`,
     changeFrequency: "yearly" as const,

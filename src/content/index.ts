@@ -9,13 +9,14 @@ import { artworks } from "./artworks";
 import { collections } from "./collections";
 import { artists } from "./artists";
 import { stories } from "./stories";
+import { blogPosts } from "./blog";
 import { timeline } from "./timeline";
 import { chapters } from "./chapters";
 import { caseStudies } from "./case-studies";
-import type { Artwork, Artist, Collection, Story, TimelineEntry, CaseStudy } from "./types";
+import type { Artwork, Artist, Collection, Story, BlogPost, TimelineEntry, CaseStudy } from "./types";
 
-export { artworks, collections, artists, stories, timeline, chapters, caseStudies };
-export type { Artwork, Artist, Collection, Story, TimelineEntry, CaseStudy };
+export { artworks, collections, artists, stories, blogPosts, timeline, chapters, caseStudies };
+export type { Artwork, Artist, Collection, Story, BlogPost, TimelineEntry, CaseStudy };
 
 /* ------------------------------- Collections ------------------------------ */
 export const getCollections = (): Collection[] => collections;
@@ -69,6 +70,15 @@ export const getStoryBySlug = (slug: string) =>
 export const getStoryById = (id: string) => stories.find((s) => s.id === id);
 export const getStoriesByIds = (ids: string[]): Story[] =>
   ids.map((id) => stories.find((s) => s.id === id)).filter(Boolean) as Story[];
+
+/* ---------------------------------- Blog ----------------------------------- */
+export const getBlogPosts = (): BlogPost[] =>
+  [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
+export const getBlogPostBySlug = (slug: string) =>
+  blogPosts.find((p) => p.slug === slug);
+export const getBlogPostById = (id: string) => blogPosts.find((p) => p.id === id);
+export const getBlogPostsByIds = (ids: string[]): BlogPost[] =>
+  ids.map((id) => blogPosts.find((p) => p.id === id)).filter(Boolean) as BlogPost[];
 
 /* -------------------------------- Timeline -------------------------------- */
 export const getTimeline = (): TimelineEntry[] => timeline;
