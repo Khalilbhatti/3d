@@ -6,7 +6,7 @@ import { getArtworksByIds } from "@/content/index";
 import { Reveal } from "@/components/typography/Reveal";
 
 /**
- * Visual "browse by category" grid on the Insights listing — one image tile
+ * Visual "browse by category" grid on the Blog listing — one image tile
  * per discipline (story categories map 1:1 to service periods), linking
  * through to that service's own page.
  */

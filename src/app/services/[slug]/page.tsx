@@ -145,7 +145,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
 
       {stories.length ? (
         <section className="container-editorial py-24 md:py-28">
-          <SectionDivider label="Related insights" className="mb-12" />
+          <SectionDivider label="From the blog" className="mb-12" />
           <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {stories.map((s, i) => (
               <StoryCard key={s.id} story={s} index={i} />

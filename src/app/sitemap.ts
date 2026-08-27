@@ -5,7 +5,7 @@ const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
 
 /** Route-complete sitemap generated from the content layer. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/services", "/portfolio", "/team", "/insights", "/about", "/contact"].map(
+  const staticRoutes = ["", "/services", "/portfolio", "/team", "/blog", "/about", "/contact"].map(
     (path) => ({
       url: `${base}${path}`,
       changeFrequency: "monthly" as const,
@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...collections.map((c) => `/services/${c.slug}`),
     ...artworks.map((a) => `/portfolio/${a.slug}`),
     ...artists.map((a) => `/team/${a.slug}`),
-    ...stories.map((s) => `/insights/${s.slug}`),
+    ...stories.map((s) => `/blog/${s.slug}`),
   ].map((path) => ({
     url: `${base}${path}`,
     changeFrequency: "yearly" as const,

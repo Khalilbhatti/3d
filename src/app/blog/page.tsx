@@ -6,21 +6,21 @@ import { CategoryShowcase } from "@/components/journal/CategoryShowcase";
 import { SectionDivider } from "@/components/typography/primitives";
 
 export const metadata: Metadata = {
-  title: "Insights",
+  title: "Blog",
   description:
-    "Guides and field notes from the GitzTech team on web performance, WordPress, CRM automation and product design.",
+    "Strategy and field notes from the GitzTech team on AI automation, web performance, WordPress and CRM.",
 };
 
-export default function JournalPage() {
+export default function BlogPage() {
   const stories = getStories();
   const [feature, ...rest] = stories;
 
   return (
     <>
       <PageHeader
-        kicker="Insights · Guides & field notes"
+        kicker="Blog · Strategy & field notes"
         title="What we have learned building."
-        deck="Practical writing on web performance, WordPress, CRM automation and product design — the thinking behind how we build."
+        deck="Practical writing on AI automation, web performance, WordPress and CRM — the thinking behind how we build."
       />
 
       <div className="container-editorial pb-28">
@@ -36,7 +36,7 @@ export default function JournalPage() {
 
         {rest.length ? (
           <>
-            <SectionDivider label="More insights" className="mb-12" />
+            <SectionDivider label="More from the blog" className="mb-12" />
             <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
               {rest.map((s, i) => (
                 <StoryCard key={s.id} story={s} index={i} />

@@ -15,7 +15,7 @@ you keep IDs consistent the whole UI stays in sync — relationships (artist ↔
 | `collections.ts` | The bodies of work (`/collections`)                    |
 | `artworks.ts`    | Individual works (`/archive`, `/archive/[slug]`)       |
 | `artists.ts`     | Contributors (`/artists`, `/artists/[slug]`)           |
-| `stories.ts`     | Journal essays as structured blocks (`/journal`)       |
+| `stories.ts`     | Blog posts as structured blocks (`/blog`)              |
 | `timeline.ts`    | Chronology entries (collection detail + about)         |
 | `chapters.ts`    | The six home-story chapters                            |
 | `types.ts`       | The shape of every record — read this first            |

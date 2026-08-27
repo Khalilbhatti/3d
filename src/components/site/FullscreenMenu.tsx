@@ -143,11 +143,11 @@ export function FullscreenMenu() {
             </div>
 
             <div>
-              <span className="label text-ink/50">Latest insights</span>
+              <span className="label text-ink/50">Latest from the blog</span>
               <ul className="mt-3 space-y-2">
                 {recentStories.map((s) => (
                   <li key={s.id}>
-                    <Link href={`/insights/${s.slug}`} className="link-underline text-ink/85 hover:text-ink">
+                    <Link href={`/blog/${s.slug}`} className="link-underline text-ink/85 hover:text-ink">
                       {s.title}
                     </Link>
                   </li>

@@ -24,7 +24,7 @@ export function StoryCard({
   return (
     <MReveal variant="rotate" delay={(index % 3) * 0.09} className={cn("group", className)}>
       <article>
-        <Link href={`/insights/${story.slug}`} className="block">
+        <Link href={`/blog/${story.slug}`} className="block">
           <TiltCard
             className="relative overflow-hidden"
             style={{ aspectRatio: feature ? "16 / 9" : "3 / 2" }}

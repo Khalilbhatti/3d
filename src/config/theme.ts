@@ -80,7 +80,7 @@ export type NavItem = {
    * Id of the matching section on the home story. When set, and the visitor
    * is already on `/`, the header/menu smooth-scroll here instead of
    * navigating — the section stays in place alongside the rest of the page.
-   * Items without a home section (Portfolio, Our Team, Insights) always
+   * Items without a home section (Portfolio, Our Team, Blog) always
    * navigate to their dedicated page, on the homepage or anywhere else.
    */
   sectionId?: string;
@@ -92,7 +92,7 @@ export const primaryNav: NavItem[] = [
   { label: "Portfolio", href: "/portfolio", note: "Every project we've shipped" },
   { label: "Case Studies", href: "/case-studies", note: "Deep dives into how we work" },
   { label: "Our Team", href: "/team", note: "The people behind your project" },
-  { label: "Insights", href: "/insights", note: "Guides & field notes" },
+  { label: "Blog", href: "/blog", note: "Strategy & field notes" },
   { label: "About", href: "/about", note: "Who we are & how we work", sectionId: "ch-about" },
   { label: "Contact", href: "/contact", note: "Get a quote & book a call", sectionId: "our-contact" },
 ];
