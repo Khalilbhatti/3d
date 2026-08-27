@@ -8,6 +8,7 @@ import {
   getStoriesByIds,
 } from "@/content/index";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
+import { ArtworkImage } from "@/components/media/ArtworkImage";
 import { StoryRenderer } from "@/components/journal/StoryRenderer";
 import { StoryCard } from "@/components/journal/StoryCard";
 import { RelatedArtworks } from "@/components/gallery/RelatedArtworks";
@@ -59,9 +60,13 @@ export default function StoryDetailPage({ params }: { params: { slug: string } }
 
       <div className="container-editorial">
         <Reveal variant="mask">
-          <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
-            <PlaceholderArt seed={story.seed} palette={story.palette} />
-          </div>
+          {relatedArtworks[0] ? (
+            <ArtworkImage artwork={relatedArtworks[0]} aspect="16 / 9" sizes="100vw" priority />
+          ) : (
+            <div className="relative overflow-hidden" style={{ aspectRatio: "16 / 9" }}>
+              <PlaceholderArt seed={story.seed} palette={story.palette} />
+            </div>
+          )}
         </Reveal>
       </div>
 

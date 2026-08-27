@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getStories } from "@/content/index";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { StoryCard } from "@/components/journal/StoryCard";
-import { CategoryShowcase } from "@/components/journal/CategoryShowcase";
+import { BlogCategoryShowcase } from "@/components/journal/BlogCategoryShowcase";
 import { SectionDivider } from "@/components/typography/primitives";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   const stories = getStories();
   const [feature, ...rest] = stories;
+  const hasMultipleCategories = new Set(stories.map((s) => s.category)).size > 1;
 
   return (
     <>
@@ -24,12 +25,16 @@ export default function BlogPage() {
       />
 
       <div className="container-editorial pb-28">
-        <SectionDivider label="Browse by category" className="mb-8" />
-        <CategoryShowcase />
+        {hasMultipleCategories ? (
+          <>
+            <SectionDivider label="Browse by category" className="mb-8" />
+            <BlogCategoryShowcase />
+          </>
+        ) : null}
 
         {feature ? (
           <>
-            <SectionDivider label="Latest" className="mb-12 mt-20" />
+            <SectionDivider label="Latest" className={hasMultipleCategories ? "mb-12 mt-20" : "mb-12"} />
             <StoryCard story={feature} feature index={0} className="mb-20" />
           </>
         ) : null}
