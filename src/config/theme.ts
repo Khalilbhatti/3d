@@ -93,7 +93,6 @@ export const primaryNav: NavItem[] = [
   { label: "Case Studies", href: "/case-studies", note: "Deep dives into how we work" },
   { label: "Our Team", href: "/team", note: "The people behind your project" },
   { label: "Insights", href: "/insights", note: "Guides & field notes" },
-  { label: "Blog", href: "/blog", note: "Strategy & product notes" },
   { label: "About", href: "/about", note: "Who we are & how we work", sectionId: "ch-about" },
   { label: "Contact", href: "/contact", note: "Get a quote & book a call", sectionId: "our-contact" },
 ];

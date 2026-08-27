@@ -152,27 +152,6 @@ export interface Story {
   relatedStoryIds: string[];
 }
 
-/* ---------------------------------- Blog ---------------------------------- */
-
-export interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  /** Standfirst / deck. */
-  dek: string;
-  author: string;
-  authorRole: string;
-  date: string; // ISO
-  displayDate: string;
-  readingTime: string;
-  category: string;
-  seed: string;
-  palette: ArtPalette;
-  blocks: StoryBlock[];
-  relatedArtworkIds: string[];
-  relatedPostIds: string[];
-}
-
 export interface TimelineEntry {
   id: string;
   year: string;
