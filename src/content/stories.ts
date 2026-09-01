@@ -19,7 +19,7 @@ export const stories: Story[] = [
     date: "2026-08-26",
     displayDate: "26 August 2026",
     readingTime: "9 min read",
-    category: "AI Automation",
+    category: "Lead Generation & Sales",
     seed: "story-ai-leadgen-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -144,7 +144,7 @@ export const stories: Story[] = [
     date: "2026-08-27",
     displayDate: "27 August 2026",
     readingTime: "10 min read",
-    category: "AI Automation",
+    category: "Customer Support",
     seed: "story-rag-support-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -276,7 +276,7 @@ export const stories: Story[] = [
     date: "2026-09-02",
     displayDate: "2 September 2026",
     readingTime: "12 min read",
-    category: "AI Automation",
+    category: "RAG & Knowledge Bases",
     seed: "story-website-rag-kb-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -424,7 +424,7 @@ export const stories: Story[] = [
     date: "2026-09-03",
     displayDate: "3 September 2026",
     readingTime: "13 min read",
-    category: "AI Automation",
+    category: "Workflow Automation",
     seed: "story-ai-workflow-automation-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -597,7 +597,7 @@ export const stories: Story[] = [
     date: "2026-09-04",
     displayDate: "4 September 2026",
     readingTime: "12 min read",
-    category: "AI Automation",
+    category: "CRM Automation",
     seed: "story-ai-crm-automation-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -765,7 +765,7 @@ export const stories: Story[] = [
     date: "2026-09-05",
     displayDate: "5 September 2026",
     readingTime: "12 min read",
-    category: "AI Automation",
+    category: "Lead Generation & Sales",
     seed: "story-ai-lead-qualification-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -948,7 +948,7 @@ export const stories: Story[] = [
     date: "2026-09-06",
     displayDate: "6 September 2026",
     readingTime: "13 min read",
-    category: "AI Automation",
+    category: "AI Agents",
     seed: "story-ai-agents-vs-workflow-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -1146,7 +1146,7 @@ export const stories: Story[] = [
     date: "2026-09-07",
     displayDate: "7 September 2026",
     readingTime: "13 min read",
-    category: "AI Automation",
+    category: "WhatsApp Automation",
     seed: "story-whatsapp-business-automation-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -1334,7 +1334,7 @@ export const stories: Story[] = [
     date: "2026-09-08",
     displayDate: "8 September 2026",
     readingTime: "13 min read",
-    category: "AI Automation",
+    category: "CRM Automation",
     seed: "story-crm-automation-sales-pipeline-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [
@@ -1521,7 +1521,7 @@ export const stories: Story[] = [
     date: "2026-09-09",
     displayDate: "9 September 2026",
     readingTime: "14 min read",
-    category: "AI Automation",
+    category: "Customer Support",
     seed: "story-ai-customer-support-automation-01",
     palette: { from: "#F0B429", via: "#2E4C8A", to: "#0A1327", ink: 0.18 },
     blocks: [

@@ -1,20 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getCaseStudies, getArtworkById } from "@/content/index";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { MReveal } from "@/components/motion/reveal";
+import { pageMetadata } from "@/lib/seo";
 
-const description =
-  "Full case studies behind our work — the strategy, design system, and decisions, not just the finished screens.";
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Case Studies",
-  description,
-  alternates: { canonical: "/case-studies" },
-  openGraph: { title: "Case Studies", description },
-  twitter: { title: "Case Studies", description },
-};
+  description:
+    "Full case studies behind our AI automation and software builds — the strategy, architecture and decisions, not just the finished screens.",
+  path: "/case-studies",
+});
 
 export default function CaseStudiesPage() {
   const caseStudies = getCaseStudies();

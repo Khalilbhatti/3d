@@ -16,7 +16,7 @@ export function RelatedArtworks({
   if (!artworks.length) return null;
   return (
     <section className={cn("container-editorial py-20 md:py-28", className)}>
-      <SectionDivider label={title} />
+      <SectionDivider label={title} labelAs="h2" />
       <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 md:gap-x-8 lg:grid-cols-4">
         {artworks.map((a, i) => (
           <ArtworkCard

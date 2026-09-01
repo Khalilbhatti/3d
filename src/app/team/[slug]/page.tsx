@@ -16,6 +16,34 @@ import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Reveal } from "@/components/typography/Reveal";
 import { AnimatedQuote, Kicker, SectionDivider } from "@/components/typography/primitives";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
+
+function artistJsonLd(artist: ReturnType<typeof getArtistBySlug>) {
+  if (!artist) return [];
+  const url = `${siteUrl}/team/${artist.slug}`;
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${url}/#person`,
+    name: artist.name,
+    jobTitle: artist.role,
+    description: artist.summary,
+    url,
+    ...(artist.portrait ? { image: `${siteUrl}${artist.portrait}` } : {}),
+    worksFor: { "@type": "Organization", name: brand.full, "@id": `${siteUrl}/#organization` },
+  };
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Our Team", item: `${siteUrl}/team` },
+      { "@type": "ListItem", position: 3, name: artist.name, item: url },
+    ],
+  };
+  return [person, breadcrumb];
+}
+
 export function generateStaticParams() {
   return artists.map((a) => ({ slug: a.slug }));
 }
@@ -44,6 +72,9 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
 
   return (
     <article>
+      {artistJsonLd(artist).map((block, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+      ))}
       <header className="container-editorial grid items-end gap-10 pb-16 pt-[calc(var(--header-h)+3.5rem)] md:grid-cols-12 md:pt-[calc(var(--header-h)+5rem)]">
         <div className="md:col-span-7">
           <Kicker accent>{artist.role}</Kicker>
@@ -111,7 +142,7 @@ export default function ArtistDetailPage({ params }: { params: { slug: string } 
       {works.length ? (
         <section className="pb-8 md:pb-16">
           <div className="container-editorial">
-            <SectionDivider label={`Selected work · ${works.length}`} className="mb-12" />
+            <SectionDivider label={`Selected work · ${works.length}`} className="mb-12" labelAs="h2" />
           </div>
           <HorizontalGallery artworks={works} />
         </section>

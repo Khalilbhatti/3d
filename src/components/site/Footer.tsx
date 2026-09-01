@@ -7,7 +7,7 @@ import { SectionDivider } from "@/components/typography/primitives";
 
 /** Editorial footer: colophon, wayfinding, credits. Server-rendered. */
 export function Footer() {
-  const year = brand.founded;
+  const year = new Date().getFullYear();
   return (
     <footer className="relative border-t border-line/12 bg-paper-deep/40">
       <div className="container-editorial py-16 md:py-24">

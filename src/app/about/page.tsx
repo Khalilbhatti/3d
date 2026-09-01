@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { brand, socialLinks } from "@/config/theme";
@@ -11,14 +10,14 @@ import { Counter } from "@/components/motion/Counter";
 import { Marquee } from "@/components/motion/Marquee";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import { AnimatedQuote, Kicker, SectionDivider } from "@/components/typography/primitives";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
-  description: brand.description,
-  alternates: { canonical: "/about" },
-  openGraph: { title: "About", description: brand.description },
-  twitter: { title: "About", description: brand.description },
-};
+  description:
+    "GitzTech is a Lahore-based team of developers, designers and automation specialists building AI automation, CRM systems and web & app development for businesses worldwide.",
+  path: "/about",
+});
 
 const values = [
   {
@@ -118,7 +117,7 @@ export default function AboutPage() {
       </section>
 
       <section className="container-editorial pb-8 md:pb-12">
-        <SectionDivider label="What we stand for" className="mb-10" />
+        <SectionDivider label="What we stand for" className="mb-10" labelAs="h2" />
         <StaggerGroup as="div" className="grid gap-x-12 gap-y-2 md:grid-cols-2">
           {values.map((v) => (
             <StaggerItem as="div" key={v.title} className="border-t border-line/15 py-6">
@@ -136,12 +135,12 @@ export default function AboutPage() {
       </section>
 
       <section className="container-editorial pb-24 md:pb-32">
-        <SectionDivider label="Our development process" className="mb-10" />
+        <SectionDivider label="Our development process" className="mb-10" labelAs="h2" />
         <Timeline entries={timeline} />
       </section>
 
       <section className="container-editorial pb-28">
-        <SectionDivider label="Company details" className="mb-10" />
+        <SectionDivider label="Company details" className="mb-10" labelAs="h2" />
         <div className="grid gap-8 md:grid-cols-2">
           <StaggerGroup as="div">
           <dl className="space-y-0">

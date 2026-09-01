@@ -73,7 +73,7 @@ NEXT_PUBLIC_CONTACT_ENDPOINT=          # contact form POST target (else mailto)
 src/
 ├─ app/                     # routes: home, collections, archive, artists, journal, about, contact, 404, sitemap, robots, template
 ├─ components/
-│  ├─ story/                # HomeStory, OpeningScene, Chapter, ParallaxArtwork, ScrollCue
+│  ├─ story/                # HomeStory, Chapter, ParallaxArtwork, ScrollCue
 │  ├─ home/                 # FloatingGalleryHero (the 3D opening)
 │  ├─ webgl/                # FloatingGallery (+ card-open focus), GalleryCanvas, HeroScene, HeroCanvas
 │  ├─ gallery/              # Editorial / Horizontal / ArchiveGrid / FullscreenViewer / cards

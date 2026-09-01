@@ -42,7 +42,12 @@ export const metadata: Metadata = {
   applicationName: brand.full,
   authors: [{ name: brand.full }],
   keywords: [
-    "digital agency",
+    "AI automation",
+    "AI agents",
+    "n8n automation",
+    "CRM automation",
+    "WhatsApp automation",
+    "RAG AI",
     "web development",
     "app development",
     "digital marketing",

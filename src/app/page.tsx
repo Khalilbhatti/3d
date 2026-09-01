@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import { HomeStory } from "@/components/story/HomeStory";
 import { brand } from "@/config/theme";
+
+const title = "GitzTech — AI Automation & Custom Software Development";
+const description =
+  "GitzTech builds AI automation, CRM and WhatsApp AI systems, RAG knowledge bases and custom web & app development — engineered with n8n and AI agents for real business results.";
+
+export const metadata: Metadata = {
+  title: { absolute: title },
+  description,
+  alternates: { canonical: "/" },
+  openGraph: { title, description, images: [brand.ogImage] },
+  twitter: { title, description, images: [brand.ogImage] },
+};
 
 /**
  * Home — the immersive, scroll-driven story. The entire narrative system lives

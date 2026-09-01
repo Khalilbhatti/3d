@@ -27,6 +27,36 @@ import {
 import { AnimatedGridPattern, BorderBeam } from "@/components/case-study/effects";
 import { SectionDivider } from "@/components/typography/primitives";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
+
+function caseStudyJsonLd(cs: ReturnType<typeof getCaseStudyBySlug>) {
+  if (!cs) return [];
+  const url = `${siteUrl}/case-studies/${cs.slug}`;
+  const image = cs.heroImages[0] ?? brand.ogImage;
+  const article = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}/#article`,
+    headline: `${cs.title} — Case Study`,
+    description: cs.overview.body[0],
+    image: `${siteUrl}${image}`,
+    datePublished: cs.year,
+    author: { "@type": "Organization", name: brand.full, "@id": `${siteUrl}/#organization` },
+    publisher: { "@type": "Organization", name: brand.full, "@id": `${siteUrl}/#organization`, logo: { "@type": "ImageObject", url: `${siteUrl}${brand.ogImage}` } },
+    mainEntityOfPage: url,
+  };
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Case Studies", item: `${siteUrl}/case-studies` },
+      { "@type": "ListItem", position: 3, name: cs.title, item: url },
+    ],
+  };
+  return [article, breadcrumb];
+}
+
 export function generateStaticParams() {
   return getCaseStudies().map((c) => ({ slug: c.slug }));
 }
@@ -53,6 +83,9 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
 
   return (
     <article>
+      {caseStudyJsonLd(cs).map((block, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+      ))}
       <CaseStudyHero caseStudy={cs} />
 
       <div className="container-editorial space-y-24 py-20 md:space-y-32 md:py-28">

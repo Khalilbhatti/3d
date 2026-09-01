@@ -154,7 +154,7 @@ export default function StoryDetailPage({ params }: { params: { slug: string } }
 
       {relatedStories.length ? (
         <section className="container-editorial py-20 md:py-24">
-          <SectionDivider label="Keep reading" className="mb-12" />
+          <SectionDivider label="Keep reading" className="mb-12" labelAs="h2" />
           <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {relatedStories.map((s, i) => (
               <StoryCard key={s.id} story={s} index={i} />

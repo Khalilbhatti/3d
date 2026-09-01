@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import { getCollections } from "@/content/index";
 import { brand } from "@/config/theme";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { HorizontalCollections } from "@/components/collections/HorizontalCollections";
+import { pageMetadata } from "@/lib/seo";
 
-const description =
-  "Web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — the six disciplines GitzTech delivers.";
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Services",
-  description,
-  alternates: { canonical: "/services" },
-  openGraph: { title: "Services", description },
-  twitter: { title: "Services", description },
-};
+  description:
+    "AI automation, web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX — the disciplines GitzTech delivers.",
+  path: "/services",
+});
 
 export default function CollectionsPage() {
   const collections = getCollections();

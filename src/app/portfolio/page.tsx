@@ -1,20 +1,16 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getArtworks, getFacets, getFeaturedArtworks } from "@/content/index";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ArchiveGrid } from "@/components/gallery/ArchiveGrid";
 import { FeaturedProjectsSelector } from "@/components/gallery/FeaturedProjectsSelector";
+import { pageMetadata } from "@/lib/seo";
 
-const description =
-  "Our portfolio of end-to-end builds — websites, apps, e-commerce, branding and CRM automation delivered by GitzTech.";
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Portfolio",
-  description,
-  alternates: { canonical: "/portfolio" },
-  openGraph: { title: "Portfolio", description },
-  twitter: { title: "Portfolio", description },
-};
+  description:
+    "Our portfolio of end-to-end builds — AI automation, CRM systems, websites, apps, e-commerce and branding delivered by GitzTech.",
+  path: "/portfolio",
+});
 
 export default function ArchivePage() {
   const artworks = getArtworks();

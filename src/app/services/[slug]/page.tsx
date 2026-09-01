@@ -147,14 +147,14 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
 
       {timeline.length ? (
         <section className="container-editorial pb-24 md:pb-32">
-          <SectionDivider label="Our process" className="mb-10" />
+          <SectionDivider label="Our process" className="mb-10" labelAs="h2" />
           <Timeline entries={timeline} />
         </section>
       ) : null}
 
       {artists.length ? (
         <section className="container-editorial pb-24 md:pb-32">
-          <SectionDivider label="The team behind it" className="mb-12" />
+          <SectionDivider label="The team behind it" className="mb-12" labelAs="h2" />
           <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-4">
             {artists.map((a, i) => (
               <ArtistCard key={a!.id} artist={a!} index={i} />
@@ -167,14 +167,14 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
         <>
           <section className="pb-20 md:pb-28">
             <div className="container-editorial">
-              <SectionDivider label={`Work in this service · ${works.length}`} className="mb-12" />
+              <SectionDivider label={`Work in this service · ${works.length}`} className="mb-12" labelAs="h2" />
             </div>
             <HorizontalGallery artworks={works} />
           </section>
 
           <section className="py-16 md:py-24">
             <div className="container-editorial">
-              <SectionDivider label="Selected projects, in detail" className="mb-16" />
+              <SectionDivider label="Selected projects, in detail" className="mb-16" labelAs="h2" />
             </div>
             <EditorialGallery artworks={works.slice(0, 3)} />
           </section>
@@ -183,7 +183,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
 
       {stories.length ? (
         <section className="container-editorial py-24 md:py-28">
-          <SectionDivider label="From the blog" className="mb-12" />
+          <SectionDivider label="From the blog" className="mb-12" labelAs="h2" />
           <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {stories.map((s, i) => (
               <StoryCard key={s.id} story={s} index={i} />

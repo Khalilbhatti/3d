@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import { brand, socialLinks } from "@/config/theme";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { MetaList } from "@/components/ui/MetaList";
+import { pageMetadata } from "@/lib/seo";
 
-const description =
-  "Get a quote from GitzTech — web & app development, digital marketing, WordPress, GoHighLevel CRM, graphic design and UI/UX.";
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
-  description,
-  alternates: { canonical: "/contact" },
-  openGraph: { title: "Contact", description },
-  twitter: { title: "Contact", description },
-};
+  description:
+    "Get a quote from GitzTech — AI automation, CRM & WhatsApp systems, web & app development, digital marketing, WordPress and GoHighLevel CRM.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

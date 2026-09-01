@@ -21,6 +21,37 @@ import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Reveal } from "@/components/typography/Reveal";
 import { Kicker } from "@/components/typography/primitives";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
+
+function artworkJsonLd(artwork: ReturnType<typeof getArtworkBySlug>) {
+  if (!artwork) return [];
+  const url = `${siteUrl}/portfolio/${artwork.slug}`;
+  const artist = getArtistById(artwork.artistId);
+  const creativeWork = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${url}/#project`,
+    name: artwork.title,
+    description: artwork.description,
+    url,
+    ...(artwork.image ? { image: `${siteUrl}${artwork.image}` } : {}),
+    dateCreated: artwork.year,
+    creator: { "@type": "Organization", name: brand.full, "@id": `${siteUrl}/#organization` },
+    ...(artist ? { author: { "@type": "Person", name: artist.name } } : {}),
+    keywords: artwork.medium,
+  };
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/portfolio` },
+      { "@type": "ListItem", position: 3, name: artwork.title, item: url },
+    ],
+  };
+  return [creativeWork, breadcrumb];
+}
+
 export function generateStaticParams() {
   return artworks.map((a) => ({ slug: a.slug }));
 }
@@ -53,6 +84,9 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
 
   return (
     <article>
+      {artworkJsonLd(artwork).map((block, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+      ))}
       <header className="container-editorial pb-10 pt-[calc(var(--header-h)+3rem)] md:pt-[calc(var(--header-h)+4.5rem)]">
         <nav aria-label="Breadcrumb" className="label flex flex-wrap items-center gap-2">
           <Link href="/portfolio" className="hover:text-ink">Portfolio</Link>
