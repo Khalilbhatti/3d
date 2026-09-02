@@ -50,6 +50,12 @@ function computeTargets(
   posOut: THREE.Vector3[],
   quatOut: THREE.Quaternion[]
 ) {
+  // Squashes only the X axis of both layouts, keeping the full vertical
+  // spread and depth (Z) — pulls cards in from the left/right screen edges
+  // toward a narrower, more centered column instead of shrinking the whole
+  // composition (which a uniform radius cut would do).
+  const X_SPREAD = 0.68;
+
   if (layout === "sphere") {
     const r = 6.4;
     const golden = Math.PI * (1 + Math.sqrt(5));
@@ -65,7 +71,7 @@ function computeTargets(
       const y = 1 - (i + 0.5) / count * 2;
       const rad = Math.sqrt(Math.max(0, 1 - y * y));
       const theta = golden * i;
-      posOut[i].set(Math.cos(theta) * rad * r, y * r, Math.sin(theta) * rad * r);
+      posOut[i].set(Math.cos(theta) * rad * r * X_SPREAD, y * r, Math.sin(theta) * rad * r);
       helper.position.copy(posOut[i]);
       helper.lookAt(0, 0, 0);
       quatOut[i].copy(helper.quaternion);
@@ -79,7 +85,7 @@ function computeTargets(
       const row = i % rows;
       const col = Math.floor(i / rows);
       const ang = (col / perRow) * Math.PI * 2 + row * 0.5;
-      const x = Math.sin(ang) * R;
+      const x = Math.sin(ang) * R * X_SPREAD;
       const z = Math.cos(ang) * R;
       posOut[i].set(x, (row - (rows - 1) / 2) * gapY, z);
       quatOut[i].setFromUnitVectors(FORWARD, new THREE.Vector3(x, 0, z).normalize());
