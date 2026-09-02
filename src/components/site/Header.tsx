@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import { useAppStore } from "@/lib/store";
@@ -76,11 +77,27 @@ export function Header() {
       aria-hidden={overlayOpen}
       style={{ height: "var(--header-h)" }}
     >
+      {/* Persistent scrim so the logo, nav and CTA stay legible over any hero
+          content even before the solid backdrop kicks in on scroll. */}
+      {!scrolled || menuOpen ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-paper/70 via-paper/25 to-transparent"
+        />
+      ) : null}
       <div className="container-editorial flex h-full items-center justify-between gap-6">
         <div className="flex items-center gap-9">
           <Link href="/" className="flex items-center" aria-label={`${brand.full} — home`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="" className="h-16 w-auto md:h-[4.5rem]" />
+            <Image
+              src="/logo.png"
+              alt=""
+              width={1536}
+              height={1024}
+              priority
+              quality={90}
+              sizes="150px"
+              className="h-16 w-auto md:h-[4.5rem]"
+            />
           </Link>
 
           {/* Full desktop navbar — collapses behind the hamburger below `lg`. */}
@@ -90,10 +107,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(item, e)}
-                className={cn(
-                  "font-mono text-xs uppercase tracking-label link-underline transition-colors",
-                  menuOpen ? "text-ink" : "text-ink-soft hover:text-ink"
-                )}
+                className="font-mono text-xs uppercase tracking-label link-underline text-ink transition-colors hover:text-accent"
               >
                 {item.label}
               </Link>
@@ -114,12 +128,7 @@ export function Header() {
           <Link
             href="/contact"
             onClick={handleQuoteClick}
-            className={cn(
-              "hidden items-center border px-4 py-2 font-mono text-xs uppercase tracking-label transition-colors lg:inline-flex",
-              menuOpen
-                ? "border-ink/30 text-ink"
-                : "border-ink-soft/25 text-ink-soft hover:border-accent hover:text-accent"
-            )}
+            className="hidden items-center bg-accent px-5 py-2.5 font-mono text-xs uppercase tracking-label text-paper transition-colors hover:bg-accent-deep lg:inline-flex"
           >
             Get a Quote
           </Link>

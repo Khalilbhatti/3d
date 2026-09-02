@@ -58,6 +58,7 @@ export function FeaturedProjectsSelector({ artworks }: { artworks: Artwork[] }) 
                       alt={artwork.alt}
                       fill
                       sizes="112px"
+                      quality={90}
                       className="object-cover"
                     />
                   ) : (
@@ -116,6 +117,7 @@ export function FeaturedProjectsSelector({ artworks }: { artworks: Artwork[] }) 
                           alt={artwork.alt}
                           fill
                           sizes="(max-width: 1024px) 60vw, 45vw"
+                          quality={90}
                           className="object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
                         />
                       ) : (

@@ -26,7 +26,7 @@ export const collections: Collection[] = [
     ],
     seed: "svc-web-01",
     palette: { from: "#2E5C99", via: "#1B3A63", to: "#0B1F3D", ink: 0.18 },
-    image: "/portfolio/mindway.png",
+    image: "/portfolio/mindway.jpg",
     featuredArtistIds: ["team-fullstack", "team-qa"],
     artworkIds: [
       "prj-mindway",

@@ -93,7 +93,7 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
             {/* MReveal doesn't forward `style` (see ColorPaletteBoard's note) — the
                 dynamic aspect ratio goes on this plain inner div instead. */}
             <div className="relative w-full" style={{ aspectRatio: caseStudy.heroAspect ?? 4 / 3 }}>
-              <Image src={caseStudy.heroImages[0]} alt={caseStudy.title} fill sizes="100vw" className="object-cover" priority />
+              <Image src={caseStudy.heroImages[0]} alt={caseStudy.title} fill sizes="100vw" quality={90} className="object-cover" priority />
             </div>
           </MReveal>
         ) : null}

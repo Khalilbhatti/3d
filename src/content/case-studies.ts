@@ -10,11 +10,11 @@ export const caseStudies: CaseStudy[] = [
     eyebrow: "UI/UX Case Study — 2026",
     year: "2026",
     heroImages: [
-      "/portfolio/thornton-co.png",
-      "/portfolio/thornton-co-home.png",
-      "/portfolio/thornton-co-services.png",
-      "/portfolio/thornton-co-measurements.png",
-      "/portfolio/thornton-co-booking.png",
+      "/portfolio/thornton-co.jpg",
+      "/portfolio/thornton-co-home.jpg",
+      "/portfolio/thornton-co-services.jpg",
+      "/portfolio/thornton-co-measurements.jpg",
+      "/portfolio/thornton-co-booking.jpg",
     ],
     liveUrl: "https://stitcher.gitztech.com/",
 

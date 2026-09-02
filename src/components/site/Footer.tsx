@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { brand, primaryNav, socialLinks } from "@/config/theme";
 import { collections } from "@/content/collections";
 import { BackToTop } from "./BackToTop";
@@ -13,8 +14,15 @@ export function Footer() {
       <div className="container-editorial py-16 md:py-24">
         <MReveal as="div" variant="up" className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt={brand.full} className="h-20 w-auto md:h-24" />
+            <Image
+              src="/logo.png"
+              alt={brand.full}
+              width={1536}
+              height={1024}
+              quality={90}
+              sizes="180px"
+              className="h-20 w-auto md:h-24"
+            />
             <p className="mt-6 max-w-sm text-pretty text-sm leading-relaxed text-muted">{brand.description}</p>
             <p className="label mt-8">{brand.location} · {brand.hours}</p>
           </div>

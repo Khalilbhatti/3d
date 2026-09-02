@@ -180,7 +180,7 @@ export function ScreenGallery({ images, alt }: { images: string[]; alt: string }
           variant="scale"
           className="relative aspect-[4/3] overflow-hidden bg-paper-deep"
         >
-          <Image src={src} alt={`${alt} — screen ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+          <Image src={src} alt={`${alt} — screen ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 50vw" quality={90} className="object-cover" />
         </StaggerItem>
       ))}
     </Stagger>

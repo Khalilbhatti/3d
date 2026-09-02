@@ -45,6 +45,7 @@ export function ArtworkImage({
           fill
           sizes={sizes}
           priority={priority}
+          quality={90}
           placeholder={artwork.blurDataURL ? "blur" : "empty"}
           blurDataURL={artwork.blurDataURL}
           className="object-cover"

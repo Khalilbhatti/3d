@@ -29,6 +29,7 @@ export function BlogCategoryShowcase() {
                     alt={`${category} — GitzTech blog category`}
                     fill
                     sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 16vw"
+                    quality={90}
                     className="object-cover transition-transform duration-700 ease-editorial group-hover:scale-110"
                   />
                 ) : (

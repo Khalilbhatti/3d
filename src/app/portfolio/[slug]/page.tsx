@@ -226,6 +226,7 @@ export default function ArtworkDetailPage({ params }: { params: { slug: string }
                     alt={`${artwork.title} — additional screen ${i + 1}`}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={90}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
