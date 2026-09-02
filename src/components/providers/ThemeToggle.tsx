@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const STORAGE_KEY = "theme";
 
 function applyTheme(theme: "light" | "dark") {
-  if (theme === "light") document.documentElement.dataset.theme = "light";
+  if (theme === "dark") document.documentElement.dataset.theme = "dark";
   else delete document.documentElement.dataset.theme;
   localStorage.setItem(STORAGE_KEY, theme);
 }
@@ -17,10 +17,10 @@ function applyTheme(theme: "light" | "dark") {
  * correct on mount — just mirror it into state for the icon.
  */
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+    setTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
   }, []);
 
   function toggle() {

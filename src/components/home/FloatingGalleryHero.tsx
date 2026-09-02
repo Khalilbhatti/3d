@@ -10,6 +10,7 @@ import { type GalleryLayout } from "@/components/webgl/FloatingGallery";
 import { WebGLErrorBoundary } from "@/components/webgl/WebGLErrorBoundary";
 import { PlaceholderArt } from "@/components/media/PlaceholderArt";
 import { ScrollCue } from "@/components/story/ScrollCue";
+import { MagneticButton } from "@/components/motion/MagneticButton";
 import { lockScroll } from "@/components/providers/SmoothScrollProvider";
 import { useAppStore } from "@/lib/store";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -20,7 +21,7 @@ import { cn } from "@/lib/utils";
 const GalleryCanvas = dynamic(() => import("@/components/webgl/GalleryCanvas"), { ssr: false });
 
 const LAYOUTS: GalleryLayout[] = ["sphere", "cylinder"];
-const TITLE_LINES = ["Smart solutions", "for your business."];
+const TITLE_LINES = ["Custom software, CRM", "& AI automation."];
 
 /**
  * The immersive opening. On capable desktops it renders a Three.js floating
@@ -178,7 +179,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
               (confirmed via gstack:browse screenshot at ~820px width). A
               real backdrop chip guarantees contrast against any card color,
               not just dark ones. */}
-          <span className="label rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px]">Our portfolio · 100+ projects</span>
+          <span className="label rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px]">Our portfolio · 200+ projects</span>
           {/* Only past 1024px, not sm's 640px — WebGLHero itself never renders
               below 768px, and two full label strings side by side get tight
               right at that point; hide the second until there's room proven
@@ -217,8 +218,28 @@ function WebGLHero({ works }: { works: Artwork[] }) {
             transition={{ delay: 0.9, duration: 0.9 }}
             className="mx-auto mt-6 max-w-md text-pretty text-ink-soft"
           >
-            We design, build and grow digital products. Drag to orbit our work, then click a project to open it.
+            We build custom software, CRM systems and AI-powered automations that eliminate manual work and help
+            businesses scale. Drag to orbit our work, then click a project to open it.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.05, duration: 0.9 }}
+            className="pointer-events-auto mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
+          >
+            <MagneticButton>
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 border border-ink/30 px-7 py-4 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+              >
+                Book a Free Strategy Call
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
+            </MagneticButton>
+            <Link href="/portfolio" className="link-underline text-ink/80 hover:text-ink">
+              See our work
+            </Link>
+          </motion.div>
         </div>
 
         <div className="flex items-end justify-between gap-4">
@@ -375,12 +396,27 @@ function FallbackHero({
     <section className="relative min-h-[100svh] bg-paper pb-16 pt-[calc(var(--header-h)+3.5rem)]">
       <div className="container-editorial">
         <span className="label text-accent">Smart Solutions for Your Business</span>
-        <h1 className="mt-4 max-w-[14ch] font-display text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.98] tracking-tight text-ink">
-          Smart solutions for your business.
+        <h1 className="mt-4 max-w-[18ch] font-display text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.98] tracking-tight text-ink">
+          Custom software, CRM & AI automation.
         </h1>
         <p className="mt-5 max-w-md text-pretty text-ink-soft">
-          Tap any project to open it full screen, then read how we build below.
+          We build custom software, CRM systems and AI-powered automations that eliminate manual work and help
+          businesses scale. Tap any project to open it full screen, then read how we build below.
         </p>
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+          <MagneticButton>
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-3 border border-ink/30 px-7 py-4 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+            >
+              Book a Free Strategy Call
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
+          </MagneticButton>
+          <Link href="/portfolio" className="link-underline text-ink hover:text-ink/80">
+            See our work
+          </Link>
+        </div>
 
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {works.map((a, i) => (

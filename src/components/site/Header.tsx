@@ -6,7 +6,6 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import { useAppStore } from "@/lib/store";
 import { brand, primaryNav, type NavItem } from "@/config/theme";
-import { chapters } from "@/content/chapters";
 import { ThemeToggle } from "@/components/providers/ThemeToggle";
 import { cn, smoothScrollToId } from "@/lib/utils";
 
@@ -15,13 +14,12 @@ import { cn, smoothScrollToId } from "@/lib/utils";
 const desktopNav = primaryNav.filter((item) => item.href !== "/contact");
 
 /**
- * Minimal fixed header. Transparent over the hero, gains a paper backdrop and
- * hairline once scrolled, hides on scroll-down and returns on scroll-up. On the
- * home story it surfaces the current chapter's kicker.
+ * Minimal fixed header. Carries a scrim over the hero, gains a solid paper
+ * backdrop and hairline once scrolled, hides on scroll-down and returns on
+ * scroll-up.
  */
 export function Header() {
   const { menuOpen, toggleMenu } = useAppStore();
-  const activeChapter = useAppStore((s) => s.activeChapter);
   const overlayOpen = useAppStore((s) => s.overlayOpen);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -48,8 +46,6 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const currentKicker = isHome ? chapters[activeChapter]?.kicker : undefined;
-
   /** On the homepage, a nav item with a matching section scrolls in place
    *  instead of navigating — everywhere else it's a normal route change. */
   function handleNavClick(item: NavItem, e: MouseEvent<HTMLAnchorElement>) {
@@ -61,7 +57,7 @@ export function Header() {
   function handleQuoteClick(e: MouseEvent<HTMLAnchorElement>) {
     if (!isHome) return;
     e.preventDefault();
-    smoothScrollToId("contact");
+    smoothScrollToId("our-contact");
   }
 
   return (
@@ -113,14 +109,6 @@ export function Header() {
               </Link>
             ))}
           </nav>
-        </div>
-
-        <div className="pointer-events-none hidden flex-1 items-center justify-center md:flex">
-          {currentKicker && !menuOpen ? (
-            <span key={currentKicker} className="label animate-fade-up">
-              {currentKicker}
-            </span>
-          ) : null}
         </div>
 
         <div className="flex items-center gap-5">

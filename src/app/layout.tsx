@@ -77,12 +77,12 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: palette.paper,
-  colorScheme: "dark light",
+  colorScheme: "light dark",
 };
 
 /** Reads the persisted theme choice and stamps it onto <html> before first
- *  paint, so switching to light never flashes the dark theme first. */
-const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.dataset.theme="light";}catch(e){}})();`;
+ *  paint, so switching to dark never flashes the light theme first. */
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.dataset.theme="dark";}catch(e){}})();`;
 
 export default function RootLayout({
   children,

@@ -7,6 +7,7 @@ import { MReveal } from "@/components/motion/reveal";
 import { SplitReveal } from "@/components/typography/SplitReveal";
 import { Kicker } from "@/components/typography/primitives";
 import { MetaList } from "@/components/ui/MetaList";
+import { WebGLErrorBoundary } from "@/components/webgl/WebGLErrorBoundary";
 import { type CaseStudy } from "@/content/types";
 import { LottiePulse } from "./effects";
 
@@ -47,7 +48,21 @@ export function CaseStudyHero({ caseStudy }: { caseStudy: CaseStudy }) {
       {useWebGL ? (
         <>
           <div aria-hidden className="absolute inset-0">
-            <CaseStudyHero3D images={caseStudy.heroImages} aspect={caseStudy.heroAspect ?? 4 / 3} />
+            <WebGLErrorBoundary
+              fallback={
+                <Image
+                  src={caseStudy.heroImages[0]}
+                  alt={caseStudy.title}
+                  fill
+                  sizes="100vw"
+                  quality={90}
+                  className="object-cover"
+                  priority
+                />
+              }
+            >
+              <CaseStudyHero3D images={caseStudy.heroImages} aspect={caseStudy.heroAspect ?? 4 / 3} />
+            </WebGLErrorBoundary>
           </div>
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 to-transparent" />
           <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/55 to-transparent" />

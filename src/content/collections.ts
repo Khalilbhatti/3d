@@ -68,9 +68,9 @@ export const collections: Collection[] = [
     period: "Growth",
     curator: "Growth Team",
     summary:
-      "Data-driven SEO, paid ads, social and email campaigns that grow your traffic, leads and revenue — measurably.",
+      "Measurable growth, not just marketing — SEO, paid ads, social and email campaigns engineered to grow your traffic, leads and revenue.",
     intro:
-      "Our digital marketing services boost brand visibility and drive engagement through strategic online campaigns tailored to your target audience — with every rupee tracked back to pipeline.",
+      "We don't sell impressions — we sell measurable growth. Every campaign starts with one question: what does a customer cost, and what are they worth? SEO, paid ads, social and email then follow from that answer, with every rupee tracked back to pipeline.",
     statement: [
       "We build campaigns around a single question: what does a customer cost, and what are they worth? Channel mix, creative and budget all follow from that answer.",
       "SEO, paid search and social, email sequences and landing pages are run as one system, so traffic lands somewhere designed to convert rather than on a generic homepage.",

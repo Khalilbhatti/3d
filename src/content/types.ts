@@ -98,6 +98,22 @@ export interface Collection {
   credits: { role: string; name: string }[];
 }
 
+/** A vertical GitzTech builds for (Healthcare, B2B, etc.), each backed by
+ *  real, shipped portfolio work rather than a generic industry template. */
+export interface Industry {
+  /** kebab-case — doubles as the /industries#<id> anchor and Footer link target. */
+  id: string;
+  name: string;
+  /** One-line positioning statement. */
+  summary: string;
+  /** Short paragraph on what GitzTech does for this vertical. */
+  body: string;
+  /** References Artwork.id — real portfolio evidence for this vertical. */
+  evidenceArtworkIds: string[];
+  /** References Collection.slug — the service(s) most relevant to this vertical. */
+  relatedServiceSlugs: string[];
+}
+
 export interface Artist {
   id: string;
   slug: string;

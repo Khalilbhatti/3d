@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { brand } from "@/config/theme";
 import { getCaseStudies, getCaseStudyBySlug, getArtworkById } from "@/content/index";
+import { type CaseStudy } from "@/content/types";
 import { CaseStudyHero } from "@/components/case-study/CaseStudyHero";
+import { MagneticButton } from "@/components/motion/MagneticButton";
 import {
   ProseSection,
   ChipList,
@@ -28,6 +30,22 @@ import { AnimatedGridPattern, BorderBeam } from "@/components/case-study/effects
 import { SectionDivider } from "@/components/typography/primitives";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gitztech.com";
+
+/** Industry already lives in every record's projectDetails (labeled
+ *  "Industry" for Thornton, "Category" for Parko) — surfaced as its own
+ *  body section rather than left as a hero-only meta chip. */
+function industryOf(cs: CaseStudy): string | undefined {
+  return cs.projectDetails.find((d) => d.label === "Industry" || d.label === "Category")?.value;
+}
+
+/** Same idea for tooling: whichever of Design Tool / Prototype / Platform
+ *  a given record actually has (not every record has all three) — never
+ *  invented, since these are design-process case studies with no separate
+ *  "tech stack" field to draw from. */
+const TECH_DETAIL_LABELS = ["Design Tool", "Prototype", "Platform"];
+function technologyOf(cs: CaseStudy) {
+  return cs.projectDetails.filter((d) => TECH_DETAIL_LABELS.includes(d.label));
+}
 
 function caseStudyJsonLd(cs: ReturnType<typeof getCaseStudyBySlug>) {
   if (!cs) return [];
@@ -93,6 +111,13 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <SectionDivider label="Overview" className="mb-10" labelAs="h2" />
           <ProseSection heading={cs.overview.heading} body={cs.overview.body} />
         </section>
+
+        {industryOf(cs) ? (
+          <section>
+            <SectionDivider label="Client & Industry" className="mb-10" labelAs="h2" />
+            <p className="max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">{industryOf(cs)}</p>
+          </section>
+        ) : null}
 
         <section>
           <SectionDivider label="The Context" className="mb-10" labelAs="h2" />
@@ -291,6 +316,20 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           </dl>
           <ProseSection body={cs.buttonSystem.principles} className="mt-10" />
         </section>
+
+        {technologyOf(cs).length > 0 ? (
+          <section>
+            <SectionDivider label="Technology & Tools" className="mb-10" labelAs="h2" />
+            <dl className="grid gap-x-10 gap-y-1 sm:grid-cols-2">
+              {technologyOf(cs).map((t) => (
+                <div key={t.label} className="flex items-baseline justify-between gap-6 border-t border-line/15 py-3.5">
+                  <dt className="label">{t.label}</dt>
+                  <dd className="text-right text-ink-soft">{t.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
 
         {cs.homepageSections ? (
           <section>
@@ -494,23 +533,40 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           <ProseSection heading={cs.reflection.heading} body={cs.reflection.body} />
         </section>
 
-        <section className="flex flex-wrap items-center justify-between gap-6 border-t border-line/15 pt-10">
-          <Link href={portfolioHref} className="link-underline text-ink">
-            ← Back to the portfolio entry
-          </Link>
-          {cs.liveUrl ? (
-            <a
-              href={cs.liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-3 border border-line/25 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-accent hover:text-accent"
-            >
-              Visit website
-              <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                ↗
-              </span>
-            </a>
-          ) : null}
+        <section className="border-t border-line/15 pt-10 text-center">
+          <p className="font-display text-3xl leading-tight text-ink text-balance md:text-4xl">
+            Have a similar challenge?
+          </p>
+          <p className="mx-auto mt-4 max-w-md text-pretty text-ink-soft">
+            Let&rsquo;s discuss your project — no obligation, just a conversation about your business.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            <MagneticButton>
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 bg-ink px-7 py-4 font-mono text-xs uppercase tracking-label text-paper transition-colors hover:bg-accent"
+              >
+                Book a Free Strategy Call
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
+            </MagneticButton>
+            <Link href={portfolioHref} className="link-underline text-ink">
+              ← Back to the portfolio entry
+            </Link>
+            {cs.liveUrl ? (
+              <a
+                href={cs.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-3 border border-line/25 px-5 py-3.5 font-mono text-xs uppercase tracking-label text-ink transition-colors hover:border-accent hover:text-accent"
+              >
+                Visit website
+                <span aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                  ↗
+                </span>
+              </a>
+            ) : null}
+          </div>
         </section>
       </div>
     </article>

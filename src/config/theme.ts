@@ -32,31 +32,13 @@ export const brand = {
 } as const;
 
 /**
- * Dark, cinematic palette matched to the GitzTech brand mark: deep navy
- * surfaces with cool light text and a warm orange accent. The whole site
- * reads these tokens, so this one object controls the theme. (`paper` = the
- * dark surface role, `ink` = the light text role — kept as the original
- * token names so every component maps automatically.)
+ * Light, default palette matched to the GitzTech brand mark: a cool
+ * off-white surface with the brand navy for text and a warm orange accent.
+ * The whole site reads these tokens, so this one object controls the
+ * default theme. (`paper` = the surface role, `ink` = the text role — kept
+ * as the original token names so every component maps automatically.)
  */
 export const palette = {
-  paper: "#0E2038", // rich navy surface (reads as navy, not near-black)
-  paperDeep: "#17304F", // elevated surface / raised panels
-  ink: "#F3F5F8", // primary text (cool light)
-  inkSoft: "#C1CBDC", // secondary text
-  muted: "#7C90AC", // muted captions / metadata
-  accent: "#FF9807", // exact brand orange, sampled from the logo
-  accentDeep: "#E07E00", // pressed / hover accent
-  line: "#F3F5F8", // hairline dividers (used at low alpha)
-} as const;
-
-/**
- * Light counterpart, toggled in via `[data-theme="light"]` on <html> (see
- * ThemeToggle). Same token roles, inverted: `paper` is a cool off-white
- * surface, `ink` the brand navy. Every component already reads these
- * roles rather than hardcoded colours, so the toggle needs no component
- * changes — only this palette + the CSS it's written into.
- */
-export const paletteLight = {
   paper: "#F5F7FA",
   paperDeep: "#E6EBF2",
   ink: "#10325C", // exact brand navy, sampled from the logo
@@ -65,6 +47,24 @@ export const paletteLight = {
   accent: "#A85200",
   accentDeep: "#7A3C00",
   line: "#10325C",
+} as const;
+
+/**
+ * Dark counterpart, toggled in via `[data-theme="dark"]` on <html> (see
+ * ThemeToggle). Same token roles, inverted: `paper` is a deep navy surface,
+ * `ink` a cool light text colour. Every component already reads these
+ * roles rather than hardcoded colours, so the toggle needs no component
+ * changes — only this palette + the CSS it's written into.
+ */
+export const paletteDark = {
+  paper: "#0E2038", // rich navy surface (reads as navy, not near-black)
+  paperDeep: "#17304F", // elevated surface / raised panels
+  ink: "#F3F5F8", // primary text (cool light)
+  inkSoft: "#C1CBDC", // secondary text
+  muted: "#7C90AC", // muted captions / metadata
+  accent: "#FF9807", // exact brand orange, sampled from the logo
+  accentDeep: "#E07E00", // pressed / hover accent
+  line: "#F3F5F8", // hairline dividers (used at low alpha)
 } as const;
 
 export const fonts = {
@@ -90,12 +90,13 @@ export type NavItem = {
 
 export const primaryNav: NavItem[] = [
   { label: "Home", href: "/", note: "Smart solutions for your business" },
-  { label: "Services", href: "/services", note: "What we build & deliver", sectionId: "our-services" },
+  { label: "Services", href: "/services", note: "What we build & deliver", sectionId: "solutions" },
+  { label: "Industries", href: "/industries", note: "Solutions by vertical" },
   { label: "Portfolio", href: "/portfolio", note: "Every project we've shipped" },
   { label: "Case Studies", href: "/case-studies", note: "Deep dives into how we work" },
   { label: "Our Team", href: "/team", note: "The people behind your project" },
   { label: "Blog", href: "/blog", note: "Strategy & field notes" },
-  { label: "About", href: "/about", note: "Who we are & how we work", sectionId: "ch-about" },
+  { label: "About", href: "/about", note: "Who we are & how we work" },
   { label: "Contact", href: "/contact", note: "Get a quote & book a call", sectionId: "our-contact" },
 ];
 
@@ -136,25 +137,25 @@ export const themeCssVars: Record<string, string> = {
   "--line": hexToRgbTriplet(palette.line),
 };
 
-const themeCssVarsLight: Record<string, string> = {
-  "--paper": hexToRgbTriplet(paletteLight.paper),
-  "--paper-deep": hexToRgbTriplet(paletteLight.paperDeep),
-  "--ink": hexToRgbTriplet(paletteLight.ink),
-  "--ink-soft": hexToRgbTriplet(paletteLight.inkSoft),
-  "--muted": hexToRgbTriplet(paletteLight.muted),
-  "--accent": hexToRgbTriplet(paletteLight.accent),
-  "--accent-deep": hexToRgbTriplet(paletteLight.accentDeep),
-  "--line": hexToRgbTriplet(paletteLight.line),
+const themeCssVarsDark: Record<string, string> = {
+  "--paper": hexToRgbTriplet(paletteDark.paper),
+  "--paper-deep": hexToRgbTriplet(paletteDark.paperDeep),
+  "--ink": hexToRgbTriplet(paletteDark.ink),
+  "--ink-soft": hexToRgbTriplet(paletteDark.inkSoft),
+  "--muted": hexToRgbTriplet(paletteDark.muted),
+  "--accent": hexToRgbTriplet(paletteDark.accent),
+  "--accent-deep": hexToRgbTriplet(paletteDark.accentDeep),
+  "--line": hexToRgbTriplet(paletteDark.line),
 };
 
-/** Serialise the vars into `:root` (dark, default) and `[data-theme="light"]`
+/** Serialise the vars into `:root` (light, default) and `[data-theme="dark"]`
  *  blocks for a server-injected <style> — no colour flash either way. */
 export function themeStyleString(): string {
-  const dark = Object.entries(themeCssVars)
+  const light = Object.entries(themeCssVars)
     .map(([k, v]) => `${k}:${v};`)
     .join("");
-  const light = Object.entries(themeCssVarsLight)
+  const dark = Object.entries(themeCssVarsDark)
     .map(([k, v]) => `${k}:${v};`)
     .join("");
-  return `:root{${dark}}:root[data-theme="light"]{${light}}`;
+  return `:root{${light}}:root[data-theme="dark"]{${dark}}`;
 }

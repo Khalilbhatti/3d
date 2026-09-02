@@ -1,59 +1,38 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { chapters } from "@/content/chapters";
-import { useAppStore } from "@/lib/store";
 import { FloatingGalleryHero } from "@/components/home/FloatingGalleryHero";
-import { ChapterStack } from "./ChapterStack";
+import { StatsStrip } from "@/components/home/StatsStrip";
+import { ProblemSection } from "@/components/home/ProblemSection";
+import { SolutionsGrid } from "@/components/home/SolutionsGrid";
+import { WhyUs } from "@/components/home/WhyUs";
+import { CaseStudiesPreview } from "@/components/home/CaseStudiesPreview";
+import { ProcessSection } from "@/components/home/ProcessSection";
+import { QAStandards } from "@/components/home/QAStandards";
+import { IndustriesGrid } from "@/components/home/IndustriesGrid";
+import { TechStackStrip } from "@/components/home/TechStackStrip";
+import { TestimonialSection } from "@/components/home/TestimonialSection";
 import { ContactChapter } from "./ContactChapter";
 
 /**
- * Orchestrates the home story: renders the opening floating gallery, then
- * every chapter (including the animated services showcase, chapter 3) pinned
- * and crossfaded together in one continuous <ChapterStack>, then the closing
- * Contact chapter. Tracks which chapter is centred in the viewport (for the
- * header kicker + progress counter) with a single IntersectionObserver — no
- * scroll hijacking. Chapter type theme (light/dark) is computed here so it is
- * stable between server and client renders.
+ * Orchestrates the homepage: the immersive WebGL/fallback hero, followed by
+ * a conventional flowing sequence of conversion sections (trust, problem,
+ * solutions, why us, case studies, process, QA, industries, tech stack,
+ * testimonial), closing with the working Contact section. No scroll-pinning
+ * or crossfade — every section lives in normal document flow, the same
+ * pattern already used on /about and /services.
  */
 export function HomeStory() {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const setActiveChapter = useAppStore((s) => s.setActiveChapter);
-  const setChapterCount = useAppStore((s) => s.setChapterCount);
-
-  useEffect(() => {
-    setChapterCount(chapters.length);
-    return () => {
-      setChapterCount(0);
-      setActiveChapter(0);
-    };
-  }, [setChapterCount, setActiveChapter]);
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const sections = Array.from(root.querySelectorAll<HTMLElement>("[data-chapter]"));
-    if (!sections.length) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const i = Number((entry.target as HTMLElement).dataset.chapter);
-            if (!Number.isNaN(i)) setActiveChapter(i);
-          }
-        }
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, [setActiveChapter]);
-
   return (
-    <div ref={rootRef}>
+    <div>
       <FloatingGalleryHero />
-      <ChapterStack chapters={chapters} startIndex={0} />
+      <StatsStrip />
+      <ProblemSection />
+      <SolutionsGrid />
+      <WhyUs />
+      <CaseStudiesPreview />
+      <ProcessSection />
+      <QAStandards />
+      <IndustriesGrid />
+      <TechStackStrip />
+      <TestimonialSection />
       <ContactChapter />
     </div>
   );

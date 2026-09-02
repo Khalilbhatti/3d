@@ -30,12 +30,14 @@ export function ContactChapter() {
         <SplitReveal
           as="h2"
           type="lines"
-          className="mt-6 max-w-[16ch] font-display text-display-lg text-ink"
+          className="mt-6 max-w-[18ch] font-display text-display-lg text-ink"
         >
-          Get a quote — no obligation.
+          Have a business problem that software could solve?
         </SplitReveal>
         <p className="mt-6 max-w-lg text-pretty text-lg leading-relaxed text-ink-soft">
-          Tell us about your project and we&rsquo;ll reply with next steps within one business day.
+          Tell us what&rsquo;s slowing your business down — even if you&rsquo;re not sure yet what the fix looks
+          like. We&rsquo;ll reply with next steps within one business day. No obligation, no hard sell — just a
+          conversation about your business.
         </p>
 
         <MReveal variant="scale" className="mt-16 grid gap-14 md:grid-cols-12">
