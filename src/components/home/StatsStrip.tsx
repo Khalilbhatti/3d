@@ -2,8 +2,8 @@ import { Counter } from "@/components/motion/Counter";
 
 const STATS = [
   { value: "4 Years", label: "Years Experience" },
-  { value: "200+", label: "Completed Projects" },
-  { value: "2k+", label: "Happy Customers" },
+  { value: "500+", label: "Completed Projects" },
+  { value: "200+", label: "Happy Customers" },
   { value: "6", label: "Core Disciplines" },
 ];
 

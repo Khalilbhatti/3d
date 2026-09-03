@@ -179,7 +179,7 @@ function WebGLHero({ works }: { works: Artwork[] }) {
               (confirmed via gstack:browse screenshot at ~820px width). A
               real backdrop chip guarantees contrast against any card color,
               not just dark ones. */}
-          <span className="label rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px]">Our portfolio · 200+ projects</span>
+          <span className="label rounded-sm bg-ink/60 px-2 py-1 backdrop-blur-[2px]">Our portfolio · 500+ projects</span>
           {/* Only past 1024px, not sm's 640px — WebGLHero itself never renders
               below 768px, and two full label strings side by side get tight
               right at that point; hide the second until there's room proven

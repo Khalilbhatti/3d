@@ -107,7 +107,7 @@ export const artists: Artist[] = [
     slug: "full-stack-developers",
     name: "Full-Stack Developers",
     role: "Engineering & architecture",
-    lifespan: "6+ years · 200+ projects delivered",
+    lifespan: "6+ years · 500+ projects delivered",
     origin: "GHS Lahore, Pakistan",
     activePeriod: "Available for new projects",
     mediums: ["Next.js", "React", "Node.js", "PostgreSQL", "Cloud Deployment"],

@@ -42,8 +42,8 @@ export default function AboutPage() {
   const timeline = getTimeline();
   const stats = [
     { value: "4 Years", label: "Years Experience" },
-    { value: "2k+", label: "Happy Customers" },
-    { value: "200+", label: "Completed Projects" },
+    { value: "200+", label: "Happy Customers" },
+    { value: "500+", label: "Completed Projects" },
     { value: "5+", label: "Awards Won" },
   ];
 
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </div>
           <div className="md:col-span-8 md:col-start-4">
             <Reveal as="p" className="max-w-2xl font-display text-2xl leading-snug text-ink md:text-3xl">
-              Over four years, our team has delivered 200+ projects and earned the trust of 2,000+ happy customers across the globe.
+              Over four years, our team has delivered 500+ projects and earned the trust of 200+ happy customers across the globe.
             </Reveal>
             <Reveal as="p" delay={80} className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-ink-soft">
               We bring together developers, designers, marketers, and CRM specialists who share one mindset — turning ambitious ideas into reliable, results-driven digital products. From web and app development to GoHighLevel automation, we work as one connected unit, owning every detail from first concept to final launch.
